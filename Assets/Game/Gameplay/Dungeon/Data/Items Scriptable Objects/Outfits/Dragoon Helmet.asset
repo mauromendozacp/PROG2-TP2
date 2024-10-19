@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 815b64200a9f4f7419801ffe6651defe, type: 3}
+  m_Name: Dragoon Helmet
+  m_EditorClassIdentifier: 
+  itemName: Dragoon Helmet
+  level: 10
+  weight: 60
+  price: 400
+  maxStack: 1
+  icon: {fileID: 21300000, guid: a731cb28c82e35e4d9a453eac901278d, type: 3}
+  mesh: {fileID: 3849831138069335431, guid: 6433d3eee253ea644b5b039775a60691, type: 3}
+  material: {fileID: 2100000, guid: 79f5fd36b579b3442b77e35547e7f869, type: 2}
+  particle: {fileID: 7672829773773617059, guid: 36380763b58f77f48baac33edef3ee9a,
+    type: 3}
+  type: 0
+  defense: 50

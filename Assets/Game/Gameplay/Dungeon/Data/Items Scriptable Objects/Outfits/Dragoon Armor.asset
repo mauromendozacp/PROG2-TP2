@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 815b64200a9f4f7419801ffe6651defe, type: 3}
+  m_Name: Dragoon Armor
+  m_EditorClassIdentifier: 
+  itemName: Dragoon Armor
+  level: 15
+  weight: 80
+  price: 500
+  maxStack: 1
+  icon: {fileID: 21300000, guid: bb5ef0d0cdff53944897f7e586e7afcf, type: 3}
+  mesh: {fileID: -4221278872864060035, guid: b841e0568d511ac4688b781873a09674, type: 3}
+  material: {fileID: 2100000, guid: 79f5fd36b579b3442b77e35547e7f869, type: 2}
+  particle: {fileID: 7672829773773617059, guid: 36380763b58f77f48baac33edef3ee9a,
+    type: 3}
+  type: 4
+  defense: 100

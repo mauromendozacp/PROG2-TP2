@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4096882175678917667
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4096882175678917669}
+  - component: {fileID: 4096882175678917668}
+  m_Layer: 0
+  m_Name: UiInventoryManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4096882175678917669
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4096882175678917667}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 350, y: 197, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4096882175678917668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4096882175678917667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 589228017669db34ba858d18610c201a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultSprites:
+  - {fileID: -8816031292267695619, guid: e7330964e83f36b468d866c59f997e58, type: 3}
+  - {fileID: 21300000, guid: b48a9a156f3b58b4591212dc718ff48e, type: 3}
+  - {fileID: 21300000, guid: ef53789f126c32d488c4aacef882730c, type: 3}
+  - {fileID: 21300000, guid: a18c8fb675c81f6478a1a9356595633b, type: 3}
+  - {fileID: 21300000, guid: 05584d6f43292d046b70b77cf558ecf7, type: 3}
+  - {fileID: 21300000, guid: bbc4886d2a4e50946acb93686354bd22, type: 3}
+  - {fileID: 21300000, guid: 4993f50b6387e95478df55a1e242d05a, type: 3}
+  sortBRect: {fileID: 0}
+  sortBDrop: {fileID: 0}
+  prefaButtonSlot: {fileID: 87927702636188394, guid: a882b7e32c7a4b64cacd625c3be34274,
+    type: 3}
+  toolTip: {fileID: 0}
+  inventory: {fileID: 0}
+  equipment: {fileID: 0}
+  player: {fileID: 0}
+  slotAux: {fileID: 0}
+  content: {fileID: 0}
+  secondParameter: 0
+  slotDrop: {fileID: 0}
+  mousePos: {x: 0, y: 0}

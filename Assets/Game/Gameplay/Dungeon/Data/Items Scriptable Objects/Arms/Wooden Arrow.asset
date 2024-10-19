@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f256741fcbe3a184ea8d20745eae3947, type: 3}
+  m_Name: Wooden Arrow
+  m_EditorClassIdentifier: 
+  itemName: Wooden Arrow
+  level: 1
+  weight: 0.2
+  price: 1
+  maxStack: 64
+  icon: {fileID: 21300000, guid: 9dafe039801465745bc80c6396d1c586, type: 3}
+  mesh: {fileID: -6231709212910554471, guid: c7f1e075937e3894d9fb5258a92900f3, type: 3}
+  material: {fileID: 2100000, guid: 79f5fd36b579b3442b77e35547e7f869, type: 2}
+  particle: {fileID: 9167329474426544759, guid: 8e11257df1efd3e40afa7e85d9f258de,
+    type: 3}
+  spawnPositionR:
+    pos: {x: 0.129, y: -0.026, z: 0.205}
+    rot: {x: -54.09, y: 92.116, z: -185.964}
+  spawnPositionL:
+    pos: {x: -0.1438, y: 0.0535, z: -0.0973}
+    rot: {x: 0, y: 98, z: 6}

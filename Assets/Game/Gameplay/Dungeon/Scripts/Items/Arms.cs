@@ -7,7 +7,12 @@ public class SpawnPosition
     public Vector3 rot;
 }
 
-public enum ArmsType { Weapon, Shield, Proyectile }
+public enum ArmsType 
+{ 
+    Weapon, 
+    Shield, 
+    Proyectile
+}
 
 public abstract class Arms : Item
 {
@@ -15,9 +20,7 @@ public abstract class Arms : Item
     public SpawnPosition spawnPositionR;
     public SpawnPosition spawnPositionL;
 
-    public override ItemType GetItemType() { return ItemType.Arms; }
+    public override ItemType GetItemType() => ItemType.Arms;
 
     public abstract ArmsType GetArmsType();
-
-    public override string ToString() { return ""; }
 }

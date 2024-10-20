@@ -476,9 +476,8 @@ MonoBehaviour:
 
     Trash can: Delete Item'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5e0f305cf83a69441b6deeaf71704e4c, type: 2}
-  m_sharedMaterial: {fileID: -5471973825103403072, guid: 5e0f305cf83a69441b6deeaf71704e4c,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -683,7 +682,6 @@ MonoBehaviour:
   indexList: 0
   id: 0
   idDefaultSprite: 0
-  playerReference: {fileID: 0}
 --- !u!114 &7734515850428238055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1222,9 +1220,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Sort By
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5e0f305cf83a69441b6deeaf71704e4c, type: 2}
-  m_sharedMaterial: {fileID: -5471973825103403072, guid: 5e0f305cf83a69441b6deeaf71704e4c,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1851,7 +1848,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5e0f305cf83a69441b6deeaf71704e4c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ItemSpawn : MonoBehaviour
 {
@@ -8,7 +6,7 @@ public class ItemSpawn : MonoBehaviour
 
     void Start()
     {
-        enemy = this.gameObject;
+        enemy = gameObject;
     }
 
     public void GenerateNewItem()

@@ -17,5 +17,8 @@ public abstract class Item : ScriptableObject
 
     public abstract ItemType GetItemType();
 
-    public virtual string ItemToString() { return "Name: " + itemName + "\nLevel: " + level + "\nWeight: " + weight + "\nPrice: " + price; ; }
+    public virtual string ItemToString() 
+    { 
+        return "Name: " + itemName + "\nLevel: " + level + "\nWeight: " + weight + "\nPrice: " + price;
+    }
 }

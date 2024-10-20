@@ -1,6 +1,14 @@
 ﻿using UnityEngine;
 
-public enum OutfitSlotPosition { Helmet, Gloves, Boots, Shoulder, Armor };
+public enum OutfitSlotPosition 
+{ 
+    Helmet, 
+    Gloves, 
+    Boots, 
+    Shoulder, 
+    Armor 
+};
+
 [CreateAssetMenu(fileName = "Outfit", menuName = "Items/Outfit")]
 public class Outfit : Item
 {

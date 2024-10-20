@@ -10,8 +10,9 @@ public class Weapon : Arms
     public bool twoHanded;
     public int damage;
     public int speed;
-    public override ArmsType GetArmsType() { return ArmsType.Weapon; }
-    public WeaponType GetWeaponType() { return type; }
+
+    public override ArmsType GetArmsType() => ArmsType.Weapon;
+    public WeaponType GetWeaponType() => type;
 
     public override string ItemToString()
     {

@@ -8,7 +8,7 @@ public class Shield : Arms
     public int size;
     public int speedRating;
 
-    public override ArmsType GetArmsType() { return ArmsType.Shield; }
+    public override ArmsType GetArmsType() => ArmsType.Shield;
 
     public override string ItemToString()
     {

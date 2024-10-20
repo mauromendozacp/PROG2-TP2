@@ -1,21 +1,13 @@
 ﻿using System.Collections.Generic;
+
 using UnityEngine;
 
 public class Equipment : MonoBehaviour
 {
-    /*enum SlotsOutfit
-    {
-        Helmet,
-        Gloves,
-        Boots,
-        Shoulder,
-        Armor,
-        Size
-    }*/
-
-    [SerializeField] int weaponSlotsAmount = 4;
-    [SerializeField] List<Slot> currentEquipment = null;
-    Inventory inventory;
+    [SerializeField] private int weaponSlotsAmount = 4;
+    [SerializeField] private List<Slot> currentEquipment = null;
+    
+    private Inventory inventory;
 
     private void Awake()
     {
@@ -47,6 +39,7 @@ public class Equipment : MonoBehaviour
     {
         return weaponSlotsAmount + (int)OutfitSlotPosition.Armor + 1;
     }
+
     public bool RemoveEquipment(int slotPos)
     {
         if (inventory.AddNewItem(currentEquipment[slotPos].ID, currentEquipment[slotPos].amount))

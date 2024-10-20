@@ -1,7 +1,10 @@
 ﻿using System;
-using TMPro;
+
 using UnityEngine;
 using UnityEngine.UI;
+
+using TMPro;
+
 using Button = UnityEngine.UI.Button;
 using Image = UnityEngine.UI.Image;
 
@@ -9,7 +12,7 @@ public class UiInventory : MonoBehaviour
 {
     public Action RefreshAllButtonsEvent;
     public Sprite[] defaultSprites;
-    Inventory.SortType sortBy = Inventory.SortType.Type;
+    private Inventory.SortType sortBy = Inventory.SortType.Type;
     private string[] nameSortBy = { "By Type", "By Name", "By Level" };
     public RectTransform sortBRect;
     public TMP_Dropdown sortBDrop;

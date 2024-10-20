@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Item List", menuName = "Items/Item List")]

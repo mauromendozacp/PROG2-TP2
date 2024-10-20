@@ -5,7 +5,7 @@ using UnityEngine;
 public enum SceneGame
 {
     Menu,
-    Shooter,
+    Dungeon,
     Loading
 }
 

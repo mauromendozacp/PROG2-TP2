@@ -1,11 +1,20 @@
 ﻿using System.Collections.Generic;
+
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    [SerializeField] List<Slot> CurrentItems;
-    [SerializeField] int size = 10;
-    Equipment equipmentComponent;
+    [SerializeField] private List<Slot> CurrentItems;
+    [SerializeField] private int size = 10;
+    
+    private Equipment equipmentComponent;
+
+    public enum SortType 
+    { 
+        Type, 
+        Name, 
+        Level 
+    }
 
     private void Awake()
     {
@@ -46,6 +55,7 @@ public class Inventory : MonoBehaviour
             }
         }
     }
+
     public bool AddNewItem(int ID, int amount)
     {
         for (int i = 0; i < size; i++)
@@ -117,8 +127,6 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public enum SortType { Type, Name, Level }
-
     public void Sort(int type)
     {
         switch ((SortType)type)
@@ -148,17 +156,25 @@ public class Inventory : MonoBehaviour
     {
         return size;
     }
+
     public Slot GetSlot(int index)
     {
         return CurrentItems[index];
     }
+
     public void SetSlot(int index, Slot slot)
     {
         CurrentItems[index] = slot;
     }
+
     public int GetID(int index)
     {
         return CurrentItems[index].ID;
+    }
+
+    public List<Slot> GetInventoryList()
+    {
+        return CurrentItems;
     }
 
     class SortByName : IComparer<Slot>
@@ -187,10 +203,5 @@ public class Inventory : MonoBehaviour
             else if (y.IsEmpty()) return -1;
             return GameplayManager.GetInstance().GetItemFromID(x.ID).GetItemType().CompareTo(GameplayManager.GetInstance().GetItemFromID(y.ID).GetItemType());
         }
-    }
-
-    public List<Slot> GetInventoryList()
-    {
-        return CurrentItems;
     }
 }

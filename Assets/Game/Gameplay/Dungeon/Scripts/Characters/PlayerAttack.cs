@@ -23,7 +23,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        /*if (Input.GetMouseButtonDown(0))
         {
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 
@@ -45,7 +45,7 @@ public class PlayerAttack : MonoBehaviour
         else
         {
             anim.SetBool("Defense", false);
-        }
+        }*/
     }
 
     private void OnTriggerEnter(Collider other)

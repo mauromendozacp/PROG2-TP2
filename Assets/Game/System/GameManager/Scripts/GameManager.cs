@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 {
     [Header("Manager References")]
     [SerializeField] private LoadingManager loadingManager = null;
+    [SerializeField] private LoadingUI loadingUI = null; 
     [SerializeField] private AudioManager audioManager = null;
 
     public LoadingManager LoadingManager => loadingManager;
@@ -20,13 +21,17 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
     public override void Awake()
     {
+         base.Awake();
         if (instance == null)
         {
-            loadingManager.LoadingScene(SceneGame.Loading);
+            //loadingManager.LoadingScene(SceneGame.Loading);
+            loadingManager.SetLoadingUI(FindObjectOfType<LoadingUI>()); 
+        
+            //loadingManager.LoadingScene(SceneGame.Loading);
             audioManager.Init();
         }
-
-        base.Awake();
+         base.Awake();
+       
     }
 
     public void ChangeScene(SceneGame nextScene, Action onComplete = null)

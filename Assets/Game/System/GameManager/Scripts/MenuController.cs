@@ -21,7 +21,7 @@ public class MenuController : MonoBehaviour
         // Hide the menu canvas before starting the load
     menuCanvas.SetActive(false); 
 
-    GameManager.Instance.LoadingManager.TransitionScene(SceneGame.Dungeon, () =>
+    GameManager.Instance.LoadingManager.TransitionScene(SceneGame.Gameplay, () =>
     {
         // Código a ejecutar cuando la transición de escena se complete
     });

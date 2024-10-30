@@ -4,7 +4,7 @@ using UnityEngine;
 public enum SceneGame
 {
     Menu,
-    Dungeon,
+    Gameplay,
     Loading
 }
 

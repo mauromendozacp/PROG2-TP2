@@ -142,28 +142,36 @@ public class LoadingManager : MonoBehaviour
 
     public void SetLoadingUI(LoadingUI loadingUI)
     {
+
         this.loadingUI = loadingUI;
+       // Debug.Log("LoadingUI has been set.");
     }
 
     public void TransitionScene(SceneGame nextScene, Action onComplete = null)
-    {
-        isLoading = true;
-        if (loadingUI == null)
-        {
-            Debug.LogError("loadingUI is not assigned!");
-            return; 
-        }
+{
+    isLoading = true;
 
-        // Ocultar el menú y mostrar el canvas de carga
-        loadingUI.ToggleUI(true, onComplete: () =>
+    if (loadingUI == null)
+    {
+        //Debug.LogError("loadingUI is not assigned!");
+        return; 
+    }
+
+    // Show the loading canvas
+    loadingUI.ToggleUI(true, onComplete: () =>
+    {
+        // Load the loading scene (it can be an empty or dedicated loading scene)
+        LoadingScene(SceneGame.Loading, onSuccess: () =>
         {
             UnloadScene(GetCurrentScene(), onSuccess: () =>
             {
+                // Cargar la escena deseada
                 LoadingScene(nextScene, onSuccess: () =>
                 {
-                    // Aquí puedes añadir el código para activar la escena de juego
+                    // Establecer la escena activa
                     SetActiveScene(nextScene);
-                    // Luego ocultas el canvas de carga
+
+                    // Ocultar el canvas de carga
                     loadingUI.ToggleUI(false, onComplete: () =>
                     {
                         onComplete?.Invoke();
@@ -172,7 +180,9 @@ public class LoadingManager : MonoBehaviour
                 });
             });
         });
-    }
+    });
+}
+
 
     public void LoadingScene(SceneGame scene, Action onSuccess = null)
     {

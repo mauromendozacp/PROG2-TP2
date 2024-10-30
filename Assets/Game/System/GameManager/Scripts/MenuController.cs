@@ -5,18 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
-    // Referencia al GameManager
     private GameManager gameManager;
     [SerializeField] private GameObject menuCanvas; 
 
     private void Start()
     {
-        // Obtén la instancia del GameManager al iniciar
+        // Get the GameManager instance at startup
         gameManager = GameManager.Instance;
-        Debug.Log(gameManager); // Esto debería mostrar la instancia de GameManager en la consola
+        //Debug.Log(gameManager); // This should display the GameManager instance in the console
     }
 
-    // Método para manejar el botón de iniciar juego
+    // Method to handle the start game button
     public void OnStartGameButton()
     {
         // Hide the menu canvas before starting the load
@@ -28,5 +27,5 @@ public class MenuController : MonoBehaviour
     });
     }
 
-    // Otros métodos para manejar otros botones (si es necesario)
+    // Other methods to handle other buttons 
 }

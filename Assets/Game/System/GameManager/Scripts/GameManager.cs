@@ -1,5 +1,4 @@
 ﻿using System;
-
 using UnityEngine;
 
 public enum SceneGame
@@ -21,17 +20,26 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
     public override void Awake()
     {
-         base.Awake();
+        base.Awake();
+
         if (instance == null)
         {
-            //loadingManager.LoadingScene(SceneGame.Loading);
-            loadingManager.SetLoadingUI(FindObjectOfType<LoadingUI>()); 
-        
-            //loadingManager.LoadingScene(SceneGame.Loading);
+            // Find LoadingUI only if loadingUI is null
+            if (loadingUI == null)
+            {
+                loadingUI = FindObjectOfType<LoadingUI>();
+            }
+            
+            // Check that loadingUI is not null
+            if (loadingUI == null)
+            {
+                Debug.LogError("LoadingUI not found in the scene!");
+                return;
+            }
+
+            loadingManager.SetLoadingUI(loadingUI);
             audioManager.Init();
         }
-         base.Awake();
-       
     }
 
     public void ChangeScene(SceneGame nextScene, Action onComplete = null)

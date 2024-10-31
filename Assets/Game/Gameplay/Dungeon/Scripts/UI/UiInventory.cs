@@ -18,39 +18,43 @@ public class UiInventory : MonoBehaviour
     public TMP_Dropdown sortBDrop;
     public Button prefaButtonSlot;
     public Image toolTip;
-    public Inventory inventory;
-    public Equipment equipment;
+    
     public GameObject player;
 
     public Image slotAux;
     public RectTransform content;
     private GridLayoutGroup gridLayout;
 
+    private Inventory inventory;
+    private Equipment equipment;
+
+    private UiItemSlot slotPick;
+    public UiItemSlot slotDrop;
+    public Vector2 mousePos;
+
     public bool secondParameter;
     private float mouseCurrentPosX;
     private float playerCurrentRotY;
 
-    private void Awake()
+    public Inventory Inventory { get => inventory; }
+    public Equipment Equipment { get => equipment; }
+
+    public void Init(Inventory inventory, Equipment equipment)
     {
+        this.inventory = inventory;
+        this.equipment = equipment;
+
         gridLayout = content.GetComponent<GridLayoutGroup>();
         sortBDrop = sortBRect.GetComponent<TMP_Dropdown>();
-    }
 
-    void Start()    //   Carrera de start con Inventory
-    {
-        Invoke(nameof(IniciarInventarioUI), 0);       // ver como iniciar despues de la lógica de inventario.
+        CreateButtonsSlots();
+        ResizeContent();
+        RefreshAllButtons();
 
         for (int i = 0; i <= (int)Inventory.SortType.Level; i++)
         {
             sortBDrop.options[i].text = nameSortBy[i];
         }
-    }
-
-    void IniciarInventarioUI()
-    {
-        CreateButtonsSlots();
-        ResizeContent();
-        RefreshAllButtons();
     }
 
     public void RefreshAllButtons()
@@ -67,7 +71,9 @@ public class UiInventory : MonoBehaviour
             Button newButton = Instantiate(prefaButtonSlot, content.transform);
             newButton.name = ("Slot" + i);
 
-            newButton.GetComponent<UiItemSlot>().SetButton(i, slot.ID);
+            UiItemSlot itemSlot = newButton.GetComponent<UiItemSlot>();
+            itemSlot.Init(this);
+            itemSlot.SetButton(i, slot.ID);
         }
     }
 
@@ -176,10 +182,6 @@ public class UiInventory : MonoBehaviour
         return text;
     }
 
-    private UiItemSlot slotPick;
-    public UiItemSlot slotDrop;
-    public Vector2 mousePos;
-
     public void MouseUp(RectTransform btn)
     {
         slotAux.transform.position = Input.mousePosition;
@@ -262,5 +264,10 @@ public class UiInventory : MonoBehaviour
         auxEuler.y = playerCurrentRotY + auxPosX;
 
         player.transform.eulerAngles = auxEuler;
+    }
+
+    public void Toggle(bool status)
+    {
+        gameObject.SetActive(status);
     }
 }

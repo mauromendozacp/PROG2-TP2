@@ -1,23 +1,31 @@
-﻿using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class UiItemSlot : MonoBehaviour
 {
-    public enum PlayerList { Inventory, Outfit, Arms, None }
+    public enum PlayerList 
+    { 
+        Inventory,
+        Outfit,
+        Arms, 
+        None 
+    }
 
-    [SerializeField] private UiInventory inv;
     [SerializeField] private PlayerList playerList = PlayerList.Inventory;
     [SerializeField] private int indexList;
     [SerializeField] private int id;
     [SerializeField] private int idDefaultSprite;
 
+    private UiInventory inv = null;
+
     public int GetID() => id;
     public int GetIndex() => indexList;
     public PlayerList GetPlayerList() => playerList;
 
-    void Start()
+    public void Init(UiInventory inv)
     {
+        this.inv = inv;
+
         inv.RefreshAllButtonsEvent += RefreshButton;
     }
 
@@ -34,7 +42,9 @@ public class UiItemSlot : MonoBehaviour
         if (id < 0)
         {
             if (playerList == PlayerList.Inventory)
+            {
                 transform.GetChild(0).GetComponent<Image>().sprite = inv.defaultSprites[0];
+            }
             else
             {
                 transform.GetChild(0).GetComponent<Image>().sprite = inv.defaultSprites[idDefaultSprite];
@@ -75,10 +85,10 @@ public class UiItemSlot : MonoBehaviour
         {
             case PlayerList.Arms:
             case PlayerList.Outfit:
-                id = inv.equipment.GetID(indexList);
+                id = inv.Equipment.GetID(indexList);
                 break;
             case PlayerList.Inventory:
-                id = inv.inventory.GetID(indexList);
+                id = inv.Inventory.GetID(indexList);
                 break;
         }
         SetButton(indexList, id);
@@ -98,7 +108,7 @@ public class UiItemSlot : MonoBehaviour
         {
             if (playerList == PlayerList.Inventory)
             {
-                inv.inventory.Divide(indexList);
+                inv.Inventory.Divide(indexList);
                 inv.RefreshAllButtons();
             }
         }
@@ -121,7 +131,7 @@ public class UiItemSlot : MonoBehaviour
             switch (playerList)
             {
                 case PlayerList.Inventory:
-                    if (inv.inventory.UseItem(indexList))
+                    if (inv.Inventory.UseItem(indexList))
                     {
                         inv.RefreshAllButtons();
                         inv.RefreshToolTip(btn);
@@ -137,7 +147,7 @@ public class UiItemSlot : MonoBehaviour
                     break;
                 case PlayerList.Outfit:
                 case PlayerList.Arms:
-                    if (inv.equipment.RemoveEquipment(indexList))
+                    if (inv.Equipment.RemoveEquipment(indexList))
                     {
                         inv.RefreshAllButtons();
                         inv.RefreshToolTip(btn);

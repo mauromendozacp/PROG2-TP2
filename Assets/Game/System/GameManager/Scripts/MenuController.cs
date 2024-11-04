@@ -41,5 +41,9 @@ public class MenuController : MonoBehaviour
         menuCanvas.gameObject.SetActive(true);
     }
 
-    // Other methods to handle other buttons 
+    public void ExitGame()
+    {
+        Application.Quit();
+        Debug.Log("Game is exiting");
+    }
 }

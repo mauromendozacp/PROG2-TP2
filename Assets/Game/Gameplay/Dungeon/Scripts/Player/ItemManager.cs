@@ -1,21 +1,11 @@
-﻿using System.IO;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class GameplayManager : MonoBehaviour
+public class ItemManager : MonoBehaviourSingleton<ItemManager>
 {
-    [SerializeField] ItemList allItems;
+    [SerializeField] private ItemList allItems = null;
+    [SerializeField] private GameObject itemPrefab = null;
 
-    [SerializeField] GameObject itemPrefab;
     private const float itemArmScale = 0.018f;
-
-    static private GameplayManager instance;
-
-    static public GameplayManager GetInstance() { return instance; }
-
-    string savePath = "SaveFile.json";
-
-    public bool Paused { get; set; }
 
     public int GetRandomItemID()
     {
@@ -35,8 +25,8 @@ public class GameplayManager : MonoBehaviour
     public void GenerateItemInWorldSpace(int itemID, int randomAmount, Vector3 SpawnPosition)
     {
         GameObject item = Instantiate(itemPrefab, SpawnPosition, Quaternion.identity);
-        item.GetComponent<MeshFilter>().mesh = GetInstance().GetItemFromID(itemID).mesh;
-        item.GetComponent<MeshCollider>().sharedMesh = GetInstance().GetItemFromID(itemID).mesh;
+        item.GetComponent<MeshFilter>().mesh = GetItemFromID(itemID).mesh;
+        item.GetComponent<MeshCollider>().sharedMesh = GetItemFromID(itemID).mesh;
         item.GetComponent<ItemData>().itemID = itemID;
         item.GetComponent<ItemData>().itemAmount = randomAmount;
         item.GetComponent<MeshRenderer>().material = GetItemFromID(itemID).material;

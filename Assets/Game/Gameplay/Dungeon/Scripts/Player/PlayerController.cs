@@ -7,13 +7,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float walkSpeed = 0f;
     [SerializeField] private float runSpeed = 0f;
     [SerializeField] private float turnSmoothVelocity = 0f;
-
-    [Header("Inventory Settings")]
-    [SerializeField] private UiInventory panelInventory = null;
+    [SerializeField] private PlayerInventoryController inventoryController = null;
 
     private PlayerInputController inputController = null;
-    private Inventory inventory = null;
-    private Equipment equipment = null;
 
     private CharacterController character = null;
     private Animator anim = null;
@@ -30,16 +26,14 @@ public class PlayerController : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
 
         inputController = GetComponent<PlayerInputController>();
-        inventory = GetComponent<Inventory>();
-        equipment = GetComponent<Equipment>();
     }
 
     private void Start()
     {
         currentSpeed = walkSpeed;
 
-        inputController.Init(null, ToggleInventory, null, ToggleRun);
-        panelInventory?.Init(inventory, equipment);
+        inputController.Init(null, inventoryController.ToggleInventory, null, ToggleRun);
+        inventoryController.Init();
     }
 
     private void Update()
@@ -96,11 +90,6 @@ public class PlayerController : MonoBehaviour
         float inputMove = Mathf.Clamp(Mathf.Abs(inputController.Move.x) + Mathf.Abs(inputController.Move.y), 0f, 1f);
 
         return inputMove * currentSpeed / runSpeed;
-    }
-
-    private void ToggleInventory()
-    {
-        panelInventory.Toggle(!panelInventory.gameObject.activeSelf);
     }
 
     private void ToggleRun(bool status)

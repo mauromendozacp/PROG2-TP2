@@ -52,7 +52,7 @@ public class Equipment : MonoBehaviour
 
     public Slot SwapEquipment(Slot newItemSlot)
     {
-        Item itemToSwap = GameplayManager.GetInstance().GetItemFromID(newItemSlot.ID);
+        Item itemToSwap = ItemManager.Instance.GetItemFromID(newItemSlot.ID);
         if (itemToSwap.GetItemType() == ItemType.Outfit)
         {
             int index = weaponSlotsAmount;
@@ -101,8 +101,8 @@ public class Equipment : MonoBehaviour
         {
             if (!currentEquipment[index1].IsEmpty() && !currentEquipment[index2].IsEmpty())
             {
-                Item fromItem = GameplayManager.GetInstance().GetItemFromID(currentEquipment[index1].ID);
-                Item toItem = GameplayManager.GetInstance().GetItemFromID(currentEquipment[index2].ID);
+                Item fromItem = ItemManager.Instance.GetItemFromID(currentEquipment[index1].ID);
+                Item toItem = ItemManager.Instance.GetItemFromID(currentEquipment[index2].ID);
                 if (fromItem.GetItemType() == toItem.GetItemType() && fromItem.maxStack > 1 && toItem.maxStack > 1)
                 {
                     currentEquipment[index1].amount = currentEquipment[index2].AddAmount(currentEquipment[index2].amount);
@@ -131,7 +131,7 @@ public class Equipment : MonoBehaviour
         {
             indexInventory = index1;
             indexOutfit = index2;
-            itemToSwap = GameplayManager.GetInstance().GetItemFromID(inventory.GetSlot(indexInventory).ID);
+            itemToSwap = ItemManager.Instance.GetItemFromID(inventory.GetSlot(indexInventory).ID);
             if (!currentEquipment[indexOutfit].IsEmpty())
             {
                 if (currentEquipment[indexOutfit].ID == inventory.GetSlot(indexInventory).ID && itemToSwap.maxStack > 1)
@@ -150,10 +150,10 @@ public class Equipment : MonoBehaviour
         {
             indexInventory = index2;
             indexOutfit = index1;
-            itemToSwap = GameplayManager.GetInstance().GetItemFromID(GetSlot(indexOutfit).ID);
+            itemToSwap = ItemManager.Instance.GetItemFromID(GetSlot(indexOutfit).ID);
             if (!inventory.GetSlot(indexInventory).IsEmpty())
             {
-                Item itemSwaped = GameplayManager.GetInstance().GetItemFromID(inventory.GetSlot(indexInventory).ID);
+                Item itemSwaped = ItemManager.Instance.GetItemFromID(inventory.GetSlot(indexInventory).ID);
                 if (inventory.GetSlot(indexInventory).ID == currentEquipment[indexOutfit].ID && itemToSwap.maxStack > 1)
                 {
                     currentEquipment[indexOutfit].amount = inventory.GetSlot(indexInventory).AddAmount(currentEquipment[indexOutfit].amount);

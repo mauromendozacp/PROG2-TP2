@@ -18,9 +18,9 @@ public class UiInventory : MonoBehaviour
     public TMP_Dropdown sortBDrop;
     public Button prefaButtonSlot;
     public Image toolTip;
+    public UiItemSlot[] equipmentSlots = null;
+    public UiItemSlot recycleSlot = null;
     
-    public GameObject player;
-
     public Image slotAux;
     public RectTransform content;
     private GridLayoutGroup gridLayout;
@@ -36,13 +36,19 @@ public class UiInventory : MonoBehaviour
     private float mouseCurrentPosX;
     private float playerCurrentRotY;
 
+    private Transform playerMeshTransform = null;
+
+    private Action onRefreshMeshAsStatic = null;
+
     public Inventory Inventory { get => inventory; }
     public Equipment Equipment { get => equipment; }
 
-    public void Init(Inventory inventory, Equipment equipment)
+    public void Init(Inventory inventory, Equipment equipment, Transform playerMeshTransform, Action onRefreshMeshAsStatic)
     {
         this.inventory = inventory;
         this.equipment = equipment;
+        this.playerMeshTransform = playerMeshTransform;
+        this.onRefreshMeshAsStatic = onRefreshMeshAsStatic;
 
         gridLayout = content.GetComponent<GridLayoutGroup>();
         sortBDrop = sortBRect.GetComponent<TMP_Dropdown>();
@@ -55,49 +61,17 @@ public class UiInventory : MonoBehaviour
         {
             sortBDrop.options[i].text = nameSortBy[i];
         }
+
+        for (int i = 0; i < equipmentSlots.Length; i++)
+        {
+            equipmentSlots[i].Init(this, onRefreshMeshAsStatic, playerMeshTransform);
+        }
+        recycleSlot.Init(this, onRefreshMeshAsStatic, playerMeshTransform);
     }
 
     public void RefreshAllButtons()
     {
         RefreshAllButtonsEvent?.Invoke();
-    }
-
-    void CreateButtonsSlots()
-    {
-        int invSize = inventory.GetSize();
-        for (int i = 0; i < invSize; i++)
-        {
-            Slot slot = inventory.GetSlot(i);
-            Button newButton = Instantiate(prefaButtonSlot, content.transform);
-            newButton.name = ("Slot" + i);
-
-            UiItemSlot itemSlot = newButton.GetComponent<UiItemSlot>();
-            itemSlot.Init(this);
-            itemSlot.SetButton(i, slot.ID);
-        }
-    }
-
-    void ResizeContent()
-    {
-        int cantChild = content.transform.childCount;
-
-        float cellSize = gridLayout.cellSize.y;
-        cellSize += gridLayout.spacing.y;
-        int columns = gridLayout.constraintCount;
-
-        int currentColumn = 0;
-        while (cantChild % columns != 0)
-        {
-            cantChild++;
-            currentColumn++;
-            if (currentColumn > columns)
-            {
-                Debug.LogError("Supera el Maximo de Columnas ", gameObject);
-                break; // Salida de de emergencia de While
-            }
-        }
-
-        content.sizeDelta = new Vector2(content.sizeDelta.x, cantChild * cellSize / columns);
     }
 
     public void MouseDown(RectTransform btn)
@@ -172,7 +146,7 @@ public class UiInventory : MonoBehaviour
             toolTip.gameObject.SetActive(false);
             return "";
         }
-        Item myItem = GameplayManager.GetInstance().GetItemFromID(idItem);
+        Item myItem = ItemManager.Instance.GetItemFromID(idItem);
 
         string text = myItem.ItemToString();
         if (myItem.maxStack > 1)
@@ -253,21 +227,59 @@ public class UiInventory : MonoBehaviour
     public void SetPositionX()
     {
         mouseCurrentPosX = Input.mousePosition.x;
-        playerCurrentRotY = player.transform.eulerAngles.y;
+        playerCurrentRotY = playerMeshTransform.eulerAngles.y;
     }
 
     public void Rotate()
     {
         float auxPosX = mouseCurrentPosX - Input.mousePosition.x;
 
-        Vector3 auxEuler = player.transform.eulerAngles;
+        Vector3 auxEuler = playerMeshTransform.eulerAngles;
         auxEuler.y = playerCurrentRotY + auxPosX;
 
-        player.transform.eulerAngles = auxEuler;
+        playerMeshTransform.eulerAngles = auxEuler;
     }
 
     public void Toggle(bool status)
     {
         gameObject.SetActive(status);
+    }
+
+    private void CreateButtonsSlots()
+    {
+        int invSize = inventory.GetSize();
+        for (int i = 0; i < invSize; i++)
+        {
+            Slot slot = inventory.GetSlot(i);
+            Button newButton = Instantiate(prefaButtonSlot, content.transform);
+            newButton.name = ("Slot" + i);
+
+            UiItemSlot itemSlot = newButton.GetComponent<UiItemSlot>();
+            itemSlot.Init(this, onRefreshMeshAsStatic, playerMeshTransform);
+            itemSlot.SetButton(i, slot.ID);
+        }
+    }
+
+    private void ResizeContent()
+    {
+        int cantChild = content.transform.childCount;
+
+        float cellSize = gridLayout.cellSize.y;
+        cellSize += gridLayout.spacing.y;
+        int columns = gridLayout.constraintCount;
+
+        int currentColumn = 0;
+        while (cantChild % columns != 0)
+        {
+            cantChild++;
+            currentColumn++;
+            if (currentColumn > columns)
+            {
+                Debug.LogError("Supera el Maximo de Columnas ", gameObject);
+                break; // Salida de de emergencia de While
+            }
+        }
+
+        content.sizeDelta = new Vector2(content.sizeDelta.x, cantChild * cellSize / columns);
     }
 }

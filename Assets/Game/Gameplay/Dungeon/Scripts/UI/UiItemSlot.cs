@@ -1,5 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+
+using UnityEngine;
 using UnityEngine.UI;
+
+using TMPro;
 
 public class UiItemSlot : MonoBehaviour
 {
@@ -17,14 +21,18 @@ public class UiItemSlot : MonoBehaviour
     [SerializeField] private int idDefaultSprite;
 
     private UiInventory inv = null;
+    private Action onRefreshMeshAsStatic = null;
+    private Transform playerMeshTransform = null;
 
     public int GetID() => id;
     public int GetIndex() => indexList;
     public PlayerList GetPlayerList() => playerList;
 
-    public void Init(UiInventory inv)
+    public void Init(UiInventory inv, Action onRefreshMeshAsStatic, Transform playerMeshTransform)
     {
         this.inv = inv;
+        this.onRefreshMeshAsStatic = onRefreshMeshAsStatic;
+        this.playerMeshTransform = playerMeshTransform;
 
         inv.RefreshAllButtonsEvent += RefreshButton;
     }
@@ -53,30 +61,30 @@ public class UiItemSlot : MonoBehaviour
         }
         else
         {
-            /*Sprite sprite = GameplayManager.GetInstance().GetItemFromID(id).icon;
+            Sprite sprite = ItemManager.Instance.GetItemFromID(id).icon;
             transform.GetChild(0).GetComponent<Image>().sprite = sprite;
 
-            if (GameplayManager.GetInstance().GetItemFromID(id).maxStack > 1)
+            if (ItemManager.Instance.GetItemFromID(id).maxStack > 1)
             {
                 gameObject.transform.GetChild(1).gameObject.SetActive(true);
                 switch (playerList)
                 {
-                    case UiItemSlot.PlayerList.Arms:
-                    case UiItemSlot.PlayerList.Outfit:
-                        gameObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = inv.equipment.GetSlot(indexList).amount.ToString();
+                    case PlayerList.Arms:
+                    case PlayerList.Outfit:
+                        gameObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = inv.Equipment.GetSlot(indexList).amount.ToString();
                         break;
-                    case UiItemSlot.PlayerList.Inventory:
-                        gameObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = inv.inventory.GetSlot(indexList).amount.ToString();
+                    case PlayerList.Inventory:
+                        gameObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = inv.Inventory.GetSlot(indexList).amount.ToString();
                         break;
                 }
             }
             else
             {
                 gameObject.transform.GetChild(1).gameObject.SetActive(false);
-            }*/
+            }
         }
 
-        //Player.OnRefreshMeshAsStatic?.Invoke();
+        onRefreshMeshAsStatic?.Invoke();
     }
 
     private void Refresh(PlayerList playerlist)
@@ -92,11 +100,6 @@ public class UiItemSlot : MonoBehaviour
                 break;
         }
         SetButton(indexList, id);
-    }
-
-    private void Awake()
-    {
-        inv = FindObjectOfType<UiInventory>();
     }
 
     public void MouseDown(RectTransform btn)
@@ -116,10 +119,10 @@ public class UiItemSlot : MonoBehaviour
         {
             if (playerList == PlayerList.Inventory)
             {
-                /*Vector3 temporalItemPosition = playerReference.transform.position + playerReference.transform.forward * 2.5f;
-                GameplayManager.GetInstance().GenerateItemInWorldSpace(inv.inventory.GetID(indexList), inv.inventory.GetSlot(indexList).amount, temporalItemPosition);
-                inv.inventory.DeleteItem(indexList);
-                Refresh(playerList);*/
+                Vector3 temporalItemPosition = playerMeshTransform.position + playerMeshTransform.forward * 2.5f;
+                ItemManager.Instance.GenerateItemInWorldSpace(inv.Inventory.GetID(indexList), inv.Inventory.GetSlot(indexList).amount, temporalItemPosition);
+                inv.Inventory.DeleteItem(indexList);
+                Refresh(playerList);
             }
         }
         else if (Input.GetMouseButton(0))
@@ -165,10 +168,6 @@ public class UiItemSlot : MonoBehaviour
         Refresh(playerList);
     }
 
-    private void RefreshTooltipText()
-    {
-
-    }
     public void MouseDrag()
     {
         inv.MouseDrag();

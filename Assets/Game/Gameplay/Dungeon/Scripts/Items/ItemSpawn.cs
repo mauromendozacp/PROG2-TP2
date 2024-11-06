@@ -11,8 +11,8 @@ public class ItemSpawn : MonoBehaviour
 
     public void GenerateNewItem()
     {
-        int randomID = GameplayManager.GetInstance().GetRandomItemID();
-        int randomAmount = GameplayManager.GetInstance().GetRandomAmmountOfItem(randomID);
-        GameplayManager.GetInstance().GenerateItemInWorldSpace(randomID, randomAmount, enemy.transform.position);
+        int randomID = ItemManager.Instance.GetRandomItemID();
+        int randomAmount = ItemManager.Instance.GetRandomAmmountOfItem(randomID);
+        ItemManager.Instance.GenerateItemInWorldSpace(randomID, randomAmount, enemy.transform.position);
     }
 }

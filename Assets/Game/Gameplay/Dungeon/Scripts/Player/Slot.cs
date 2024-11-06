@@ -19,7 +19,7 @@ public class Slot
     public int AddAmount(int amount)
     {
         this.amount += amount;
-        int maxAmount = GameplayManager.GetInstance().GetItemFromID(ID).maxStack;
+        int maxAmount = ItemManager.Instance.GetItemFromID(ID).maxStack;
         if (this.amount > maxAmount)
         {
             int difference = this.amount - maxAmount;

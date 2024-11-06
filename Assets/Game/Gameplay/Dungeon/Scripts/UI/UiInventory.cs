@@ -18,80 +18,61 @@ public class UiInventory : MonoBehaviour
     public TMP_Dropdown sortBDrop;
     public Button prefaButtonSlot;
     public Image toolTip;
-    public Inventory inventory;
-    public Equipment equipment;
-    public GameObject player;
-
+    public UiItemSlot[] equipmentSlots = null;
+    public UiItemSlot recycleSlot = null;
+    
     public Image slotAux;
     public RectTransform content;
     private GridLayoutGroup gridLayout;
+
+    private Inventory inventory;
+    private Equipment equipment;
+
+    private UiItemSlot slotPick;
+    public UiItemSlot slotDrop;
+    public Vector2 mousePos;
 
     public bool secondParameter;
     private float mouseCurrentPosX;
     private float playerCurrentRotY;
 
-    private void Awake()
+    private Transform playerUiMeshTransform = null;
+    private Func<Vector3> onGetDropItemPosition = null;
+    private Action onRefreshMeshAsStatic = null;
+
+    public Inventory Inventory { get => inventory; }
+    public Equipment Equipment { get => equipment; }
+
+    public void Init(Inventory inventory, Equipment equipment, Transform playerUiMeshTransform, Action onRefreshMeshAsStatic, Func<Vector3> onGetDropItemPosition)
     {
+        this.inventory = inventory;
+        this.equipment = equipment;
+        this.playerUiMeshTransform = playerUiMeshTransform;
+        this.onRefreshMeshAsStatic = onRefreshMeshAsStatic;
+        this.onGetDropItemPosition = onGetDropItemPosition;
+
         gridLayout = content.GetComponent<GridLayoutGroup>();
         sortBDrop = sortBRect.GetComponent<TMP_Dropdown>();
-    }
 
-    void Start()    //   Carrera de start con Inventory
-    {
-        Invoke(nameof(IniciarInventarioUI), 0);       // ver como iniciar despues de la lógica de inventario.
+        CreateButtonsSlots();
+        ResizeContent();
+        RefreshAllButtons();
 
         for (int i = 0; i <= (int)Inventory.SortType.Level; i++)
         {
             sortBDrop.options[i].text = nameSortBy[i];
         }
-    }
 
-    void IniciarInventarioUI()
-    {
-        CreateButtonsSlots();
-        ResizeContent();
-        RefreshAllButtons();
+        for (int i = 0; i < equipmentSlots.Length; i++)
+        {
+            equipmentSlots[i].Init(this, onRefreshMeshAsStatic, onGetDropItemPosition);
+        }
+        recycleSlot.Init(this, onRefreshMeshAsStatic, onGetDropItemPosition);
     }
 
     public void RefreshAllButtons()
     {
         RefreshAllButtonsEvent?.Invoke();
-    }
-
-    void CreateButtonsSlots()
-    {
-        int invSize = inventory.GetSize();
-        for (int i = 0; i < invSize; i++)
-        {
-            Slot slot = inventory.GetSlot(i);
-            Button newButton = Instantiate(prefaButtonSlot, content.transform);
-            newButton.name = ("Slot" + i);
-
-            newButton.GetComponent<UiItemSlot>().SetButton(i, slot.ID);
-        }
-    }
-
-    void ResizeContent()
-    {
-        int cantChild = content.transform.childCount;
-
-        float cellSize = gridLayout.cellSize.y;
-        cellSize += gridLayout.spacing.y;
-        int columns = gridLayout.constraintCount;
-
-        int currentColumn = 0;
-        while (cantChild % columns != 0)
-        {
-            cantChild++;
-            currentColumn++;
-            if (currentColumn > columns)
-            {
-                Debug.LogError("Supera el Maximo de Columnas ", gameObject);
-                break; // Salida de de emergencia de While
-            }
-        }
-
-        content.sizeDelta = new Vector2(content.sizeDelta.x, cantChild * cellSize / columns);
     }
 
     public void MouseDown(RectTransform btn)
@@ -166,7 +147,7 @@ public class UiInventory : MonoBehaviour
             toolTip.gameObject.SetActive(false);
             return "";
         }
-        Item myItem = GameplayManager.GetInstance().GetItemFromID(idItem);
+        Item myItem = ItemManager.Instance.GetItemFromID(idItem);
 
         string text = myItem.ItemToString();
         if (myItem.maxStack > 1)
@@ -175,10 +156,6 @@ public class UiInventory : MonoBehaviour
         }
         return text;
     }
-
-    private UiItemSlot slotPick;
-    public UiItemSlot slotDrop;
-    public Vector2 mousePos;
 
     public void MouseUp(RectTransform btn)
     {
@@ -251,16 +228,59 @@ public class UiInventory : MonoBehaviour
     public void SetPositionX()
     {
         mouseCurrentPosX = Input.mousePosition.x;
-        playerCurrentRotY = player.transform.eulerAngles.y;
+        playerCurrentRotY = playerUiMeshTransform.eulerAngles.y;
     }
 
     public void Rotate()
     {
         float auxPosX = mouseCurrentPosX - Input.mousePosition.x;
 
-        Vector3 auxEuler = player.transform.eulerAngles;
+        Vector3 auxEuler = playerUiMeshTransform.eulerAngles;
         auxEuler.y = playerCurrentRotY + auxPosX;
 
-        player.transform.eulerAngles = auxEuler;
+        playerUiMeshTransform.eulerAngles = auxEuler;
+    }
+
+    public void Toggle(bool status)
+    {
+        gameObject.SetActive(status);
+    }
+
+    private void CreateButtonsSlots()
+    {
+        int invSize = inventory.GetSize();
+        for (int i = 0; i < invSize; i++)
+        {
+            Slot slot = inventory.GetSlot(i);
+            Button newButton = Instantiate(prefaButtonSlot, content.transform);
+            newButton.name = ("Slot" + i);
+
+            UiItemSlot itemSlot = newButton.GetComponent<UiItemSlot>();
+            itemSlot.Init(this, onRefreshMeshAsStatic, onGetDropItemPosition);
+            itemSlot.SetButton(i, slot.ID);
+        }
+    }
+
+    private void ResizeContent()
+    {
+        int cantChild = content.transform.childCount;
+
+        float cellSize = gridLayout.cellSize.y;
+        cellSize += gridLayout.spacing.y;
+        int columns = gridLayout.constraintCount;
+
+        int currentColumn = 0;
+        while (cantChild % columns != 0)
+        {
+            cantChild++;
+            currentColumn++;
+            if (currentColumn > columns)
+            {
+                Debug.LogError("Supera el Maximo de Columnas ", gameObject);
+                break; // Salida de de emergencia de While
+            }
+        }
+
+        content.sizeDelta = new Vector2(content.sizeDelta.x, cantChild * cellSize / columns);
     }
 }

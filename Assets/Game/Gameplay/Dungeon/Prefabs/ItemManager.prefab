@@ -47,3 +47,6 @@ MonoBehaviour:
   allItems: {fileID: 11400000, guid: 2e9358401fb192549a78f45936f48099, type: 2}
   itemPrefab: {fileID: 8031335920981705380, guid: d98302f156dfa48489aad00d23a3dccb,
     type: 3}
+  floorLayer:
+    serializedVersion: 2
+    m_Bits: 128

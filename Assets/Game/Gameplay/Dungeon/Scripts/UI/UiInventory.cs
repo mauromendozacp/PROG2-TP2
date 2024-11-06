@@ -36,19 +36,20 @@ public class UiInventory : MonoBehaviour
     private float mouseCurrentPosX;
     private float playerCurrentRotY;
 
-    private Transform playerMeshTransform = null;
-
+    private Transform playerUiMeshTransform = null;
+    private Func<Vector3> onGetDropItemPosition = null;
     private Action onRefreshMeshAsStatic = null;
 
     public Inventory Inventory { get => inventory; }
     public Equipment Equipment { get => equipment; }
 
-    public void Init(Inventory inventory, Equipment equipment, Transform playerMeshTransform, Action onRefreshMeshAsStatic)
+    public void Init(Inventory inventory, Equipment equipment, Transform playerUiMeshTransform, Action onRefreshMeshAsStatic, Func<Vector3> onGetDropItemPosition)
     {
         this.inventory = inventory;
         this.equipment = equipment;
-        this.playerMeshTransform = playerMeshTransform;
+        this.playerUiMeshTransform = playerUiMeshTransform;
         this.onRefreshMeshAsStatic = onRefreshMeshAsStatic;
+        this.onGetDropItemPosition = onGetDropItemPosition;
 
         gridLayout = content.GetComponent<GridLayoutGroup>();
         sortBDrop = sortBRect.GetComponent<TMP_Dropdown>();
@@ -64,9 +65,9 @@ public class UiInventory : MonoBehaviour
 
         for (int i = 0; i < equipmentSlots.Length; i++)
         {
-            equipmentSlots[i].Init(this, onRefreshMeshAsStatic, playerMeshTransform);
+            equipmentSlots[i].Init(this, onRefreshMeshAsStatic, onGetDropItemPosition);
         }
-        recycleSlot.Init(this, onRefreshMeshAsStatic, playerMeshTransform);
+        recycleSlot.Init(this, onRefreshMeshAsStatic, onGetDropItemPosition);
     }
 
     public void RefreshAllButtons()
@@ -227,17 +228,17 @@ public class UiInventory : MonoBehaviour
     public void SetPositionX()
     {
         mouseCurrentPosX = Input.mousePosition.x;
-        playerCurrentRotY = playerMeshTransform.eulerAngles.y;
+        playerCurrentRotY = playerUiMeshTransform.eulerAngles.y;
     }
 
     public void Rotate()
     {
         float auxPosX = mouseCurrentPosX - Input.mousePosition.x;
 
-        Vector3 auxEuler = playerMeshTransform.eulerAngles;
+        Vector3 auxEuler = playerUiMeshTransform.eulerAngles;
         auxEuler.y = playerCurrentRotY + auxPosX;
 
-        playerMeshTransform.eulerAngles = auxEuler;
+        playerUiMeshTransform.eulerAngles = auxEuler;
     }
 
     public void Toggle(bool status)
@@ -255,7 +256,7 @@ public class UiInventory : MonoBehaviour
             newButton.name = ("Slot" + i);
 
             UiItemSlot itemSlot = newButton.GetComponent<UiItemSlot>();
-            itemSlot.Init(this, onRefreshMeshAsStatic, playerMeshTransform);
+            itemSlot.Init(this, onRefreshMeshAsStatic, onGetDropItemPosition);
             itemSlot.SetButton(i, slot.ID);
         }
     }

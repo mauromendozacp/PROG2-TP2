@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float runSpeed = 0f;
     [SerializeField] private float turnSmoothVelocity = 0f;
     [SerializeField] private PlayerInventoryController inventoryController = null;
+    [SerializeField] private PickItem pickItem = null;
 
     private PlayerInputController inputController = null;
 
@@ -32,7 +33,7 @@ public class PlayerController : MonoBehaviour
     {
         currentSpeed = walkSpeed;
 
-        inputController.Init(null, inventoryController.ToggleInventory, null, ToggleRun);
+        inputController.Init(null, inventoryController.ToggleInventory, PickItem, ToggleRun);
         inventoryController.Init();
     }
 
@@ -95,5 +96,17 @@ public class PlayerController : MonoBehaviour
     private void ToggleRun(bool status)
     {
         currentSpeed = status ? runSpeed : walkSpeed;
+    }
+
+    private void PickItem()
+    {
+        ItemData item = pickItem.GetClosestItem();
+        if (item != null)
+        {
+            anim.SetTrigger("PickUp");
+            inventoryController.AddNewItem(item);
+            pickItem.RemoveDestroyItem(item);
+            Destroy(item.gameObject);
+        }
     }
 }

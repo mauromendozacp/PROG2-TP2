@@ -37,7 +37,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Pick"",
+                    ""name"": ""PickItem"",
                     ""type"": ""Button"",
                     ""id"": ""560e6e4b-2b7f-420c-9b43-172d8cbea3ad"",
                     ""expectedControlType"": ""Button"",
@@ -208,17 +208,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""483c5a0b-4800-4ab6-a8d5-c8015f6bf06e"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Pick"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""b68fbdaf-9275-4e88-bdbb-97423adefeaf"",
                     ""path"": ""<Keyboard>/i"",
                     ""interactions"": """",
@@ -247,6 +236,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Run"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""483c5a0b-4800-4ab6-a8d5-c8015f6bf06e"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""PickItem"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -835,7 +835,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
-        m_Player_Pick = m_Player.FindAction("Pick", throwIfNotFound: true);
+        m_Player_PickItem = m_Player.FindAction("PickItem", throwIfNotFound: true);
         m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_Run = m_Player.FindAction("Run", throwIfNotFound: true);
@@ -913,7 +913,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Move;
-    private readonly InputAction m_Player_Pick;
+    private readonly InputAction m_Player_PickItem;
     private readonly InputAction m_Player_Inventory;
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_Run;
@@ -922,7 +922,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         private @PlayerInput m_Wrapper;
         public PlayerActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player_Move;
-        public InputAction @Pick => m_Wrapper.m_Player_Pick;
+        public InputAction @PickItem => m_Wrapper.m_Player_PickItem;
         public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputAction @Run => m_Wrapper.m_Player_Run;
@@ -938,9 +938,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
-            @Pick.started += instance.OnPick;
-            @Pick.performed += instance.OnPick;
-            @Pick.canceled += instance.OnPick;
+            @PickItem.started += instance.OnPickItem;
+            @PickItem.performed += instance.OnPickItem;
+            @PickItem.canceled += instance.OnPickItem;
             @Inventory.started += instance.OnInventory;
             @Inventory.performed += instance.OnInventory;
             @Inventory.canceled += instance.OnInventory;
@@ -957,9 +957,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
-            @Pick.started -= instance.OnPick;
-            @Pick.performed -= instance.OnPick;
-            @Pick.canceled -= instance.OnPick;
+            @PickItem.started -= instance.OnPickItem;
+            @PickItem.performed -= instance.OnPickItem;
+            @PickItem.canceled -= instance.OnPickItem;
             @Inventory.started -= instance.OnInventory;
             @Inventory.performed -= instance.OnInventory;
             @Inventory.canceled -= instance.OnInventory;
@@ -1152,7 +1152,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
-        void OnPick(InputAction.CallbackContext context);
+        void OnPickItem(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);

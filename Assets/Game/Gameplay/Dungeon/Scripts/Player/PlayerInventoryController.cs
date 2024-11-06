@@ -50,7 +50,7 @@ public class PlayerInventoryController : MonoBehaviour
 
     public void Init()
     {
-        panelInventory?.Init(inventory, equipment, playerMeshTransform, UpdateMesh);
+        panelInventory?.Init(inventory, equipment, uiMeshTransform, UpdateMesh, GetDropItemPosition);
 
         LoadJson();
     }
@@ -255,9 +255,9 @@ public class PlayerInventoryController : MonoBehaviour
         panelInventory.RefreshAllButtons();
     }
 
-    private Transform GetMeshTransform()
+    private Vector3 GetDropItemPosition()
     {
-        return uiMeshTransform;
+        return playerMeshTransform.position;
     }
 
     public void ToggleInventory()
@@ -267,6 +267,12 @@ public class PlayerInventoryController : MonoBehaviour
         if (panelInventory.gameObject.activeSelf)
         {
             UpdatePlayerUi();
+            panelInventory.RefreshAllButtons();
         }
+    }
+
+    public void AddNewItem(ItemData item)
+    {
+        inventory.AddNewItem(item.itemID, item.itemAmount);
     }
 }

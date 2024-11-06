@@ -15,7 +15,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Pick",
+                    "name": "PickItem",
                     "type": "Button",
                     "id": "560e6e4b-2b7f-420c-9b43-172d8cbea3ad",
                     "expectedControlType": "Button",
@@ -186,17 +186,6 @@
                 },
                 {
                     "name": "",
-                    "id": "483c5a0b-4800-4ab6-a8d5-c8015f6bf06e",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Pick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "b68fbdaf-9275-4e88-bdbb-97423adefeaf",
                     "path": "<Keyboard>/i",
                     "interactions": "",
@@ -225,6 +214,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Run",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "483c5a0b-4800-4ab6-a8d5-c8015f6bf06e",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "PickItem",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

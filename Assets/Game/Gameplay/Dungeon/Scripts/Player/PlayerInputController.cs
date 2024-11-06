@@ -31,10 +31,9 @@ public class PlayerInputController : MonoBehaviour
         this.onRun = onRun;
 
         inputAction = new PlayerInput();
-
         inputAction.Player.Pause.performed += OnPause;
         inputAction.Player.Inventory.performed += OnInvetory;
-        inputAction.Player.Pick.performed += OnPick;
+        inputAction.Player.PickItem.performed += OnPick;
         inputAction.Player.Run.performed += OnStartRun;
         inputAction.Player.Run.canceled += OnEndRun;
 

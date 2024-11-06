@@ -4,6 +4,7 @@ public class ItemManager : MonoBehaviourSingleton<ItemManager>
 {
     [SerializeField] private ItemList allItems = null;
     [SerializeField] private GameObject itemPrefab = null;
+    [SerializeField] private LayerMask floorLayer = default;
 
     private const float itemArmScale = 0.018f;
 
@@ -22,9 +23,9 @@ public class ItemManager : MonoBehaviourSingleton<ItemManager>
         return allItems.List[id];
     }
 
-    public void GenerateItemInWorldSpace(int itemID, int randomAmount, Vector3 SpawnPosition)
+    public void GenerateItemInWorldSpace(int itemID, int randomAmount, Vector3 spawnPosition)
     {
-        GameObject item = Instantiate(itemPrefab, SpawnPosition, Quaternion.identity);
+        GameObject item = Instantiate(itemPrefab, GetDropItemPosition(spawnPosition), Quaternion.identity);
         item.GetComponent<MeshFilter>().mesh = GetItemFromID(itemID).mesh;
         item.GetComponent<MeshCollider>().sharedMesh = GetItemFromID(itemID).mesh;
         item.GetComponent<ItemData>().itemID = itemID;
@@ -36,5 +37,15 @@ public class ItemManager : MonoBehaviourSingleton<ItemManager>
         {
             item.transform.localScale *= itemArmScale;
         }
+    }
+
+    private Vector3 GetDropItemPosition(Vector3 spawnPosition)
+    {
+        if (Physics.Raycast(spawnPosition, Vector3.down, out RaycastHit hit, Mathf.Infinity, floorLayer))
+        {
+            return hit.point;
+        }
+
+        return spawnPosition;
     }
 }

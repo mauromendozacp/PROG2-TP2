@@ -1501,8 +1501,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
+        - m_Target: {fileID: 4848679028382833608}
+          m_TargetAssemblyTypeName: UiInventory, Assembly-CSharp
           m_MethodName: SetPositionX
           m_Mode: 1
           m_Arguments:
@@ -1517,8 +1517,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
+        - m_Target: {fileID: 4848679028382833608}
+          m_TargetAssemblyTypeName: UiInventory, Assembly-CSharp
           m_MethodName: Rotate
           m_Mode: 1
           m_Arguments:
@@ -1685,8 +1685,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8293141926433617221}
   m_HandleRect: {fileID: 693553460639834857}
   m_Direction: 2
-  m_Value: -0.00000015800374
-  m_Size: 0.81605273
+  m_Value: -0.00000094802306
+  m_Size: 0.81605285
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

@@ -22,17 +22,17 @@ public class UiItemSlot : MonoBehaviour
 
     private UiInventory inv = null;
     private Action onRefreshMeshAsStatic = null;
-    private Transform playerMeshTransform = null;
+    private Func<Vector3> onGetDropItemPosition = null;
 
     public int GetID() => id;
     public int GetIndex() => indexList;
     public PlayerList GetPlayerList() => playerList;
 
-    public void Init(UiInventory inv, Action onRefreshMeshAsStatic, Transform playerMeshTransform)
+    public void Init(UiInventory inv, Action onRefreshMeshAsStatic, Func<Vector3> onGetDropItemPosition)
     {
         this.inv = inv;
         this.onRefreshMeshAsStatic = onRefreshMeshAsStatic;
-        this.playerMeshTransform = playerMeshTransform;
+        this.onGetDropItemPosition = onGetDropItemPosition;
 
         inv.RefreshAllButtonsEvent += RefreshButton;
     }
@@ -119,7 +119,7 @@ public class UiItemSlot : MonoBehaviour
         {
             if (playerList == PlayerList.Inventory)
             {
-                Vector3 temporalItemPosition = playerMeshTransform.position + playerMeshTransform.forward * 2.5f;
+                Vector3 temporalItemPosition = onGetDropItemPosition.Invoke();
                 ItemManager.Instance.GenerateItemInWorldSpace(inv.Inventory.GetID(indexList), inv.Inventory.GetSlot(indexList).amount, temporalItemPosition);
                 inv.Inventory.DeleteItem(indexList);
                 Refresh(playerList);

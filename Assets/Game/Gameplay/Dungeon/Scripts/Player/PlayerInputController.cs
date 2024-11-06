@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public enum FSM_INPUT
 {
     ENABLE_ALL,
+    INVENTORY,
     ONLY_UI,
     DISABLE_ALL
 }
@@ -71,6 +72,11 @@ public class PlayerInputController : MonoBehaviour
         {
             case FSM_INPUT.ENABLE_ALL:
                 inputAction.Player.Enable();
+                inputAction.UI.Enable();
+                break;
+            case FSM_INPUT.INVENTORY:
+                inputAction.Player.Disable();
+                inputAction.Player.Inventory.Enable();
                 inputAction.UI.Enable();
                 break;
             case FSM_INPUT.ONLY_UI:

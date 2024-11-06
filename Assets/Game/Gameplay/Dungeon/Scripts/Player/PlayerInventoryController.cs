@@ -160,6 +160,11 @@ public class PlayerInventoryController : MonoBehaviour
         }
     }
 
+    private Vector3 GetDropItemPosition()
+    {
+        return playerMeshTransform.position;
+    }
+
     public List<Slot> GetSaveSlots()
     {
         List<Slot> newList = new List<Slot>();
@@ -255,16 +260,11 @@ public class PlayerInventoryController : MonoBehaviour
         panelInventory.RefreshAllButtons();
     }
 
-    private Vector3 GetDropItemPosition()
-    {
-        return playerMeshTransform.position;
-    }
-
     public void ToggleInventory()
     {
-        panelInventory.Toggle(!panelInventory.gameObject.activeSelf);
+        panelInventory.Toggle(!IsOpenPanelInventory());
 
-        if (panelInventory.gameObject.activeSelf)
+        if (IsOpenPanelInventory())
         {
             UpdatePlayerUi();
             panelInventory.RefreshAllButtons();
@@ -274,5 +274,10 @@ public class PlayerInventoryController : MonoBehaviour
     public void AddNewItem(ItemData item)
     {
         inventory.AddNewItem(item.itemID, item.itemAmount);
+    }
+
+    public bool IsOpenPanelInventory()
+    {
+        return panelInventory.gameObject.activeSelf;
     }
 }

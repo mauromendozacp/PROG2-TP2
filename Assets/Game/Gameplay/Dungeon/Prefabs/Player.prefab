@@ -1860,8 +1860,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bodyTransform: {fileID: 2666484366887532179}
-  walkSpeed: 3
-  runSpeed: 6
+  walkSpeed: 4.5
+  runSpeed: 7.5
   turnSmoothVelocity: 0.2
   inventoryController: {fileID: 6974225392108575236}
   pickItem: {fileID: 1141711596360507366}
@@ -1952,7 +1952,7 @@ Transform:
   m_GameObject: {fileID: 4313102471607491385}
   serializedVersion: 2
   m_LocalRotation: {x: 0.38555074, y: 0, z: 0, w: 0.92268664}
-  m_LocalPosition: {x: 0, y: 8.1, z: -8}
+  m_LocalPosition: {x: 0, y: 15.6, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

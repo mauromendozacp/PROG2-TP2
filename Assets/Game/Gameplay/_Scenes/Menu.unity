@@ -499,7 +499,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Mauro Mendoza\nTomas Giron\nJesica Rodr\xEDguez\t\nMat\xEDas Lorenzo"
+  m_text: "Mauro Mendoza\nTomas Giron\nJesica Rodr\xEDguez\nMat\xEDas Lorenzo"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1bf4421b54c873f4ea47237c8f73e7c6, type: 2}
   m_sharedMaterial: {fileID: 651448351849703696, guid: 1bf4421b54c873f4ea47237c8f73e7c6,
@@ -563,7 +563,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 3.952301, y: 0, z: 0, w: 0}
+  m_margin: {x: 3.952301, y: 0, z: 0, w: -57.328613}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -948,7 +948,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.17132178, y: -0, z: -0, w: 0.9852152}
-  m_LocalPosition: {x: -101.9, y: 213, z: 1}
+  m_LocalPosition: {x: -118.7, y: 237.3, z: 7.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2516,7 +2516,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -90}
+  m_AnchoredPosition: {x: 0, y: -241}
   m_SizeDelta: {x: 368.8316, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1030188919
@@ -3130,7 +3130,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1432344163
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4738,6 +4738,6 @@ SceneRoots:
   - {fileID: 1204261100}
   - {fileID: 1752093170}
   - {fileID: 1471652220}
+  - {fileID: 547080580}
   - {fileID: 1478577510}
   - {fileID: 1930890539}
-  - {fileID: 547080580}

@@ -1270,7 +1270,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &422047445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2393,6 +2393,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ExitButton
       objectReference: {fileID: 0}
+    - target: {fileID: 3660859105170546389, guid: 8e87e08af7d0127439d09640be09197e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4919810266853730293, guid: 8e87e08af7d0127439d09640be09197e,
         type: 3}
       propertyPath: m_text
@@ -3154,7 +3159,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1432344163
 MonoBehaviour:
   m_ObjectHideFlags: 0

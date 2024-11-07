@@ -44,7 +44,7 @@ public class Inventory : MonoBehaviour
         }
         else
         {
-            if (ID == CurrentItems[slotPos].ID && GameplayManager.GetInstance().GetItemFromID(ID).maxStack >= CurrentItems[slotPos].amount + amount)
+            if (ID == CurrentItems[slotPos].ID && ItemManager.Instance.GetItemFromID(ID).maxStack >= CurrentItems[slotPos].amount + amount)
             {
                 CurrentItems[slotPos].AddAmount(amount);
                 return true;
@@ -82,8 +82,8 @@ public class Inventory : MonoBehaviour
         if (slotPosFrom == slotPosTo) return;
         if (!CurrentItems[slotPosFrom].IsEmpty() && !CurrentItems[slotPosTo].IsEmpty())
         {
-            Item fromItem = GameplayManager.GetInstance().GetItemFromID(CurrentItems[slotPosFrom].ID);
-            Item toItem = GameplayManager.GetInstance().GetItemFromID(CurrentItems[slotPosTo].ID);
+            Item fromItem = ItemManager.Instance.GetItemFromID(CurrentItems[slotPosFrom].ID);
+            Item toItem = ItemManager.Instance.GetItemFromID(CurrentItems[slotPosTo].ID);
             if (fromItem.GetItemType() == toItem.GetItemType() && toItem.maxStack > 1 && fromItem.maxStack > 1)
             {
                 CurrentItems[slotPosFrom].amount = CurrentItems[slotPosTo].AddAmount(CurrentItems[slotPosFrom].amount);
@@ -101,7 +101,7 @@ public class Inventory : MonoBehaviour
 
     public bool UseItem(int slotPos)    // Doble click o Click Derecho
     {
-        if (GameplayManager.GetInstance().GetItemFromID(CurrentItems[slotPos].ID).GetItemType() == ItemType.Consumable)
+        if (ItemManager.Instance.GetItemFromID(CurrentItems[slotPos].ID).GetItemType() == ItemType.Consumable)
         {
             CurrentItems[slotPos].AddAmount(-1);
             if (CurrentItems[slotPos].IsEmpty())
@@ -183,7 +183,7 @@ public class Inventory : MonoBehaviour
         {
             if (x.IsEmpty()) return 1;
             else if (y.IsEmpty()) return -1;
-            return GameplayManager.GetInstance().GetItemFromID(x.ID).name.CompareTo(GameplayManager.GetInstance().GetItemFromID(y.ID).name);
+            return ItemManager.Instance.GetItemFromID(x.ID).name.CompareTo(ItemManager.Instance.GetItemFromID(y.ID).name);
         }
     }
     class SortByLevel : IComparer<Slot>
@@ -192,7 +192,7 @@ public class Inventory : MonoBehaviour
         {
             if (x.IsEmpty()) return 1;
             else if (y.IsEmpty()) return -1;
-            return GameplayManager.GetInstance().GetItemFromID(x.ID).level.CompareTo(GameplayManager.GetInstance().GetItemFromID(y.ID).level);
+            return ItemManager.Instance.GetItemFromID(x.ID).level.CompareTo(ItemManager.Instance.GetItemFromID(y.ID).level);
         }
     }
     class SortByType : IComparer<Slot>
@@ -201,7 +201,7 @@ public class Inventory : MonoBehaviour
         {
             if (x.IsEmpty()) return 1;
             else if (y.IsEmpty()) return -1;
-            return GameplayManager.GetInstance().GetItemFromID(x.ID).GetItemType().CompareTo(GameplayManager.GetInstance().GetItemFromID(y.ID).GetItemType());
+            return ItemManager.Instance.GetItemFromID(x.ID).GetItemType().CompareTo(ItemManager.Instance.GetItemFromID(y.ID).GetItemType());
         }
     }
 }

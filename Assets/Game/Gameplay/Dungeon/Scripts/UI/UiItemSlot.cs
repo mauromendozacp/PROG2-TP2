@@ -1,23 +1,39 @@
-﻿using TMPro;
+﻿using System;
+
 using UnityEngine;
 using UnityEngine.UI;
 
+using TMPro;
+
 public class UiItemSlot : MonoBehaviour
 {
-    public enum PlayerList { Inventory, Outfit, Arms, None }
+    public enum PlayerList 
+    { 
+        Inventory,
+        Outfit,
+        Arms, 
+        None 
+    }
 
-    [SerializeField] private UiInventory inv;
     [SerializeField] private PlayerList playerList = PlayerList.Inventory;
     [SerializeField] private int indexList;
     [SerializeField] private int id;
     [SerializeField] private int idDefaultSprite;
 
+    private UiInventory inv = null;
+    private Action onRefreshMeshAsStatic = null;
+    private Func<Vector3> onGetDropItemPosition = null;
+
     public int GetID() => id;
     public int GetIndex() => indexList;
     public PlayerList GetPlayerList() => playerList;
 
-    void Start()
+    public void Init(UiInventory inv, Action onRefreshMeshAsStatic, Func<Vector3> onGetDropItemPosition)
     {
+        this.inv = inv;
+        this.onRefreshMeshAsStatic = onRefreshMeshAsStatic;
+        this.onGetDropItemPosition = onGetDropItemPosition;
+
         inv.RefreshAllButtonsEvent += RefreshButton;
     }
 
@@ -34,7 +50,9 @@ public class UiItemSlot : MonoBehaviour
         if (id < 0)
         {
             if (playerList == PlayerList.Inventory)
+            {
                 transform.GetChild(0).GetComponent<Image>().sprite = inv.defaultSprites[0];
+            }
             else
             {
                 transform.GetChild(0).GetComponent<Image>().sprite = inv.defaultSprites[idDefaultSprite];
@@ -43,30 +61,30 @@ public class UiItemSlot : MonoBehaviour
         }
         else
         {
-            /*Sprite sprite = GameplayManager.GetInstance().GetItemFromID(id).icon;
+            Sprite sprite = ItemManager.Instance.GetItemFromID(id).icon;
             transform.GetChild(0).GetComponent<Image>().sprite = sprite;
 
-            if (GameplayManager.GetInstance().GetItemFromID(id).maxStack > 1)
+            if (ItemManager.Instance.GetItemFromID(id).maxStack > 1)
             {
                 gameObject.transform.GetChild(1).gameObject.SetActive(true);
                 switch (playerList)
                 {
-                    case UiItemSlot.PlayerList.Arms:
-                    case UiItemSlot.PlayerList.Outfit:
-                        gameObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = inv.equipment.GetSlot(indexList).amount.ToString();
+                    case PlayerList.Arms:
+                    case PlayerList.Outfit:
+                        gameObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = inv.Equipment.GetSlot(indexList).amount.ToString();
                         break;
-                    case UiItemSlot.PlayerList.Inventory:
-                        gameObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = inv.inventory.GetSlot(indexList).amount.ToString();
+                    case PlayerList.Inventory:
+                        gameObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = inv.Inventory.GetSlot(indexList).amount.ToString();
                         break;
                 }
             }
             else
             {
                 gameObject.transform.GetChild(1).gameObject.SetActive(false);
-            }*/
+            }
         }
 
-        //Player.OnRefreshMeshAsStatic?.Invoke();
+        onRefreshMeshAsStatic?.Invoke();
     }
 
     private void Refresh(PlayerList playerlist)
@@ -75,18 +93,13 @@ public class UiItemSlot : MonoBehaviour
         {
             case PlayerList.Arms:
             case PlayerList.Outfit:
-                id = inv.equipment.GetID(indexList);
+                id = inv.Equipment.GetID(indexList);
                 break;
             case PlayerList.Inventory:
-                id = inv.inventory.GetID(indexList);
+                id = inv.Inventory.GetID(indexList);
                 break;
         }
         SetButton(indexList, id);
-    }
-
-    private void Awake()
-    {
-        inv = FindObjectOfType<UiInventory>();
     }
 
     public void MouseDown(RectTransform btn)
@@ -98,7 +111,7 @@ public class UiItemSlot : MonoBehaviour
         {
             if (playerList == PlayerList.Inventory)
             {
-                inv.inventory.Divide(indexList);
+                inv.Inventory.Divide(indexList);
                 inv.RefreshAllButtons();
             }
         }
@@ -106,10 +119,10 @@ public class UiItemSlot : MonoBehaviour
         {
             if (playerList == PlayerList.Inventory)
             {
-                /*Vector3 temporalItemPosition = playerReference.transform.position + playerReference.transform.forward * 2.5f;
-                GameplayManager.GetInstance().GenerateItemInWorldSpace(inv.inventory.GetID(indexList), inv.inventory.GetSlot(indexList).amount, temporalItemPosition);
-                inv.inventory.DeleteItem(indexList);
-                Refresh(playerList);*/
+                Vector3 temporalItemPosition = onGetDropItemPosition.Invoke();
+                ItemManager.Instance.GenerateItemInWorldSpace(inv.Inventory.GetID(indexList), inv.Inventory.GetSlot(indexList).amount, temporalItemPosition);
+                inv.Inventory.DeleteItem(indexList);
+                Refresh(playerList);
             }
         }
         else if (Input.GetMouseButton(0))
@@ -121,7 +134,7 @@ public class UiItemSlot : MonoBehaviour
             switch (playerList)
             {
                 case PlayerList.Inventory:
-                    if (inv.inventory.UseItem(indexList))
+                    if (inv.Inventory.UseItem(indexList))
                     {
                         inv.RefreshAllButtons();
                         inv.RefreshToolTip(btn);
@@ -137,7 +150,7 @@ public class UiItemSlot : MonoBehaviour
                     break;
                 case PlayerList.Outfit:
                 case PlayerList.Arms:
-                    if (inv.equipment.RemoveEquipment(indexList))
+                    if (inv.Equipment.RemoveEquipment(indexList))
                     {
                         inv.RefreshAllButtons();
                         inv.RefreshToolTip(btn);
@@ -155,10 +168,6 @@ public class UiItemSlot : MonoBehaviour
         Refresh(playerList);
     }
 
-    private void RefreshTooltipText()
-    {
-
-    }
     public void MouseDrag()
     {
         inv.MouseDrag();

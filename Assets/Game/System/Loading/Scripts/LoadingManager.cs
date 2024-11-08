@@ -1,21 +1,19 @@
-using System;
-using System.Collections.Generic;
 
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LoadingManager : MonoBehaviour
 {
     private bool isLoading = false;
-    private LoadingUI loadingUI = null;
-
-    private Action onFinishTransition = null;
+    public LoadingUI loadingUI = null;
 
     private static readonly Dictionary<SceneGame, string> sceneNames = new Dictionary<SceneGame, string>()
     {
         { SceneGame.Menu, "Menu" },
-        { SceneGame.Dungeon, "Dungeon" },
-        { SceneGame.Loading, "Loading" }
+        { SceneGame.Gameplay, "Gameplay" }
     };
 
     public void SetLoadingUI(LoadingUI loadingUI)
@@ -25,72 +23,84 @@ public class LoadingManager : MonoBehaviour
 
     public void TransitionScene(SceneGame nextScene, Action onComplete = null)
     {
+        if (isLoading) return;
+
         isLoading = true;
 
-        loadingUI.ToggleUI(true,
-            onComplete: () =>
-            {
-                UnloadScene(GetCurrentScene(),
-                    onSuccess: () =>
-                    {
-                        LoadingScene(nextScene,
-                            onSuccess: () =>
-                            {
-                                SetActiveScene(nextScene);
-                                loadingUI.ToggleUI(false,
-                                    onComplete: () =>
-                                    {
-                                        onComplete?.Invoke();
+        if (loadingUI == null)
+        {
+            Debug.LogError("loadingUI is not assigned!");
+            return;
+        }
 
-                                        onFinishTransition?.Invoke();
-                                        onFinishTransition = null;
-
-                                        isLoading = false;
-                                    });
-                            });
-                    });
-            });
+        // Show the loading canvas and start the scene transition
+        loadingUI.ToggleUI(true, onComplete: () =>
+        {
+            StartCoroutine(LoadSceneCoroutine(nextScene, onComplete));
+        });
     }
 
-    public void SetFinishTransitionCallback(Action callback)
+    private IEnumerator LoadSceneCoroutine(SceneGame nextScene, Action onComplete)
+{
+    // Load the new scene first
+    yield return LoadingScene(nextScene);
+
+    // Unload the current scene after loading the new one
+    yield return UnloadScene(GetCurrentScene());
+
+    // Hide the loading canvas and execute the completion action
+    loadingUI.ToggleUI(false, onComplete: () =>
     {
-        if (isLoading)
-        {
-            onFinishTransition += callback;
-        }
-        else
-        {
-            callback.Invoke();
-        }
-    }
+        onComplete?.Invoke();
+        isLoading = false;
+    });
+}
 
-    public void LoadingScene(SceneGame scene, Action onSuccess = null)
+
+    private IEnumerator LoadingScene(SceneGame scene)
     {
         if (sceneNames.TryGetValue(scene, out string sceneName))
         {
             AsyncOperation op = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-            op.completed += (op) =>
+            while (!op.isDone)
             {
-                onSuccess?.Invoke();
-            };
+                yield return null;
+            }
+            // Make the new scene the active one
         }
     }
 
-    private void UnloadScene(SceneGame scene, Action onSuccess = null)
+    private IEnumerator UnloadScene(SceneGame scene)
     {
         if (sceneNames.TryGetValue(scene, out string sceneName))
         {
-            AsyncOperation op = SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName(sceneName));
-            op.completed += (op) =>
+            Scene sceneToUnload = SceneManager.GetSceneByName(sceneName);
+
+            if (sceneToUnload.isLoaded)
             {
-                onSuccess?.Invoke();
-            };
+                AsyncOperation op = SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName(sceneName));
+                while (!op.isDone)
+                {
+                    yield return null;
+                }
+
+
+            }
+            else
+            {
+                Debug.LogWarning($"Scene '{sceneName}' is not loaded, aborting load.");
+            }
+        }
+        else
+        {
+            Debug.LogError($"Scene '{scene}' not found at 'sceneNames'.");
         }
     }
 
     private SceneGame GetCurrentScene()
     {
         string currSceneName = SceneManager.GetActiveScene().name;
+        Debug.Log($"Actual scene name: {currSceneName}");
 
         foreach (KeyValuePair<SceneGame, string> scene in sceneNames)
         {
@@ -100,8 +110,10 @@ public class LoadingManager : MonoBehaviour
             }
         }
 
+        Debug.LogWarning("No matching scene found in 'sceneNames'.");
         return default;
     }
+
 
     private void SetActiveScene(SceneGame scene)
     {
@@ -111,3 +123,4 @@ public class LoadingManager : MonoBehaviour
         }
     }
 }
+

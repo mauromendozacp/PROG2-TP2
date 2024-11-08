@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     {
         currentSpeed = walkSpeed;
 
-        inputController.Init(null, inventoryController.ToggleInventory, PickItem, ToggleRun);
+        inputController.Init(null, ToggleInventory, PickItem, ToggleRun);
         inventoryController.Init();
     }
 
@@ -108,5 +108,12 @@ public class PlayerController : MonoBehaviour
             pickItem.RemoveDestroyItem(item);
             Destroy(item.gameObject);
         }
+    }
+
+    private void ToggleInventory()
+    {
+        inventoryController.ToggleInventory();
+
+        inputController.UpdateInputFSM(inventoryController.IsOpenPanelInventory() ? FSM_INPUT.INVENTORY : FSM_INPUT.ENABLE_ALL);
     }
 }

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 108e58c2f4ea4ec4baef2c10777a486a, type: 3}
-  m_Name: Zephyr
+  m_Name: Zephyr Bow
   m_EditorClassIdentifier: 
   itemName: Zephyr
   level: 15

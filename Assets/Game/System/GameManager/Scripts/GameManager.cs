@@ -20,26 +20,13 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
     public override void Awake()
     {
-        base.Awake();
-
         if (instance == null)
         {
-            // Find LoadingUI only if loadingUI is null
-            if (loadingUI == null)
-            {
-                loadingUI = FindObjectOfType<LoadingUI>();
-            }
-            
-            // Check that loadingUI is not null
-            if (loadingUI == null)
-            {
-                Debug.LogError("LoadingUI not found in the scene!");
-                return;
-            }
-
-            loadingManager.SetLoadingUI(loadingUI);
+            loadingManager.LoadingScene(SceneGame.Loading);
             audioManager.Init();
         }
+
+        base.Awake();
     }
 
     public void ChangeScene(SceneGame nextScene, Action onComplete = null)

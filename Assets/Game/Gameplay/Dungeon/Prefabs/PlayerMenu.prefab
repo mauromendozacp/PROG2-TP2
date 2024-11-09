@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3208253232396935896}
   - component: {fileID: 4659378324807364297}
-  - component: {fileID: 3115718854109680449}
   m_Layer: 8
   m_Name: PlayerUI
   m_TagString: Untagged
@@ -62,33 +61,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!54 &3115718854109680449
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 10030203995906378}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &547307639968639080
 GameObject:
   m_ObjectHideFlags: 0
@@ -882,7 +854,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3698422351429544941}
   m_Layer: 0
-  m_Name: jugador
+  m_Name: PlayerMenu
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -9,6 +9,8 @@ public class MenuController : MonoBehaviour
     [SerializeField] private GameObject menuCanvas; 
     [SerializeField] private Canvas creditsCanvas;
 
+    [SerializeField] private GameObject configCanvas;
+
     private void Start()
     {
         // Get the GameManager instance at startup
@@ -39,6 +41,13 @@ public class MenuController : MonoBehaviour
     {
         creditsCanvas.gameObject.SetActive(false);
         menuCanvas.gameObject.SetActive(true);
+        configCanvas.gameObject.SetActive(false);
+    }
+
+    public void ConfigButton()
+    {
+        menuCanvas.gameObject.SetActive(false);
+        configCanvas.gameObject.SetActive(true);
     }
 
     public void ExitGame()

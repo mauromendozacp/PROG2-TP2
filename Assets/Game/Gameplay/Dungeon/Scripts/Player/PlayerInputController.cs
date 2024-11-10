@@ -32,7 +32,7 @@ public class PlayerInputController : MonoBehaviour
         this.onRun = onRun;
 
         inputAction = new PlayerInput();
-        inputAction.Player.Pause.performed += OnPause;
+        inputAction.Player.PauseGame.performed += OnPause;
         inputAction.Player.Inventory.performed += OnInvetory;
         inputAction.Player.PickItem.performed += OnPick;
         inputAction.Player.Run.performed += OnStartRun;
@@ -66,7 +66,7 @@ public class PlayerInputController : MonoBehaviour
         onRun?.Invoke(false);
     }
 
-    public void UpdateInputFSM(FSM_INPUT fsm)
+    public void UpdateInputFSM(FSM_INPUT fsm, bool setCurrentState = true)
     {
         switch (fsm)
         {
@@ -89,7 +89,10 @@ public class PlayerInputController : MonoBehaviour
                 break;
         }
 
-        currentInputState = fsm;
+        if (setCurrentState)
+        {
+            currentInputState = fsm;
+        }
     }
 
     private Vector2 GetMoveValue()

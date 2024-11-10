@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -21,6 +22,8 @@ public class PlayerController : MonoBehaviour
 
     private float currentSpeed = 0f;
 
+    private Action onOpenPausePanel = null;
+
     private void Awake()
     {
         character = GetComponent<CharacterController>();
@@ -33,7 +36,7 @@ public class PlayerController : MonoBehaviour
     {
         currentSpeed = walkSpeed;
 
-        inputController.Init(null, ToggleInventory, PickItem, ToggleRun);
+        inputController.Init(ToggleOnPause, ToggleInventory, PickItem, ToggleRun);
         inventoryController.Init();
     }
 
@@ -45,6 +48,11 @@ public class PlayerController : MonoBehaviour
         UpdateAnimation();
     }
 
+    public void Init(Action onOpenPausePanel)
+    {
+        this.onOpenPausePanel = onOpenPausePanel;
+    }
+
     public void ResetPlayer(Vector3 resetPosition)
     {
         character.enabled = false;
@@ -52,6 +60,11 @@ public class PlayerController : MonoBehaviour
         bodyTransform.SetPositionAndRotation(resetPosition, Quaternion.identity);
 
         character.enabled = true;
+    }
+
+    public void TogglePause(bool status)
+    {
+        inputController.UpdateInputFSM(status ? FSM_INPUT.ONLY_UI : inputController.CurrentInputState, false);
     }
 
     private void ApplyGravity()
@@ -115,5 +128,11 @@ public class PlayerController : MonoBehaviour
         inventoryController.ToggleInventory();
 
         inputController.UpdateInputFSM(inventoryController.IsOpenPanelInventory() ? FSM_INPUT.INVENTORY : FSM_INPUT.ENABLE_ALL);
+    }
+
+    private void ToggleOnPause()
+    {
+        TogglePause(true);
+        onOpenPausePanel?.Invoke();
     }
 }

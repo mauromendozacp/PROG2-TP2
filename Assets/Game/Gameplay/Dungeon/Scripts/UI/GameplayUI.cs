@@ -13,24 +13,54 @@ public class GameplayUI : MonoBehaviour
     [SerializeField] private Button resumeBtn = null;
     [SerializeField] private Button backToMenuBtn = null;
 
-    private Action<bool> onTogglePlayerInput = null;
+    [Header("Lose Settings")]
+    [SerializeField] private GameObject losePanel = null;
+    [SerializeField] private Button retryBtn = null;
+    [SerializeField] private Button loseBackToMenuBtn = null;
+
+    [Header("Win Settings")]
+    [SerializeField] private GameObject winPanel = null;
+    [SerializeField] private Button winBackToMenuBtn = null;
+
+    private Action<bool> onToggleTimeScale = null;
+    private Action onToggleOnPlayerInput = null;
 
     private void Start()
     {
         resumeBtn.onClick.AddListener(() => TogglePause(false));
         backToMenuBtn.onClick.AddListener(BackToMenu);
+
+        retryBtn.onClick.AddListener(Retry);
+        loseBackToMenuBtn.onClick.AddListener(BackToMenu);
+
+        winBackToMenuBtn.onClick.AddListener(BackToMenu);
     }
 
-    public void Init(Action<bool> onTogglePlayerInput)
+    public void Init(Action<bool> onToggleTimeScale, Action onToggleOnPlayerInput)
     {
-        this.onTogglePlayerInput = onTogglePlayerInput;
+        this.onToggleTimeScale = onToggleTimeScale;
+        this.onToggleOnPlayerInput = onToggleOnPlayerInput;
     }
 
     public void TogglePause(bool status)
     {
         pausePanel.SetActive(status);
-        ToggleTimeScale(!status);
-        onTogglePlayerInput?.Invoke(status);
+        onToggleTimeScale?.Invoke(!status);
+
+        if (!status)
+        {
+            onToggleOnPlayerInput?.Invoke();
+        }
+    }
+
+    public void OpenLosePanel()
+    {
+        losePanel.SetActive(true);
+    }
+
+    public void OpenWinPanel()
+    {
+        winPanel.SetActive(true);
     }
 
     public void UpdatePlayerHealth(int currentLives, int maxLives)
@@ -43,13 +73,24 @@ public class GameplayUI : MonoBehaviour
         resumeBtn.interactable = false;
         backToMenuBtn.interactable = false;
 
+        retryBtn.interactable = false;
+        loseBackToMenuBtn.interactable = false;
+
+        winBackToMenuBtn.interactable = false;
+
         GameManager.Instance.ChangeScene(SceneGame.Menu);
         GameManager.Instance.AudioManager.ToggleMusic(true);
-        ToggleTimeScale(true);
+        onToggleTimeScale?.Invoke(true);
     }
 
-    private void ToggleTimeScale(bool status)
+    private void Retry()
     {
-        Time.timeScale = status ? 1f : 0f;
+        retryBtn.interactable = false;
+        loseBackToMenuBtn.interactable = false;
+
+        GameManager.Instance.ChangeScene(SceneGame.Gameplay);
+        GameManager.Instance.AudioManager.ToggleMusic(true);
     }
+
+    
 }

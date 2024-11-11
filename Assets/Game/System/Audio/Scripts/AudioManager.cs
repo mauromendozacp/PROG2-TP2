@@ -45,6 +45,7 @@ public class AudioManager : MonoBehaviour
     public float MusicVolume { get => musicVolume; }
     public float SfxVolume { get => sfxVolume; }
 
+    
     public void Init()
     {
         audioMixerGroupsDic = new Dictionary<string, AudioMixerGroup>();
@@ -63,6 +64,12 @@ public class AudioManager : MonoBehaviour
         sfxEnabled = true;
         musicEnabled = true;
     }
+
+    private void Awake()
+    {
+        Init();
+    }
+
 
     public void PlayAudio(AudioEvent audioEvent, Vector3 position = new Vector3())
     {
@@ -139,7 +146,7 @@ public class AudioManager : MonoBehaviour
             {
                 float timer = 0f;
                 isStopingMusic = true;
-                
+
                 while (timer < musicLerpTime)
                 {
                     timer += Time.deltaTime;
@@ -206,13 +213,15 @@ public class AudioManager : MonoBehaviour
     private void UpdateSfxVolumeMixer(float volume)
     {
         audioMixerGroupsDic[sfxMixerName].audioMixer.SetFloat(sfxVolumeParameter, volume);
+
     }
 
-    private void UpdateMusicVolumeMixer(float volume)
+   private void UpdateMusicVolumeMixer(float volume)
     {
+      
         audioMixerGroupsDic[musicMixerName].audioMixer.SetFloat(musicVolumeParameter, volume);
-    }
 
+    }
     private AudioSfx GenerateSFXSource()
     {
         return Instantiate(audioSfxPrefab, sfxHolder);

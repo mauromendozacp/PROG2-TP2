@@ -206,12 +206,15 @@ public class AudioManager : MonoBehaviour
     private void UpdateSfxVolumeMixer(float volume)
     {
         audioMixerGroupsDic[sfxMixerName].audioMixer.SetFloat(sfxVolumeParameter, volume);
+    
     }
 
     private void UpdateMusicVolumeMixer(float volume)
     {
+    
         audioMixerGroupsDic[musicMixerName].audioMixer.SetFloat(musicVolumeParameter, volume);
-    }
+   
+}
 
     private AudioSfx GenerateSFXSource()
     {

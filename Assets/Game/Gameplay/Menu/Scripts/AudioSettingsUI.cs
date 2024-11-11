@@ -16,8 +16,6 @@ public class AudioSettingsUI : MonoBehaviour
         // Initialize sliders with saved values
         float musicVolume = PlayerPrefs.GetFloat("MusicVolume", 1f);
         float sfxVolume = PlayerPrefs.GetFloat("SfxVolume", 1f);
-        Debug.Log("El volumen de la música es: " + musicVolume);
-        Debug.Log("El volumen de la música es: " + sfxVolume);
         musicSlider.value = musicVolume;
         sfxSlider.value = sfxVolume;
 

@@ -17,6 +17,7 @@ public class EnemyChestIdleState : IEnemyState
         chest.SetAnimator("Walk", false);
         chest.SetAnimator("IdleAttack", false);
         chest.SetAnimator("Run", false);
+        chest.ResetAgentDestination();
 
     }
 

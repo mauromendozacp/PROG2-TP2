@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyChestController : MonoBehaviour
 {
@@ -15,10 +16,12 @@ public class EnemyChestController : MonoBehaviour
     [SerializeField] Transform _player;
     [SerializeField] Transform _collectible;
     Animator _anim;
+    NavMeshAgent _agent;
 
     private void Awake()
     {
         _anim = GetComponent<Animator>();
+        _agent = GetComponent<NavMeshAgent>();
     }
 
     private void Start()
@@ -73,12 +76,14 @@ public class EnemyChestController : MonoBehaviour
 
     public void RunTowardsPlayer()
     {
-        MoveTowards(_player.position, _runSpeed);
+        //MoveTowards(_player.position, _runSpeed);
+        _agent.destination = _player.position;
     }
 
     public void MoveTowardsCollectible()
     {
-        MoveTowards(_collectible.position, _moveSpeed);
+        //MoveTowards(_collectible.position, _moveSpeed);
+        _agent.destination = _collectible.position;
     }
 
     void LookAtTarget(Vector3 target)
@@ -92,5 +97,16 @@ public class EnemyChestController : MonoBehaviour
     {
         Vector3 direction = (target - transform.position).normalized;
         transform.position += direction * speed * Time.deltaTime;
+    }
+
+    public void SetAgentDestination(Vector3 destination)
+    {
+        _agent.destination = destination;
+    }
+
+
+    public void ResetAgentDestination()
+    {
+        _agent.ResetPath();
     }
 }

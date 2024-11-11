@@ -40,6 +40,7 @@ public class EnemyChestBattleState : IEnemyState
         {
             chest.SetAnimator("Run", false);
             chest.LootAtPlayer();
+            chest.ResetAgentDestination();
             if(!isAttackingMode)
             {
                 isAttackingMode = true;

@@ -13,6 +13,7 @@ public class EnemyChestSleepingState : IEnemyState
 
     public void EnterState()
     {
+        chest.ResetAgentDestination();
         chest.SetAnimator("Sleep", true);
     }
 

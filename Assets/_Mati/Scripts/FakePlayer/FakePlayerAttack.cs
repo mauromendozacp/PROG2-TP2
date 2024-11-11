@@ -12,15 +12,25 @@ public class FakePlayerAttack : MonoBehaviour
     public void Attack()
     {
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position, _attackRange, _enemyLayer);
-
+        Debug.Log($"Enemigos detectados: {hitEnemies.Length}");
         foreach (Collider enemy in hitEnemies)
         {
             IDamagable damageable = enemy.GetComponent<IDamagable>();
             if (damageable != null)
             {
-                Debug.Log("Player ataca a enemigo");
+                Debug.Log($"Aplicando daño a: {enemy.name}");
                 damageable.Damage(_attackDamage);
             }
+            else
+            {
+                Debug.LogWarning($"El objeto {enemy.name} no implementa IDamagable.");
+            }
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, _attackRange);
     }
 }

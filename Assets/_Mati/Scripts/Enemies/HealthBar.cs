@@ -61,6 +61,6 @@ public class HealthBar : MonoBehaviour
 
     public void Enable()
     {
-        gameObject.SetActive(true);
+        if(!_healtheable.IsDead()) gameObject.SetActive(true);
     }
 }

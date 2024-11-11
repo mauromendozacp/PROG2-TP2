@@ -9,14 +9,16 @@ public class EnemyHealth : MonoBehaviour, IDamagable, IHealtheable
     [SerializeField] int _maxHealth = 50;
     [SerializeField] HealthBar _healthBar;
     int _currentHealth;
-    Animator _anim;
-    Rigidbody _rb;
+    [SerializeField] Animator _anim;
+    [SerializeField] Rigidbody _rb;
+    [SerializeField] GameObject _rootGameObject;
 
     private void Awake()
     {
         _currentHealth = _maxHealth;
-        _anim = GetComponent<Animator>();
-        _rb = GetComponent<Rigidbody>();
+        if(_anim == null) _anim = GetComponent<Animator>();
+        if (_rb == null) _rb = GetComponent<Rigidbody>();
+        if (_rootGameObject == null) _rootGameObject = gameObject;
     }
 
     private void Start()
@@ -39,13 +41,14 @@ public class EnemyHealth : MonoBehaviour, IDamagable, IHealtheable
 
     IEnumerator Die()
     {
+        _healthBar.Disable();
         _anim.SetTrigger("Die");
         _healthBar.Disable();
         //_rb.isKinematic = true;
         //_rb.detectCollisions = false;
         _rb.constraints = RigidbodyConstraints.None;
         yield return new WaitForSeconds(3f);
-        Destroy(gameObject);
+        Destroy(_rootGameObject);
     }
 
     public int GetCurrentHealth() => _currentHealth;

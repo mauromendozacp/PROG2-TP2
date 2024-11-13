@@ -31,4 +31,4 @@ MonoBehaviour:
   type: 2
   twoHanded: 0
   damage: 60
-  speed: 120
+  speed: 60

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 using UnityEngine;
 using UnityEngine.Pool;
@@ -8,34 +9,41 @@ public class ProjectilePoolController : MonoBehaviour
     [SerializeField] private ItemProjectile[] projectilePrefabs = null;
     [SerializeField] private Transform poolHolder = null;
 
-    private List<ObjectPool<ItemProjectile>> projectilePools = null;
+    private Dictionary<PROJECTILE_TYPE, ObjectPool<ItemProjectile>> projectilePools = null;
 
     private void Start()
     {
-        projectilePools = new List<ObjectPool<ItemProjectile>>();
+        projectilePools = new Dictionary<PROJECTILE_TYPE, ObjectPool<ItemProjectile>>();
         for (int i = 0; i < projectilePrefabs.Length; i++)
         {
-            projectilePools[i] = new ObjectPool<ItemProjectile>(
+            ItemProjectile projectile = projectilePrefabs[i];
+            projectilePools[projectile.Type] = new ObjectPool<ItemProjectile>(
                 () =>
                 {
-                    return CreateProjectile(i);
+                    return CreateProjectile(projectile.Type);
                 }, 
                 GetProjectile, ReleaseProjectile, DestroyProjectile);
         }
     }
 
-    public ItemProjectile GetProjectileItem(int id)
+    public ItemProjectile GetProjectileItem(PROJECTILE_TYPE id)
     {
         return projectilePools[id].Get();
     }
 
-    private ItemProjectile CreateProjectile(int id)
+    private ItemProjectile CreateProjectile(PROJECTILE_TYPE id)
     {
-        ItemProjectile projectileItem = Instantiate(projectilePrefabs[id], poolHolder);
-        projectileItem.Init();
-        projectileItem.onRelease = () => projectilePools[id].Release(projectileItem);
+        ItemProjectile projectilePrefab = projectilePrefabs.ToList().Find(p => p.Type == id);
+        if (projectilePrefab != null)
+        {
+            ItemProjectile projectileItem = Instantiate(projectilePrefab, poolHolder);
+            projectileItem.Init();
+            projectileItem.onRelease = () => projectilePools[id].Release(projectileItem);
 
-        return projectileItem;
+            return projectileItem;
+        }
+
+        return null;
     }
 
     private void GetProjectile(ItemProjectile projectile)

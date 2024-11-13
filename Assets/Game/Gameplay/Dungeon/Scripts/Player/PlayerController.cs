@@ -10,8 +10,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float defenseSpeed = 0f;
     [SerializeField] private float turnSmoothVelocity = 0f;
     [SerializeField] private PlayerInventoryController inventoryController = null;
-    [SerializeField] private PickItem pickItem = null;
     [SerializeField] private PlayerItemInteraction itemInteraction = null;
+    [SerializeField] private PickItem pickItem = null;
 
     private PlayerInputController inputController = null;
 
@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
         inputController.Init(ToggleOnPause, ToggleInventory, PickItem, ToggleRun,
             itemInteraction.PressAction1, itemInteraction.PressAction2, itemInteraction.CancelAction1, itemInteraction.CancelAction2);
         inventoryController.Init();
-        itemInteraction.Init(inventoryController.Equipment, inputController, ToggleDefense, null);
+        itemInteraction.Init(inputController, inventoryController, ToggleDefense, null);
     }
 
     private void Update()

@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 446090}
   - component: {fileID: 5499024}
   - component: {fileID: 559903496}
-  - component: {fileID: -1592775580376915169}
+  - component: {fileID: 8236680157429270748}
   m_Layer: 10
   m_Name: Asteroid 2
   m_TagString: Untagged
@@ -169,7 +169,7 @@ CapsuleCollider:
   m_Height: 3.782463
   m_Direction: 1
   m_Center: {x: 0.08900404, y: 0.33142376, z: 0.015198469}
---- !u!114 &-1592775580376915169
+--- !u!114 &8236680157429270748
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -178,10 +178,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 141316}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9bed981c13138747a713da78b41149e, type: 3}
+  m_Script: {fileID: 11500000, guid: 42ebf62e8bdd4dc499789642e70ab9fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialForce: 0
+  initialForce: 3
 --- !u!1 &146874
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,8 +438,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -1.65, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 446090}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}

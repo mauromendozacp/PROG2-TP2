@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class ArrowProjectile : ItemProjectile
 {
+    [SerializeField] private MeshFilter meshFilter = null;
+
     private BoxCollider boxCollider = null;
     private Rigidbody rb = null;
     private int damage = 0;
@@ -25,7 +27,7 @@ public class ArrowProjectile : ItemProjectile
 
     public override void Init()
     {
-        boxCollider.excludeLayers = ~targetLayer;
+
     }
 
     public void SetDamage(int damage)
@@ -37,6 +39,11 @@ public class ArrowProjectile : ItemProjectile
     {
         transform.forward = direction;
         rb.AddForce(force * direction, ForceMode.Impulse);
+    }
+
+    public void SetMesh(Mesh mesh)
+    {
+        meshFilter.mesh = mesh;
     }
 
     public override void Release()

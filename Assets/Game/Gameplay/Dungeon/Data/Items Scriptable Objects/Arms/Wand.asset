@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 108e58c2f4ea4ec4baef2c10777a486a, type: 3}
+  m_Name: Wand
+  m_EditorClassIdentifier: 
+  itemName: Wand
+  level: 10
+  weight: 50
+  price: 500
+  maxStack: 1
+  icon: {fileID: 21300000, guid: 94ffffa8d35e5b141945cf8413ca60ba, type: 3}
+  mesh: {fileID: -5526794608893438540, guid: c7f1e075937e3894d9fb5258a92900f3, type: 3}
+  material: {fileID: 2100000, guid: 79f5fd36b579b3442b77e35547e7f869, type: 2}
+  particle: {fileID: 9167329474426544759, guid: 8e11257df1efd3e40afa7e85d9f258de,
+    type: 3}
+  spawnPositionR:
+    pos: {x: 0.1103, y: -0.019, z: 0}
+    rot: {x: 0, y: 0, z: 180}
+  spawnPositionL:
+    pos: {x: -0.125, y: 0.016, z: 0}
+    rot: {x: 14, y: 4.993, z: -16.966}
+  type: 1
+  twoHanded: 0
+  damage: 60
+  speed: 120

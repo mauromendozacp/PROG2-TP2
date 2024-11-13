@@ -7,9 +7,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform bodyTransform = null;
     [SerializeField] private float walkSpeed = 0f;
     [SerializeField] private float runSpeed = 0f;
+    [SerializeField] private float defenseSpeed = 0f;
     [SerializeField] private float turnSmoothVelocity = 0f;
     [SerializeField] private PlayerInventoryController inventoryController = null;
     [SerializeField] private PickItem pickItem = null;
+    [SerializeField] private PlayerItemInteraction itemInteraction = null;
 
     private PlayerInputController inputController = null;
 
@@ -21,6 +23,7 @@ public class PlayerController : MonoBehaviour
     private float velocityY = 0f;
 
     private float currentSpeed = 0f;
+    private bool isDefending = false;
 
     private Action onOpenPausePanel = null;
 
@@ -36,8 +39,10 @@ public class PlayerController : MonoBehaviour
     {
         currentSpeed = walkSpeed;
 
-        inputController.Init(ToggleOnPause, ToggleInventory, PickItem, ToggleRun);
+        inputController.Init(ToggleOnPause, ToggleInventory, PickItem, ToggleRun,
+            itemInteraction.PressAction1, itemInteraction.PressAction2, itemInteraction.CancelAction1, itemInteraction.CancelAction2);
         inventoryController.Init();
+        itemInteraction.Init(inventoryController.Equipment, inputController, ToggleDefense, null);
     }
 
     private void Update()
@@ -102,13 +107,20 @@ public class PlayerController : MonoBehaviour
     private float GetMovementSpeed()
     {
         float inputMove = Mathf.Clamp(Mathf.Abs(inputController.Move.x) + Mathf.Abs(inputController.Move.y), 0f, 1f);
+        float maxSpeed = isDefending ? defenseSpeed : runSpeed;
 
-        return inputMove * currentSpeed / runSpeed;
+        return inputMove * currentSpeed / maxSpeed;
     }
 
     private void ToggleRun(bool status)
     {
         currentSpeed = status ? runSpeed : walkSpeed;
+    }
+
+    private void ToggleDefense(bool status)
+    {
+        isDefending = status;
+        currentSpeed = status ? defenseSpeed : walkSpeed;
     }
 
     private void PickItem()

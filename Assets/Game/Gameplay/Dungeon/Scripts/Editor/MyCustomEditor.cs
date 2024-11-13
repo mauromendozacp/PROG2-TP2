@@ -3,21 +3,21 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(GameController))]
+[CustomEditor(typeof(PlayerInventoryController))]
 public class MyCustomEditor : Editor
 {
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
 
-        GameController script = (GameController)target;
+        PlayerInventoryController script = (PlayerInventoryController)target;
 
         GUILayout.Space(10);
         GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
-        if (GUILayout.Button("Regenerate Dungeon", GUILayout.Width(200), GUILayout.Height(40)))
+        if (GUILayout.Button("Add Item", GUILayout.Width(200), GUILayout.Height(40)))
         {
-            script.ResetGame();
+            script.AddItemDebug();
         }
         GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();

@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 
-public enum WeaponType { Sword, Dagger, Bow, Spear, Trident, Crossbow }
+public enum WeaponType 
+{ 
+    Sword, 
+    Wand,
+    Bow 
+}
 
 [CreateAssetMenu(fileName = "Weapon", menuName = "Items/Arms/Weapon")]
 public class Weapon : Arms

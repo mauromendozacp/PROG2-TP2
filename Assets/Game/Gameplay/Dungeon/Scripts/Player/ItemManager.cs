@@ -20,7 +20,7 @@ public class ItemManager : MonoBehaviourSingleton<ItemManager>
 
     public Item GetItemFromID(int id)
     {
-        return allItems.List[id];
+        return (id >= 0 && id < allItems.List.Count) ? allItems.List[id] : null;
     }
 
     public void GenerateItemInWorldSpace(int itemID, int randomAmount, Vector3 spawnPosition)

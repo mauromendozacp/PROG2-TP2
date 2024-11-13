@@ -32,10 +32,17 @@ public class PlayerInventoryController : MonoBehaviour
     [SerializeField] private Transform playerMeshTransform = null;
     [SerializeField] private Transform uiMeshTransform = null;
 
+    [Header("Debug"), Space]
+    [SerializeField] private int ItemID = 0;
+    [SerializeField] private int ItemAmount = 0;
+
     private Inventory inventory = null;
     private Equipment equipment = null;
 
-    string savePath = "PlayerInventoryFile.json";
+    private const string savePath = "PlayerInventoryFile.json";
+
+    public Inventory Inventory { get => inventory; }
+    public Equipment Equipment { get => equipment; }
 
     private void Awake()
     {
@@ -279,5 +286,11 @@ public class PlayerInventoryController : MonoBehaviour
     public bool IsOpenPanelInventory()
     {
         return panelInventory.gameObject.activeSelf;
+    }
+
+    public void AddItemDebug()
+    {
+        inventory.AddNewItem(ItemID, ItemAmount);
+        panelInventory.RefreshAllButtons();
     }
 }

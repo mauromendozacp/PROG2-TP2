@@ -21,8 +21,8 @@ public class Meteor : MonoBehaviour
     {
         if (Utils.CheckLayerInMask(targetLayer, other.gameObject.layer))
         {
-            IDamageable recieveDamage = other.gameObject.GetComponent<IDamageable>();
-            recieveDamage?.TakeDamage(damage);
+            IDamagable recieveDamage = other.gameObject.GetComponent<IDamagable>();
+            recieveDamage?.Damage(damage);
         }
     }
 

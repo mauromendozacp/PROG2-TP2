@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FakePlayerHealth : MonoBehaviour, IDamageable
+public class FakePlayerHealth : MonoBehaviour
 {
     [SerializeField] private int _maxHealth = 100;
     private int _currentHealth;

@@ -18,8 +18,8 @@ public class ArrowProjectile : ItemProjectile
     {
         if (Utils.CheckLayerInMask(targetLayer, collision.gameObject.layer))
         {
-            IDamageable recieveDamage = collision.gameObject.GetComponent<IDamageable>();
-            recieveDamage?.TakeDamage(damage);
+            IDamagable recieveDamage = collision.gameObject.GetComponent<IDamagable>();
+            recieveDamage?.Damage(damage);
 
             onRelease?.Invoke();
         }

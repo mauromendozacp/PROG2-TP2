@@ -888,7 +888,7 @@ GameObject:
   - component: {fileID: 2386748368090749346}
   m_Layer: 0
   m_Name: UiCameraPlayer
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1047,6 +1047,8 @@ MonoBehaviour:
   panelInventory: {fileID: 0}
   playerMeshTransform: {fileID: 0}
   uiMeshTransform: {fileID: 3208253232396935896}
+  ItemID: 0
+  ItemAmount: 0
 --- !u!114 &4610219390884928347
 MonoBehaviour:
   m_ObjectHideFlags: 0

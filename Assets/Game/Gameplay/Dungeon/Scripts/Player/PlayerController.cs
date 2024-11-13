@@ -1,10 +1,11 @@
 using System;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamagable
 {
     [Header("General Settings")]
     [SerializeField] private Transform bodyTransform = null;
+    [SerializeField] private int maxLife = 0;
     [SerializeField] private float walkSpeed = 0f;
     [SerializeField] private float runSpeed = 0f;
     [SerializeField] private float defenseSpeed = 0f;
@@ -22,10 +23,13 @@ public class PlayerController : MonoBehaviour
     private float turnSmoothTime = 0f;
     private float velocityY = 0f;
 
+    private int currentLife = 0;
     private float currentSpeed = 0f;
     private bool isDefending = false;
 
     private Action onOpenPausePanel = null;
+    private Action<int, int> onUpdateLife = null;
+    private Action onPlayerDeath = null;
 
     private void Awake()
     {
@@ -43,6 +47,8 @@ public class PlayerController : MonoBehaviour
             itemInteraction.PressAction1, itemInteraction.PressAction2, itemInteraction.CancelAction1, itemInteraction.CancelAction2);
         inventoryController.Init();
         itemInteraction.Init(inputController, inventoryController, ToggleDefense, null);
+
+        currentLife = maxLife;
     }
 
     private void Update()
@@ -53,9 +59,11 @@ public class PlayerController : MonoBehaviour
         UpdateAnimation();
     }
 
-    public void Init(Action onOpenPausePanel)
+    public void Init(Action onOpenPausePanel, Action<int, int> onUpdateLife, Action onPlayerDeath)
     {
         this.onOpenPausePanel = onOpenPausePanel;
+        this.onUpdateLife = onUpdateLife;
+        this.onPlayerDeath = onPlayerDeath;
     }
 
     public void ResetPlayer(Vector3 resetPosition)
@@ -146,5 +154,17 @@ public class PlayerController : MonoBehaviour
     {
         TogglePause(true);
         onOpenPausePanel?.Invoke();
+    }
+
+    public void Damage(int damageAmount)
+    {
+        currentLife -= damageAmount;
+        if (currentLife <= 0)
+        {
+            currentLife = 0;
+            onPlayerDeath?.Invoke();
+        }
+
+        onUpdateLife?.Invoke(currentLife, maxLife);
     }
 }

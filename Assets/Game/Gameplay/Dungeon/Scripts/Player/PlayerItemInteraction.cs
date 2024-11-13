@@ -92,7 +92,6 @@ public class PlayerItemInteraction : MonoBehaviour
             {
                 onToggleDefense?.Invoke(true);
                 anim.SetBool("Defense", true);
-                ToggleOnInteractionInput();
             }
             else if (item is Consumible consumible)
             {

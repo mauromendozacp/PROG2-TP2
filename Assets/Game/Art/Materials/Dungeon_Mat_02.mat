@@ -48,8 +48,8 @@ Material:
     m_Ints: []
     m_Floats:
     - _Glossiness: 0
-    - _InvFade: 1
+    - _InvFade: 0.76
     m_Colors:
     - _EmissionColor: {r: 1, g: 0.5882353, b: 0.19607843, a: 1}
-    - _TintColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _TintColor: {r: 0.6415094, g: 0.6415094, b: 0.6415094, a: 1}
   m_BuildTextureStacks: []

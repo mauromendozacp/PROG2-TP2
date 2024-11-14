@@ -2,44 +2,51 @@
 
 public class MeteorsProjectile : ItemProjectile
 {
-    [SerializeField] private float initialForce = 0f;
-
-    private Rigidbody rb = null;
-    private int damage = 0;
-
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody>();
-    }
-
-    private void OnEnable()
-    {
-        rb.AddForce(-transform.up * initialForce, ForceMode.Force);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (Utils.CheckLayerInMask(targetLayer, other.gameObject.layer))
-        {
-            IDamageable recieveDamage = other.gameObject.GetComponent<IDamageable>();
-            recieveDamage?.TakeDamage(damage);
-        }
-    }
+    [SerializeField] private Meteor[] meteors = null;
+    [SerializeField] private ParticleSystem circleParticle = null;
+    [SerializeField] private float duration = 0f;
 
     public override void Init()
     {
-
+        for (int i = 0; i < meteors.Length; i++)
+        {
+            meteors[i].SetTargetLayer(targetLayer);
+        }
     }
 
     public void SetDamage(int damage)
     {
-        this.damage = damage;
+        for (int i = 0; i < meteors.Length; i++)
+        {
+            meteors[i].SetDamage(damage);
+        }
+    }
+
+    private void CallReleasePool()
+    {
+        onRelease?.Invoke();
+    }
+
+    public override void Get()
+    {
+        base.Get();
+
+        for (int i = 0; i < meteors.Length; i++)
+        {
+            meteors[i].StartFall();
+        }
+
+        Invoke("CallReleasePool", duration);
+        circleParticle.Play();
     }
 
     public override void Release()
     {
         base.Release();
 
-        rb.velocity = Vector3.zero;
+        for (int i = 0; i < meteors.Length; i++)
+        {
+            meteors[i].Restart();
+        }
     }
 }

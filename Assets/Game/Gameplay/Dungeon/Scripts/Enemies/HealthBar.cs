@@ -22,7 +22,7 @@ public class HealthBar : MonoBehaviour
 
     void Start()
     {
-        _mainCamera = Camera.main.transform;
+        _mainCamera = GameObject.FindWithTag("MainCamera").transform;
         _healthBarColor = HealthBarColor.Green;
         _CurrentHealthBar.GetComponent<SpriteRenderer>().color = Color.green;
     }

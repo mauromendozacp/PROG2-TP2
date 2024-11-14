@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,8 +11,9 @@ public class EnemyChestController : MonoBehaviour
     [SerializeField] float _runSpeed = 4f;
 
     IEnemyState _currentState;
-    [SerializeField] Transform _player;
     [SerializeField] Transform _collectible;
+
+    Transform _player;
     Animator _anim;
     NavMeshAgent _agent;
 
@@ -22,6 +21,8 @@ public class EnemyChestController : MonoBehaviour
     {
         _anim = GetComponent<Animator>();
         _agent = GetComponent<NavMeshAgent>();
+
+        _player = GameObject.FindWithTag("Player").transform;
     }
 
     private void Start()

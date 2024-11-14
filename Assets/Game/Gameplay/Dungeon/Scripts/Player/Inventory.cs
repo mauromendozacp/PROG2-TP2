@@ -99,7 +99,7 @@ public class Inventory : MonoBehaviour
         CurrentItems[slotPosTo] = temp;
     }
 
-    public bool UseItem(int slotPos)    // Doble click o Click Derecho
+    public bool UseItem(int slotPos)
     {
         if (ItemManager.Instance.GetItemFromID(CurrentItems[slotPos].ID).GetItemType() == ItemType.Consumable)
         {

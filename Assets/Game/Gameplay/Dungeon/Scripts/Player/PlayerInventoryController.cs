@@ -283,6 +283,19 @@ public class PlayerInventoryController : MonoBehaviour
         inventory.AddNewItem(item.itemID, item.itemAmount);
     }
 
+    public void ConsumeEquipmentItem(int id)
+    {
+        Slot slot = equipment.GetSlot(id);
+        slot.amount--;
+
+        if (slot.amount <= 0)
+        {
+            slot.EmptySlot();
+            equipment.SetSlot(slot, id);
+            UpdateMesh();
+        }
+    }
+
     public bool IsOpenPanelInventory()
     {
         return panelInventory.gameObject.activeSelf;

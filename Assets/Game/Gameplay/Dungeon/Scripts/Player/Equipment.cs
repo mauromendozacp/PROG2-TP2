@@ -216,4 +216,9 @@ public class Equipment : MonoBehaviour
     {
         return currentEquipment[index].ID;
     }
+
+    public void SetSlot(Slot slot, int index)
+    {
+        currentEquipment[index] = slot;
+    }
 }

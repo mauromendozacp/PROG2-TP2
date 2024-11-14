@@ -10,17 +10,18 @@ public class EnemyWatcherController : MonoBehaviour
     [SerializeField] float _patrolSpeed = 2f;
     [SerializeField] float _chaseSpeed = 4f;
     [SerializeField] List<Transform> _patrolPoints;
-    [SerializeField] Transform _player;
     public float PatrolSpeed => _patrolSpeed;
     public float ChaseSpeed => _chaseSpeed;
 
     private IEnemyState _currentState;
     private Animator _anim;
+    private Transform _player;
     private int _currentPatrolIndex = 0;
 
     private void Awake()
     {
         _anim = GetComponent<Animator>();
+        _player = GameObject.FindWithTag("Player").transform;
     }
 
     private void Start()

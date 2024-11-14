@@ -96,7 +96,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: bd0ab9716a67b1941b44266bf740a348,
+    type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: 7cfa98dad4b6ac244ae97a527a2b5674,
     type: 2}
 --- !u!196 &4
@@ -2685,7 +2686,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.06666667
+  m_VoxelSize: 0.13333334
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: f024cd8fcd8b8ac4d925844b24c40607, type: 2}
   m_BuildHeightMesh: 0
@@ -2957,16 +2958,16 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 924300169}
+  - {fileID: 2016147111}
+  - {fileID: 1349944064}
+  - {fileID: 167721657}
+  - {fileID: 1800851403}
   - {fileID: 275370637}
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 353370727}
   - {fileID: 1776717686}
-  - {fileID: 924300169}
-  - {fileID: 1349944064}
-  - {fileID: 167721657}
-  - {fileID: 2016147111}
-  - {fileID: 1800851403}
   - {fileID: 1979873735}
   - {fileID: 169485223}
   - {fileID: 681062387}

@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour, IDamagable
     private int currentLife = 0;
     private float currentSpeed = 0f;
     private bool isDefending = false;
+    private bool isDead = false;
 
     private Action onOpenPausePanel = null;
     private Action<int, int> onUpdateLife = null;
@@ -156,13 +157,24 @@ public class PlayerController : MonoBehaviour, IDamagable
         onOpenPausePanel?.Invoke();
     }
 
+    private void Death()
+    {
+        isDead = true;
+        inputController.UpdateInputFSM(FSM_INPUT.ONLY_UI);
+        anim.Play("Die");
+        onPlayerDeath?.Invoke();
+    }
+
     public void Damage(int damageAmount)
     {
         currentLife -= damageAmount;
         if (currentLife <= 0)
         {
             currentLife = 0;
-            onPlayerDeath?.Invoke();
+            if (!isDead)
+            {
+                Death();
+            }
         }
 
         onUpdateLife?.Invoke(currentLife, maxLife);

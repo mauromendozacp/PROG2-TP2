@@ -4,12 +4,12 @@ public class AttackItem : MonoBehaviour
 {
     [SerializeField] private LayerMask targetLayer = default;
 
-    private MeshCollider meshCollider = null;
+    private BoxCollider boxCollider = null;
     private int damage = 0;
 
     private void Awake()
     {
-        meshCollider = GetComponent<MeshCollider>();
+        boxCollider = GetComponent<BoxCollider>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -28,6 +28,6 @@ public class AttackItem : MonoBehaviour
 
     public void ToggleCollider(bool status)
     {
-        meshCollider.enabled = status;
+        boxCollider.enabled = status;
     }
 }

@@ -7,7 +7,7 @@ public class GameplayController : MonoBehaviour
 
     private void Start()
     {
-        playerController.Init(ToggleOnPause, gameplayUI.UpdatePlayerHealth, null);
+        playerController.Init(ToggleOnPause, gameplayUI.UpdatePlayerHealth, LoseGame);
         gameplayUI.Init(ToggleTimeScale, ToggleOffPause);
     }
 
@@ -21,6 +21,11 @@ public class GameplayController : MonoBehaviour
     {
         ToggleTimeScale(true);
         playerController.TogglePause(false);
+    }
+
+    private void LoseGame()
+    {
+        gameplayUI.OpenLosePanel();
     }
 
     private void ToggleTimeScale(bool status)

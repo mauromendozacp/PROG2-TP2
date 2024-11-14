@@ -15,6 +15,11 @@ public class ButtonMenu : MonoBehaviour
         button = GetComponent<Button>();
     }
 
+    private void OnDisable()
+    {
+        ToggleSelected(false);
+    }
+
     public void OnClick()
     {
         if (!button.interactable) return;

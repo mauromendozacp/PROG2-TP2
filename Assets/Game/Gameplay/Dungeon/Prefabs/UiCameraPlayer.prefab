@@ -1047,6 +1047,7 @@ MonoBehaviour:
   panelInventory: {fileID: 0}
   playerMeshTransform: {fileID: 0}
   uiMeshTransform: {fileID: 3208253232396935896}
+  defaultInvetoryJson: {fileID: 4900000, guid: d33c9beded3e5aa4787da04879be40bf, type: 3}
   ItemID: 0
   ItemAmount: 0
 --- !u!114 &4610219390884928347

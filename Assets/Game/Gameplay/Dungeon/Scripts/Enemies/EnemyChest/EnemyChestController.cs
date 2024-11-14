@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -6,10 +7,20 @@ public class EnemyChestController : MonoBehaviour
     [SerializeField] float _detectItemRange = 4f;
     [SerializeField] float _detectPlayerRange = 6f;
     [SerializeField] float _idleDistance = 10f;
-    [SerializeField] float _attackRange = 1f;
+    [SerializeField] float _attackRange = 2f;
     [SerializeField] float _moveSpeed = 2f;
     [SerializeField] float _runSpeed = 4f;
-
+    [SerializeField] private LayerMask _playerLayer;
+    //[SerializeField] int _biteDamageAmount = 2;
+    //[SerializeField] int _hitDamageAmount = 5;
+    [SerializeField] float _idleTimeout = 3f;
+    [SerializeField] Collider _hitAttackCollider;
+    [SerializeField] LayerMask _targetLayer;
+    [SerializeField] int[] _attackDamageAmount;
+    public int[] AvailableAttacks => _attackDamageAmount;
+    public float IdleTimeout => _idleTimeout;
+    public bool IsAttacking { get; private set; }
+    int _currentDamageAmount = 0;
     IEnemyState _currentState;
     [SerializeField] Transform _collectible;
 
@@ -27,6 +38,7 @@ public class EnemyChestController : MonoBehaviour
 
     private void Start()
     {
+        DisableAttack();
         SetState(new EnemyChestIdleState(this));
     }
 
@@ -110,4 +122,57 @@ public class EnemyChestController : MonoBehaviour
     {
         _agent.ResetPath();
     }
+
+    private void Attack(int damageAmount)
+    {
+        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, _attackRange, _playerLayer);
+        Debug.Log($"Jugadores detectados: {hitEnemies.Length}");
+        foreach (Collider collider in hitEnemies)
+        {
+            IDamagable damageable = collider.GetComponent<IDamagable>();
+            if (damageable != null)
+            {
+                Debug.Log($"Aplicando daño a: {collider.name}");
+                damageable.Damage(damageAmount);
+            }
+            else
+            {
+                Debug.LogWarning($"El objeto {collider.name} no implementa IDamagable.");
+            }
+        }
+    }
+
+    public void AttackBite()
+    {
+        //Attack(_biteDamageAmount);
+    }
+
+    public void AttackHit()
+    {
+        //Attack(_hitDamageAmount);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (Utils.CheckLayerInMask(_targetLayer, other.gameObject.layer))
+        {
+            IDamagable recieveDamage = other.gameObject.GetComponent<IDamagable>();
+            recieveDamage?.Damage(_currentDamageAmount);
+            Debug.Log($"Le hago daño de {_currentDamageAmount} a {other.name}");
+        }
+    }
+
+    public void EnableAttack(int attackNumber)
+    {
+        _currentDamageAmount = _attackDamageAmount[attackNumber - 1];
+        _hitAttackCollider.enabled = true;
+        IsAttacking = true;
+    }
+
+    public void DisableAttack()
+    {
+        _hitAttackCollider.enabled = false;
+        IsAttacking = false;
+    }
+
 }

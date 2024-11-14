@@ -31,6 +31,7 @@ public class EnemyChestBattleState : IEnemyState
         }
         else if (!chest.IsPlayerInAttackRange())
         {
+            chest.StopAllCoroutines();
             isAttackingMode = false;
             chest.SetAnimator("Run", true);
             chest.LootAtPlayer();
@@ -56,7 +57,9 @@ public class EnemyChestBattleState : IEnemyState
         while (isAttackingMode)
         {
             string attackType = Random.Range(0, 2) == 0 ? "Attack1" : "Attack2";
+            Debug.Log("Ataque");
             chest.TriggerAnimator(attackType);
+            //chest.Attack();
             yield return new WaitForSeconds(3.5f);  // Ataca cada 3.5 segundos
             
         }

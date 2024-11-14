@@ -17,6 +17,15 @@ public class EnemyWatcherController : MonoBehaviour
     private Animator _anim;
     private Transform _player;
     private int _currentPatrolIndex = 0;
+    [SerializeField] private LayerMask _playerLayer;
+    [SerializeField] float _idleTimeout = 3f;
+    [SerializeField] Collider _hitAttackCollider;
+    [SerializeField] LayerMask _targetLayer;
+    [SerializeField] int[] _attackDamageAmount;
+    public int[] AvailableAttacks => _attackDamageAmount;
+    public float IdleTimeout => _idleTimeout;
+    public bool IsAttacking { get; private set; }
+    int _currentDamageAmount = 0;
 
     private void Awake()
     {
@@ -80,4 +89,27 @@ public class EnemyWatcherController : MonoBehaviour
     }
 
     public Transform GetPlayer() => _player;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (Utils.CheckLayerInMask(_targetLayer, other.gameObject.layer))
+        {
+            IDamagable recieveDamage = other.gameObject.GetComponent<IDamagable>();
+            recieveDamage?.Damage(_currentDamageAmount);
+            Debug.Log($"Le hago daño de {_currentDamageAmount} a {other.name}");
+        }
+    }
+
+    public void EnableAttack(int attackNumber)
+    {
+        _currentDamageAmount = _attackDamageAmount[attackNumber - 1];
+        _hitAttackCollider.enabled = true;
+        IsAttacking = true;
+    }
+
+    public void DisableAttack()
+    {
+        _hitAttackCollider.enabled = false;
+        IsAttacking = false;
+    }
 }

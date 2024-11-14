@@ -1,53 +1,53 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour
 {
-    private GameManager gameManager;
     [SerializeField] private GameObject menuCanvas; 
-    [SerializeField] private Canvas creditsCanvas;
-
+    [SerializeField] private GameObject creditsCanvas;
     [SerializeField] private GameObject configCanvas;
+    [SerializeField] private Slider musicSlider = null;
+    [SerializeField] private Slider sfxSlider = null;
 
     private void Start()
     {
         // Get the GameManager instance at startup
-        gameManager = GameManager.Instance;
-        creditsCanvas.gameObject.SetActive(false);
+
+        musicSlider.onValueChanged.AddListener(GameManager.Instance.AudioManager.UpdateMusicVolume);
+        sfxSlider.onValueChanged.AddListener(GameManager.Instance.AudioManager.UpdateSfxVolume);
+
+        musicSlider.value = GameManager.Instance.AudioManager.MusicVolume;
+        sfxSlider.value = GameManager.Instance.AudioManager.SfxVolume;
     }
 
     // Method to handle the start game button
     public void OnStartGameButton()
     {
         // Hide the menu canvas before starting the load
-    menuCanvas.SetActive(false); 
+        menuCanvas.SetActive(false);
 
-    GameManager.Instance.LoadingManager.TransitionScene(SceneGame.Gameplay, () =>
-    {
-        // Code to execute when the scene transition is complete
-    });
+        GameManager.Instance.ChangeScene(SceneGame.Gameplay);
     }
-        // Method to handle the credits canva
-      public void ShowCredits()
+
+    // Method to handle the credits canva
+    public void ShowCredits()
     {
-        menuCanvas.gameObject.SetActive(false);
-        creditsCanvas.gameObject.SetActive(true);
+        menuCanvas.SetActive(false);
+        creditsCanvas.SetActive(true);
     }
 
     // Method to handle the back button in the credits canvas
     public void ShowMenu()
     {
-        creditsCanvas.gameObject.SetActive(false);
-        menuCanvas.gameObject.SetActive(true);
-        configCanvas.gameObject.SetActive(false);
+        creditsCanvas.SetActive(false);
+        menuCanvas.SetActive(true);
+        configCanvas.SetActive(false);
     }
 
     public void ConfigButton()
     {
-        menuCanvas.gameObject.SetActive(false);
-        configCanvas.gameObject.SetActive(true);
+        menuCanvas.SetActive(false);
+        configCanvas.SetActive(true);
     }
 
     public void ExitGame()

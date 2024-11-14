@@ -31,6 +31,7 @@ public class PlayerInventoryController : MonoBehaviour
     [SerializeField] private UiInventory panelInventory = null;
     [SerializeField] private Transform playerMeshTransform = null;
     [SerializeField] private Transform uiMeshTransform = null;
+    [SerializeField] private TextAsset defaultInvetoryJson = null;
 
     [Header("Debug"), Space]
     [SerializeField] private int ItemID = 0;
@@ -231,7 +232,7 @@ public class PlayerInventoryController : MonoBehaviour
 
     public void LoadJson()
     {
-        string savedData;
+        string savedData = string.Empty;
         if (File.Exists(savePath))
         {
             FileStream fs;
@@ -243,8 +244,9 @@ public class PlayerInventoryController : MonoBehaviour
         }
         else
         {
-            return;
+            savedData = defaultInvetoryJson.text;
         }
+
         List<Slot> newList = new List<Slot>();
         for (int i = 0; i < savedData.Length; i++)
         {

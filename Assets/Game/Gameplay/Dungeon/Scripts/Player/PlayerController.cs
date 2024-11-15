@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour, IDamagable
     [SerializeField] private PlayerInventoryController inventoryController = null;
     [SerializeField] private PlayerItemInteraction itemInteraction = null;
     [SerializeField] private PickItem pickItem = null;
+    [SerializeField] private AudioEvent deathSound = null;
+    [SerializeField] private AudioEvent recieveHitSound = null;
+    [SerializeField] private AudioEvent pickUpSound = null;
 
     private PlayerInputController inputController = null;
 
@@ -81,21 +84,19 @@ public class PlayerController : MonoBehaviour, IDamagable
         inputController.UpdateInputFSM(status ? FSM_INPUT.ONLY_UI : inputController.CurrentInputState, false);
     }
 
+    public void DisableInput()
+    {
+        inputController.UpdateInputFSM(FSM_INPUT.ONLY_UI);
+    }
+
     private void ApplyGravity()
     {
-        if (!character.isGrounded)
-        {
-            velocityY = -Physics.gravity.magnitude * Time.deltaTime;
-        }
-        else
-        {
-            velocityY = 0f;
-        }
+        velocityY = !character.isGrounded ? -Physics.gravity.magnitude : 0f;
     }
 
     private void Movement()
     {
-        direction = new Vector3(inputController.Move.x, velocityY, inputController.Move.y).normalized;
+        direction = new Vector3(inputController.Move.x, 0f, inputController.Move.y).normalized;
 
         if (direction.magnitude > Mathf.Epsilon)
         {
@@ -104,6 +105,7 @@ public class PlayerController : MonoBehaviour, IDamagable
 
             bodyTransform.rotation = Quaternion.Euler(0f, characterAngle, 0f);
 
+            direction.y = velocityY;
             character.Move(currentSpeed * Time.deltaTime * direction);
         }
     }
@@ -140,6 +142,7 @@ public class PlayerController : MonoBehaviour, IDamagable
             anim.SetTrigger("PickUp");
             inventoryController.AddNewItem(item);
             pickItem.RemoveDestroyItem(item);
+            GameManager.Instance.AudioManager.PlayAudio(pickUpSound);
             Destroy(item.gameObject);
         }
     }
@@ -162,6 +165,8 @@ public class PlayerController : MonoBehaviour, IDamagable
         isDead = true;
         inputController.UpdateInputFSM(FSM_INPUT.ONLY_UI);
         anim.Play("Die");
+        GameManager.Instance.AudioManager.PlayAudio(deathSound);
+
         onPlayerDeath?.Invoke();
     }
 
@@ -175,6 +180,10 @@ public class PlayerController : MonoBehaviour, IDamagable
             {
                 Death();
             }
+        }
+        else
+        {
+            GameManager.Instance.AudioManager.PlayAudio(recieveHitSound);
         }
 
         onUpdateLife?.Invoke(currentLife, maxLife);

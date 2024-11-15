@@ -9,6 +9,9 @@ public class PlayerItemInteraction : MonoBehaviour
     [SerializeField] private LayerMask floorLayer = default;
     [SerializeField] private AttackItem leftHandItem = null;
     [SerializeField] private AttackItem rightHandItem = null;
+    [SerializeField] private AudioEvent swordSound = null;
+    [SerializeField] private AudioEvent potionSound = null;
+    [SerializeField] private AudioEvent arrowSound = null;
 
     private Animator anim = null;
     private PlayerInputController inputController = null;
@@ -48,6 +51,7 @@ public class PlayerItemInteraction : MonoBehaviour
                     case WeaponType.Sword:
                         anim.SetTrigger("AttackSword");
                         rightHandItem.SetDamage(weapon.damage);
+                        GameManager.Instance.AudioManager.PlayAudio(swordSound);
                         ToggleOnInteractionInput();
                         break;
                     case WeaponType.Wand:
@@ -97,6 +101,7 @@ public class PlayerItemInteraction : MonoBehaviour
             {
                 anim.SetTrigger("ConsumePotion");
                 onConsumeLife?.Invoke(consumible.amount);
+                GameManager.Instance.AudioManager.PlayAudio(potionSound);
                 ToggleOnInteractionInput();
             }
         }
@@ -142,6 +147,7 @@ public class PlayerItemInteraction : MonoBehaviour
                 arrow.SetDamage(currentWeapon.damage);
                 arrow.FireArrow(currentWeapon.speed, transform.forward);
                 arrow.SetMesh(currentProjectile.mesh);
+                GameManager.Instance.AudioManager.PlayAudio(arrowSound);
 
                 inventoryController.ConsumeEquipmentItem(1);
 

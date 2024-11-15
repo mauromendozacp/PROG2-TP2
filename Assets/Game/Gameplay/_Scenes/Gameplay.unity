@@ -2382,6 +2382,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerController: {fileID: 287369708}
   gameplayUI: {fileID: 2126250890}
+  musicEvent: {fileID: 11400000, guid: d567a02dc258c244184876b2fd152be0, type: 2}
+  winEvent: {fileID: 11400000, guid: 7b1f859d490dd904e89122ea4e5fdefb, type: 2}
 --- !u!4 &1349944064
 Transform:
   m_ObjectHideFlags: 0

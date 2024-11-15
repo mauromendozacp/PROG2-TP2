@@ -101,16 +101,7 @@ public class Inventory : MonoBehaviour
 
     public bool UseItem(int slotPos)
     {
-        if (ItemManager.Instance.GetItemFromID(CurrentItems[slotPos].ID).GetItemType() == ItemType.Consumable)
-        {
-            CurrentItems[slotPos].AddAmount(-1);
-            if (CurrentItems[slotPos].IsEmpty())
-                return false;
-        }
-        else
-        {
-            CurrentItems[slotPos] = equipmentComponent.SwapEquipment(CurrentItems[slotPos]);
-        }
+        CurrentItems[slotPos] = equipmentComponent.SwapEquipment(CurrentItems[slotPos]);
         return true;
     }
 

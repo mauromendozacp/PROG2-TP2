@@ -20,6 +20,7 @@ public class EnemyWatcherBattleState : IEnemyState
         _isAttacking = false;
         //_enemyHealth = _enemy.gameObject.GetComponent<EnemyHealth>();
         //_enemyHealth?.EnableHealthBar();
+        Debug.Log("Estado Batalla");
     }
 
     public void Execute()

@@ -12,6 +12,7 @@ public class EnemyWatcherIdleState : IEnemyState
     {
         this._controller = enemy;
         this._idleTime = idleTime;
+        Debug.Log("Estado Idle");
     }
 
     public void EnterState()

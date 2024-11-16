@@ -4,7 +4,7 @@ using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyBeholderController : MonoBehaviour
+public class EnemyBeholderController : Enemy
 {
     [SerializeField] float _startChaseDistance = 8f;
     [SerializeField] float _stopChaseDistance = 12f;
@@ -13,14 +13,14 @@ public class EnemyBeholderController : MonoBehaviour
     [SerializeField] float _runSpeed = 6f;
     [SerializeField] float _idleTimeout = 3f;
     [SerializeField] private Transform _player;
-    [SerializeField] IEnemyState _currentState;
+    //[SerializeField] IEnemyState _currentState;
     [SerializeField] Collider _hitAttackCollider;
     [SerializeField] Collider _shockAttackCollider;
-    [SerializeField] LayerMask _targetLayer;
+    //[SerializeField] LayerMask _targetLayer;
     [SerializeField] int[] _attackDamageAmount;
-    Animator _anim;
-    NavMeshAgent _agent;
-    int _currentDamageAmount = 0;
+    //Animator _anim;
+    //NavMeshAgent _agent;
+    //int _currentDamageAmount = 0;
     public Vector3 HomePosition { get; private set; }
     public int[] AvailableAttacks => _attackDamageAmount;
 
@@ -41,6 +41,7 @@ public class EnemyBeholderController : MonoBehaviour
         if (_player == null) _player = GameObject.FindWithTag("Player").transform;
     }
 
+    /*
     private void Update()
     {
         _currentState.Execute();
@@ -61,6 +62,7 @@ public class EnemyBeholderController : MonoBehaviour
     {
         _anim.SetTrigger(name);
     }
+    */
 
     public Transform GetPlayer() => _player;
 
@@ -84,6 +86,7 @@ public class EnemyBeholderController : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
     }
 
+    /*
     public void SetAgentDestination(Vector3 destination)
     {
         _agent.destination = destination;
@@ -94,6 +97,7 @@ public class EnemyBeholderController : MonoBehaviour
     {
         _agent.ResetPath();
     }
+    */
 
     public void MoveTowardsPlayer()
     {
@@ -105,7 +109,7 @@ public class EnemyBeholderController : MonoBehaviour
         _agent.destination = HomePosition;
     }
 
-
+    /*
     private void OnTriggerEnter(Collider other)
     {
         if (Utils.CheckLayerInMask(_targetLayer, other.gameObject.layer))
@@ -115,6 +119,7 @@ public class EnemyBeholderController : MonoBehaviour
             Debug.Log($"Le hago daño de {_currentDamageAmount} a {other.name}");
         }           
     }
+    */
 
     public void EnableAttack(int attackNumber)
     {

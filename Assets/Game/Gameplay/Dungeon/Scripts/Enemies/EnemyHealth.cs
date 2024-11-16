@@ -12,6 +12,10 @@ public class EnemyHealth : MonoBehaviour, IDamagable, IHealtheable
     [SerializeField] Animator _anim;
     [SerializeField] Rigidbody _rb;
     [SerializeField] GameObject _rootGameObject;
+    [SerializeField] float _damageCooldown = 1f;
+    Collider _damageCollider;
+    Enemy _controller;
+    float _lastDamageTime;
 
     private void Awake()
     {
@@ -19,35 +23,44 @@ public class EnemyHealth : MonoBehaviour, IDamagable, IHealtheable
         if(_anim == null) _anim = GetComponent<Animator>();
         if (_rb == null) _rb = GetComponent<Rigidbody>();
         if (_rootGameObject == null) _rootGameObject = gameObject;
+        _damageCollider = GetComponent<Collider>();
     }
 
     private void Start()
     {
         _healthBar.Disable();
+        _controller = _rootGameObject.GetComponent<Enemy>();
+
     }
 
     public void Damage(int damage)
     {
-        _currentHealth -= damage;
-        if (_currentHealth <= 0)
+        if (Time.time >= _lastDamageTime + _damageCooldown)
         {
-            _currentHealth = 0;
-            StartCoroutine(Die());
-        }
-        _healthBar.UpdateHealthBar();
+            Debug.Log($"El player le da un daño de {damage} a {gameObject.name}");
+            _currentHealth -= damage;
+            if (_currentHealth <= 0)
+            {
+                _currentHealth = 0;
+                StartCoroutine(Die());
+            }
+            _healthBar.UpdateHealthBar();
+            _lastDamageTime = Time.time;
+        }     
     }
 
     public bool IsDead() => _currentHealth <= 0;
 
     IEnumerator Die()
     {
+        //_anim.SetTrigger("Die");
         _healthBar.Disable();
-        _anim.SetTrigger("Die");
-        _healthBar.Disable();
+        _controller.SetState(new EnemyDeathState(_controller));
         //_rb.isKinematic = true;
         //_rb.detectCollisions = false;
         _rb.constraints = RigidbodyConstraints.None;
         yield return new WaitForSeconds(3f);
+        // TODO: Tirar item
         Destroy(_rootGameObject);
     }
 
@@ -56,4 +69,9 @@ public class EnemyHealth : MonoBehaviour, IDamagable, IHealtheable
 
     public void EnableHealthBar() => _healthBar.Enable();
     public void DisableHealthBar() => _healthBar.Disable();
+
+    public void DisableDamage() 
+    {
+        _damageCollider.enabled = false;
+    }
 }

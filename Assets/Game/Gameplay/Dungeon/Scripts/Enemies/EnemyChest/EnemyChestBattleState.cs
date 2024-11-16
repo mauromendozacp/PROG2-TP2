@@ -42,10 +42,18 @@ public class EnemyChestBattleState : IEnemyState
             chest.SetAnimator("Run", false);
             chest.LootAtPlayer();
             chest.ResetAgentDestination();
-            if(!isAttackingMode)
+            /*if(!isAttackingMode)
             {
                 isAttackingMode = true;
                 chest.StartCoroutine(AttackRoutine());
+            }
+            */
+            if(chest.CanAttack())
+            {
+                string attackType = Random.Range(0, 2) == 0 ? "Attack1" : "Attack2";
+                Debug.Log($"{chest.gameObject.name} realiza el ataque");
+                chest.TriggerAnimator(attackType);
+                chest.DidAttack();
             }
 
         }

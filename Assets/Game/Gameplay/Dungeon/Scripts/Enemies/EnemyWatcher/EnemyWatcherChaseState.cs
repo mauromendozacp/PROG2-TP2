@@ -20,6 +20,7 @@ public class EnemyWatcherChaseState : IEnemyState
         _controller.SetAnimator("Run", true);
         _enemyHealth = _controller.GetComponentInChildren<EnemyHealth>();
         _enemyHealth?.EnableHealthBar();
+        Debug.Log("Estado Cazar");
     }
 
     public void Execute()
@@ -35,7 +36,8 @@ public class EnemyWatcherChaseState : IEnemyState
         }
         else
         {
-            _controller.MoveTowards(_controller.GetPlayer().position, _controller.ChaseSpeed);
+            //_controller.MoveTowards(_controller.GetPlayer().position, _controller.RunSpeed);
+            _controller.RunTowardsPlayer();
         }
     }
 }

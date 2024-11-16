@@ -22,5 +22,14 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: c7b5ee6d805865f4d87c945585777026, type: 2}
   particle: {fileID: 3937268744460058540, guid: 4535ad15e0365784bb8c49619c1ebab0,
     type: 3}
+  armsType: 5
+  spawnPositionR:
+    pos: {x: -0.08, y: 0.1, z: 0}
+    rot: {x: -190, y: 0, z: 0}
+    scale: {x: 1, y: 1, z: 1}
+  spawnPositionL:
+    pos: {x: 0.12, y: -0.1, z: 0}
+    rot: {x: 0, y: 0, z: 0}
+    scale: {x: 1, y: 1, z: 1}
   amount: 25
   type: 1

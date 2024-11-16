@@ -22,9 +22,12 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: 79f5fd36b579b3442b77e35547e7f869, type: 2}
   particle: {fileID: 9167329474426544759, guid: 8e11257df1efd3e40afa7e85d9f258de,
     type: 3}
+  armsType: 4
   spawnPositionR:
     pos: {x: 0.129, y: -0.026, z: 0.205}
     rot: {x: -54.09, y: 92.116, z: -185.964}
+    scale: {x: 0.008973991, y: 0.008973991, z: 0.008973991}
   spawnPositionL:
     pos: {x: -0.1438, y: 0.0535, z: -0.0973}
     rot: {x: 0, y: 98, z: 6}
+    scale: {x: 0.008973991, y: 0.008973991, z: 0.008973991}

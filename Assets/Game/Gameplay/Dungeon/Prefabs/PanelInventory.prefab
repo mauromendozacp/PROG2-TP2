@@ -682,6 +682,7 @@ MonoBehaviour:
   indexList: 0
   id: 0
   idDefaultSprite: 0
+  blockArmItems: 
 --- !u!114 &7734515850428238055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1685,7 +1686,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8293141926433617221}
   m_HandleRect: {fileID: 693553460639834857}
   m_Direction: 2
-  m_Value: -0.00000094802306
+  m_Value: -0.0000011060268
   m_Size: 0.81605285
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -2965,6 +2966,26 @@ PrefabInstance:
       propertyPath: idDefaultSprite
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 87927702636188397, guid: a882b7e32c7a4b64cacd625c3be34274,
+        type: 3}
+      propertyPath: blockArmItems.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 87927702636188397, guid: a882b7e32c7a4b64cacd625c3be34274,
+        type: 3}
+      propertyPath: blockArmItems.Array.data[1]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 87927702636188397, guid: a882b7e32c7a4b64cacd625c3be34274,
+        type: 3}
+      propertyPath: blockArmItems.Array.data[2]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 87927702636188397, guid: a882b7e32c7a4b64cacd625c3be34274,
+        type: 3}
+      propertyPath: blockArmItems.Array.data[3]
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3145,6 +3166,26 @@ PrefabInstance:
         type: 3}
       propertyPath: idDefaultSprite
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 87927702636188397, guid: a882b7e32c7a4b64cacd625c3be34274,
+        type: 3}
+      propertyPath: blockArmItems.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 87927702636188397, guid: a882b7e32c7a4b64cacd625c3be34274,
+        type: 3}
+      propertyPath: blockArmItems.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 87927702636188397, guid: a882b7e32c7a4b64cacd625c3be34274,
+        type: 3}
+      propertyPath: blockArmItems.Array.data[1]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 87927702636188397, guid: a882b7e32c7a4b64cacd625c3be34274,
+        type: 3}
+      propertyPath: blockArmItems.Array.data[2]
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3870,6 +3911,41 @@ PrefabInstance:
       propertyPath: idDefaultSprite
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 87927702636188397, guid: a882b7e32c7a4b64cacd625c3be34274,
+        type: 3}
+      propertyPath: blockItems.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 87927702636188397, guid: a882b7e32c7a4b64cacd625c3be34274,
+        type: 3}
+      propertyPath: blockItemIds.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 87927702636188397, guid: a882b7e32c7a4b64cacd625c3be34274,
+        type: 3}
+      propertyPath: blockArmItems.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 87927702636188397, guid: a882b7e32c7a4b64cacd625c3be34274,
+        type: 3}
+      propertyPath: blockArmItems.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 87927702636188397, guid: a882b7e32c7a4b64cacd625c3be34274,
+        type: 3}
+      propertyPath: blockArmItems.Array.data[1]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 87927702636188397, guid: a882b7e32c7a4b64cacd625c3be34274,
+        type: 3}
+      propertyPath: blockArmItems.Array.data[2]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 87927702636188397, guid: a882b7e32c7a4b64cacd625c3be34274,
+        type: 3}
+      propertyPath: blockArmItems.Array.data[3]
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4412,6 +4488,31 @@ PrefabInstance:
         type: 3}
       propertyPath: idDefaultSprite
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 87927702636188397, guid: a882b7e32c7a4b64cacd625c3be34274,
+        type: 3}
+      propertyPath: blockArmItems.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 87927702636188397, guid: a882b7e32c7a4b64cacd625c3be34274,
+        type: 3}
+      propertyPath: blockArmItems.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 87927702636188397, guid: a882b7e32c7a4b64cacd625c3be34274,
+        type: 3}
+      propertyPath: blockArmItems.Array.data[1]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 87927702636188397, guid: a882b7e32c7a4b64cacd625c3be34274,
+        type: 3}
+      propertyPath: blockArmItems.Array.data[2]
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 87927702636188397, guid: a882b7e32c7a4b64cacd625c3be34274,
+        type: 3}
+      propertyPath: blockArmItems.Array.data[3]
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

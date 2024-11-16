@@ -22,12 +22,15 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: 79f5fd36b579b3442b77e35547e7f869, type: 2}
   particle: {fileID: 9167329474426544759, guid: 8e11257df1efd3e40afa7e85d9f258de,
     type: 3}
+  armsType: 1
   spawnPositionR:
     pos: {x: 0.1103, y: -0.019, z: 0}
     rot: {x: 0, y: 0, z: 180}
+    scale: {x: 0.008973991, y: 0.008973991, z: 0.008973991}
   spawnPositionL:
     pos: {x: -0.125, y: 0.016, z: 0}
     rot: {x: 14, y: 4.993, z: -16.966}
+    scale: {x: 0.008973991, y: 0.008973991, z: 0.008973991}
   type: 2
   twoHanded: 0
   damage: 60

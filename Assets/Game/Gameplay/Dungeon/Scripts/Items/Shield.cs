@@ -6,8 +6,6 @@ public class Shield : Arms
     [Header("Shield Specific")]
     public int resistance;
 
-    public override ArmsType GetArmsType() => ArmsType.Shield;
-
     public override string ItemToString()
     {
         string text = base.ItemToString();

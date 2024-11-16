@@ -16,7 +16,6 @@ public class Weapon : Arms
     public int damage;
     public int speed;
 
-    public override ArmsType GetArmsType() => ArmsType.Weapon;
     public WeaponType GetWeaponType() => type;
 
     public override string ItemToString()

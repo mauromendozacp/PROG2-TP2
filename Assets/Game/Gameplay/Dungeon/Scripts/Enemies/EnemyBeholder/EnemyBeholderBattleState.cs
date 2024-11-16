@@ -5,8 +5,6 @@ using UnityEngine;
 public class EnemyBeholderBattleState : IEnemyState
 {
     EnemyBeholderController _controller;
-    bool _isAttackingMode;
-    Coroutine _attackCoroutine = null;
 
     public EnemyBeholderBattleState(EnemyBeholderController controller)
     {
@@ -16,10 +14,8 @@ public class EnemyBeholderBattleState : IEnemyState
     {
         _controller.SetAnimator("Battle", true);
         _controller.SetAnimator("Walk", false);
-        _isAttackingMode = false;
         _controller.SetAnimator("Run", false);
         _controller.ResetAgentDestination();
-
     }
 
     public void Execute()
@@ -29,29 +25,15 @@ public class EnemyBeholderBattleState : IEnemyState
         {
             _controller.SetState(new EnemyBeholderChaseState(_controller));
         }
-        else if(!_isAttackingMode)
+        if(_controller.CanAttack())
         {
-            _isAttackingMode = true;
-            _controller.StopAllCoroutines();
-            //if (_attackCoroutine != null) _controller.StopCoroutine(_attackCoroutine);
-            //_attackCoroutine = _controller.StartCoroutine(AttackRoutine());
-            _controller.StartCoroutine(AttackRoutine());
+            int attackNumber = Random.Range(0, _controller.AvailableAttacks.Length);
+            _controller.TriggerAnimator($"Attack{attackNumber + 1}");
+            _controller.DidAttack();
         }
-        if(!_controller.IsAttacking)
+        else if(!_controller.IsAttacking)
         {
             _controller.LootAtPlayer();
         }
     }
-
-    private IEnumerator AttackRoutine()
-    {
-        while (_isAttackingMode)
-        {
-            int attackNumber = Random.Range(0, _controller.AvailableAttacks.Length);
-            _controller.TriggerAnimator($"Attack{attackNumber+1}");
-            yield return new WaitForSeconds(3.5f);
-
-        }
-    }
-
 }

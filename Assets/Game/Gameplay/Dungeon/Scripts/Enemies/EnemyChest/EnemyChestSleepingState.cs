@@ -4,24 +4,24 @@ using UnityEngine;
 
 public class EnemyChestSleepingState : IEnemyState
 {
-    private readonly EnemyChestController chest;
+    private readonly EnemyChestController _controller;
 
-    public EnemyChestSleepingState(EnemyChestController chest)
+    public EnemyChestSleepingState(EnemyChestController controller)
     {
-        this.chest = chest;
+        _controller = controller;
     }
 
     public void EnterState()
     {
-        chest.ResetAgentDestination();
-        chest.SetAnimator("Sleep", true);
+        _controller.ResetAgentDestination();
+        _controller.SetAnimator("Sleep", true);
     }
 
     public void Execute()
     {
-        if (!chest.IsNearCollectible() || chest.IsPlayerClose())
+        if (!_controller.IsNearItemToProtect() || _controller.IsPlayerClose())
         {
-            chest.SetState(new EnemyChestIdleState(chest));
+            _controller.SetState(new EnemyChestIdleState(_controller));
         }
     }
 }

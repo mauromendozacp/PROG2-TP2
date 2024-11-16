@@ -57,7 +57,6 @@ public class Enemy : MonoBehaviour
         _agent.destination = destination;
     }
 
-
     public void ResetAgentDestination()
     {
         _agent.ResetPath();
@@ -70,7 +69,7 @@ public class Enemy : MonoBehaviour
         {
             IDamagable recieveDamage = other.gameObject.GetComponent<IDamagable>();
             recieveDamage?.Damage(_currentDamageAmount);
-            Debug.Log($"{gameObject.name} le hace daño de {_currentDamageAmount} a {other.name}");
+            //Debug.Log($"{gameObject.name} le hace daño de {_currentDamageAmount} a {other.name}");
             DidDamage();
         }
     }

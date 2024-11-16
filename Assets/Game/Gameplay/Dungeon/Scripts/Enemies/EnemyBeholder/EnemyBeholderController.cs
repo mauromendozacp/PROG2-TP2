@@ -9,18 +9,13 @@ public class EnemyBeholderController : Enemy
     [SerializeField] float _startChaseDistance = 8f;
     [SerializeField] float _stopChaseDistance = 12f;
     [SerializeField] float _attackDistance = 2f;
-    [SerializeField] float _walkSpeed = 3f;
+    [SerializeField] float _moveSpeed = 3f;
     [SerializeField] float _runSpeed = 6f;
     [SerializeField] float _idleTimeout = 3f;
     [SerializeField] private Transform _player;
-    //[SerializeField] IEnemyState _currentState;
     [SerializeField] Collider _hitAttackCollider;
     [SerializeField] Collider _shockAttackCollider;
-    //[SerializeField] LayerMask _targetLayer;
     [SerializeField] int[] _attackDamageAmount;
-    //Animator _anim;
-    //NavMeshAgent _agent;
-    //int _currentDamageAmount = 0;
     public Vector3 HomePosition { get; private set; }
     public int[] AvailableAttacks => _attackDamageAmount;
 
@@ -41,28 +36,6 @@ public class EnemyBeholderController : Enemy
         if (_player == null) _player = GameObject.FindWithTag("Player").transform;
     }
 
-    /*
-    private void Update()
-    {
-        _currentState.Execute();
-    }
-
-    public void SetState(IEnemyState newState)
-    {
-        _currentState = newState;
-        _currentState.EnterState();
-    }
-
-    public void SetAnimator(string name, bool value)
-    {
-        _anim.SetBool(name, value);
-    }
-
-    public void TriggerAnimator(string name)
-    {
-        _anim.SetTrigger(name);
-    }
-    */
 
     public Transform GetPlayer() => _player;
 
@@ -86,40 +59,19 @@ public class EnemyBeholderController : Enemy
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
     }
 
-    /*
-    public void SetAgentDestination(Vector3 destination)
-    {
-        _agent.destination = destination;
-    }
 
-
-    public void ResetAgentDestination()
-    {
-        _agent.ResetPath();
-    }
-    */
 
     public void MoveTowardsPlayer()
     {
         _agent.destination = _player.position;
+        _agent.speed = _runSpeed;
     }
 
     public void MoveTowardsHome()
     {
         _agent.destination = HomePosition;
+        _agent.speed = _moveSpeed;
     }
-
-    /*
-    private void OnTriggerEnter(Collider other)
-    {
-        if (Utils.CheckLayerInMask(_targetLayer, other.gameObject.layer))
-        {
-            IDamagable recieveDamage = other.gameObject.GetComponent<IDamagable>();
-            recieveDamage?.Damage(_currentDamageAmount);
-            Debug.Log($"Le hago daño de {_currentDamageAmount} a {other.name}");
-        }           
-    }
-    */
 
     public void EnableAttack(int attackNumber)
     {

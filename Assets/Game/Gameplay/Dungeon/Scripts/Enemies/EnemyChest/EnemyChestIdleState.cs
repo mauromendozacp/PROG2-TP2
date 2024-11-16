@@ -23,15 +23,15 @@ public class EnemyChestIdleState : IEnemyState
 
     public void Execute()
     {
-        if(chest.IsNearCollectible() && !chest.IsPlayerClose())
+        if(chest.IsNearItemToProtect() && !chest.IsPlayerClose())
         {
             chest.SetState(new EnemyChestSleepingState(chest));
         }
-        else if(!chest.IsNearCollectible())
+        else if(!chest.IsNearItemToProtect())
         {
             chest.SetState(new EnemyWalkState(chest));
         }
-        if (chest.IsNearCollectible() && chest.IsPlayerClose())
+        if (chest.IsNearItemToProtect() && chest.IsPlayerClose())
         {
             chest.SetState(new EnemyChestBattleState(chest));
         }

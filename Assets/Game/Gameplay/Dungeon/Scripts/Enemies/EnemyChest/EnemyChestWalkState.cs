@@ -19,7 +19,7 @@ public class EnemyWalkState : IEnemyState
     public void Execute()
     {
 
-        if (chest.IsNearCollectible())
+        if (chest.IsNearItemToProtect())
         {
             chest.SetState(new EnemyChestIdleState(chest));
         }

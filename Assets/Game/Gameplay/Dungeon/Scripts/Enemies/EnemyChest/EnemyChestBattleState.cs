@@ -4,72 +4,49 @@ using UnityEngine;
 
 public class EnemyChestBattleState : IEnemyState
 {
-    readonly EnemyChestController chest;
-    bool isAttackingMode;
+    readonly EnemyChestController _controller;
     EnemyHealth _enemyHealth;
 
-    public EnemyChestBattleState(EnemyChestController chest)
+    public EnemyChestBattleState(EnemyChestController controller)
     {
-        this.chest = chest;
+        _controller = controller;
     }
 
     public void EnterState()
     {
-        chest.SetAnimator("IdleAttack", true);
-        isAttackingMode = false;
-        _enemyHealth = chest.gameObject.GetComponent<EnemyHealth>();
+        _controller.SetAnimator("IdleAttack", true);
+        _enemyHealth = _controller.gameObject.GetComponent<EnemyHealth>();
         _enemyHealth?.EnableHealthBar();
     }
 
     public void Execute()
     {
-        if (chest.IsPlayerFar())
+        if (_controller.IsPlayerFar())
         {
-            isAttackingMode = false;
             _enemyHealth?.DisableHealthBar();
-            chest.SetState(new EnemyChestIdleState(chest));
+            _controller.SetState(new EnemyChestIdleState(_controller));
         }
-        else if (!chest.IsPlayerInAttackRange())
+        else if (!_controller.IsPlayerInAttackRange())
         {
-            chest.StopAllCoroutines();
-            isAttackingMode = false;
-            chest.SetAnimator("Run", true);
-            chest.LootAtPlayer();
-            chest.RunTowardsPlayer();
+            _controller.SetAnimator("Run", true);
+            _controller.LootAtPlayer();
+            _controller.MoveTowardsPlayer();
         }
         else
         {
-            chest.SetAnimator("Run", false);
-            chest.LootAtPlayer();
-            chest.ResetAgentDestination();
-            /*if(!isAttackingMode)
-            {
-                isAttackingMode = true;
-                chest.StartCoroutine(AttackRoutine());
-            }
-            */
-            if(chest.CanAttack())
+            _controller.SetAnimator("Run", false);
+            _controller.ResetAgentDestination();
+            if(_controller.CanAttack())
             {
                 string attackType = Random.Range(0, 2) == 0 ? "Attack1" : "Attack2";
-                Debug.Log($"{chest.gameObject.name} realiza el ataque");
-                chest.TriggerAnimator(attackType);
-                chest.DidAttack();
+                _controller.TriggerAnimator(attackType);
+                _controller.DidAttack();
+            }
+            else if(!_controller.IsAttacking)
+            {
+                _controller.LootAtPlayer();
             }
 
-        }
-    }
-
-
-    private IEnumerator AttackRoutine()
-    {
-        while (isAttackingMode)
-        {
-            string attackType = Random.Range(0, 2) == 0 ? "Attack1" : "Attack2";
-            Debug.Log("Ataque");
-            chest.TriggerAnimator(attackType);
-            //chest.Attack();
-            yield return new WaitForSeconds(3.5f);  // Ataca cada 3.5 segundos
-            
         }
     }
 }

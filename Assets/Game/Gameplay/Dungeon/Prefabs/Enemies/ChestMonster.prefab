@@ -416,15 +416,12 @@ MonoBehaviour:
   _detectPlayerRange: 6
   _idleDistance: 10
   _attackRange: 2
-  _moveSpeed: 2
-  _runSpeed: 4
-  _playerLayer:
-    serializedVersion: 2
-    m_Bits: 8
+  _moveSpeed: 1.5
+  _runSpeed: 2.5
   _idleTimeout: 3
   _hitAttackCollider: {fileID: 6591722699518682979}
   _attackDamageAmount: 040000000a000000
-  _collectible: {fileID: 0}
+  _itemToProtect: {fileID: 0}
 --- !u!114 &770994689187121793
 MonoBehaviour:
   m_ObjectHideFlags: 0

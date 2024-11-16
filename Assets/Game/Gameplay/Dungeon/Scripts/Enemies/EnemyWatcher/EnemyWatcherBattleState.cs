@@ -5,8 +5,6 @@ using UnityEngine;
 public class EnemyWatcherBattleState : IEnemyState
 {
     private EnemyWatcherController _controller;
-    private bool _isAttacking;
-    //EnemyHealth _enemyHealth;
 
     public EnemyWatcherBattleState(EnemyWatcherController enemy)
     {
@@ -17,39 +15,23 @@ public class EnemyWatcherBattleState : IEnemyState
     {
         _controller.SetAnimator("Run", false);
         _controller.SetAnimator("BattleIdle", true);
-        _isAttacking = false;
-        //_enemyHealth = _enemy.gameObject.GetComponent<EnemyHealth>();
-        //_enemyHealth?.EnableHealthBar();
-        Debug.Log("Estado Batalla");
     }
 
     public void Execute()
     {
         if (!_controller.IsPlayerInAttackRange())
         {
-            _isAttacking = false;
-            //_enemyHealth?.DisableHealthBar();
             _controller.SetState(new EnemyWatcherChaseState(_controller));
         }
-        else
+        else if(_controller.CanAttack())
         {
-            if (!_isAttacking)
-            {
-                _isAttacking = true;
-                _controller.StartCoroutine(AttackRoutine());
-            }
-            
+            int attackNumber = Random.Range(0, _controller.AvailableAttacks.Length);
+            _controller.TriggerAnimator($"Attack{attackNumber + 1}");
+            _controller.DidAttack();
         }
-    }
-
-    private IEnumerator AttackRoutine()
-    {
-        while (_isAttacking)
+        else if(!_controller.IsAttacking)
         {
-            string attackType = Random.Range(0, 2) == 0 ? "Attack1" : "Attack2";
-            _controller.TriggerAnimator(attackType);
-            yield return new WaitForSeconds(3.5f);  // Ataca cada 3.5 segundos
-
+            _controller.LootAtPlayer();
         }
     }
 }

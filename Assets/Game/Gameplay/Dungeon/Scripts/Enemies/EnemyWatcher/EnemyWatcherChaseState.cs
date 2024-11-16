@@ -20,7 +20,6 @@ public class EnemyWatcherChaseState : IEnemyState
         _controller.SetAnimator("Run", true);
         _enemyHealth = _controller.GetComponentInChildren<EnemyHealth>();
         _enemyHealth?.EnableHealthBar();
-        Debug.Log("Estado Cazar");
     }
 
     public void Execute()
@@ -29,15 +28,14 @@ public class EnemyWatcherChaseState : IEnemyState
         {
             _controller.SetState(new EnemyWatcherBattleState(_controller));
         }
-        else if (!_controller.IsPlayerClose())
+        else if (!_controller.IsPlayerClose() && _controller.HasSufficientPatrolPoints())
         {
             _enemyHealth?.DisableHealthBar();
             _controller.SetState(new EnemyWatcherPatrolState(_controller));
         }
         else
         {
-            //_controller.MoveTowards(_controller.GetPlayer().position, _controller.RunSpeed);
-            _controller.RunTowardsPlayer();
+            _controller.MoveTowardsPlayer();
         }
     }
 }

@@ -37,7 +37,7 @@ public class EnemyHealth : MonoBehaviour, IDamagable, IHealtheable
     {
         if (Time.time >= _lastDamageTime + _damageCooldown)
         {
-            Debug.Log($"El player le da un daño de {damage} a {gameObject.name}");
+            //Debug.Log($"El player le da un daño de {damage} a {gameObject.name}");
             _currentHealth -= damage;
             if (_currentHealth <= 0)
             {

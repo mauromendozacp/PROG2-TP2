@@ -12,7 +12,6 @@ public class EnemyWatcherIdleState : IEnemyState
     {
         this._controller = enemy;
         this._idleTime = idleTime;
-        Debug.Log("Estado Idle");
     }
 
     public void EnterState()
@@ -28,7 +27,7 @@ public class EnemyWatcherIdleState : IEnemyState
         {
             _controller.SetState(new EnemyWatcherChaseState(_controller));
         }
-        else if (_timer >= _idleTime)
+        else if (_timer >= _idleTime && _controller.HasSufficientPatrolPoints())
         {
             _controller.SetState(new EnemyWatcherPatrolState(_controller));
         }

@@ -1610,8 +1610,8 @@ MonoBehaviour:
   _startChaseDistance: 100
   _stopChaseDistance: 150
   _attackDistance: 2
-  _walkSpeed: 3
-  _runSpeed: 6
+  _moveSpeed: 1.5
+  _runSpeed: 3
   _idleTimeout: 3
   _player: {fileID: 0}
   _hitAttackCollider: {fileID: 3206646609412502972}

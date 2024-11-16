@@ -18,9 +18,7 @@ public class EnemyWatcherPatrolState : IEnemyState
         _controller.SetAnimator("Idle", false);
         _controller.SetAnimator("Run", false);
         _controller.SetAnimator("Walk", true);
-        //_patrolTarget = _controller.GetNextPatrolPoint();
         _patrolTarget = _controller.MoveTowardsNexttPatrolPoint();
-        Debug.Log("Estado Patrulla");
     }
 
     public void Execute()
@@ -33,10 +31,5 @@ public class EnemyWatcherPatrolState : IEnemyState
         {
             _controller.SetState(new EnemyWatcherIdleState(_controller, 3f));
         }
-        //else
-        //{
-        //_controller.MoveTowards(_patrolTarget.position, _controller.MoveSpeed);
-        //}
-        //Debug.Log(Vector3.Distance(_controller.transform.position, _patrolTarget));
     }
 }

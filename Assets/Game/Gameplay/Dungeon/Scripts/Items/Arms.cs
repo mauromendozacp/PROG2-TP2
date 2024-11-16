@@ -1,26 +1,33 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class SpawnPosition
 {
     public Vector3 pos;
     public Vector3 rot;
+    public Vector3 scale;
 }
 
+[Serializable]
 public enum ArmsType 
 { 
-    Weapon, 
+    Sword,
+    Bow,
+    Wand,
     Shield, 
-    Proyectile
+    Proyectile,
+    Consumable
 }
 
 public abstract class Arms : Item
 {
-    [Header("Spawn Arms")]
+    [Header("Arms General")]
+    public ArmsType armsType;
     public SpawnPosition spawnPositionR;
     public SpawnPosition spawnPositionL;
 
     public override ItemType GetItemType() => ItemType.Arms;
 
-    public abstract ArmsType GetArmsType();
+    public ArmsType GetArmsType() => armsType;
 }

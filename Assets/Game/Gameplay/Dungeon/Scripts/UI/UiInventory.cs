@@ -198,8 +198,6 @@ public class UiInventory : MonoBehaviour
                 slotDrop.SetButton(slotDrop.GetIndex(), slotid1);
                 slotPick.RefreshButton();
                 slotDrop.RefreshButton();
-
-
             }
         }
         else if (equipment.SwapItem(slotPick.GetIndex(), slotDrop.GetIndex()))

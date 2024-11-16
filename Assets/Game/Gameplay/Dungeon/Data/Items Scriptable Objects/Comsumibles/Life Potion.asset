@@ -9,16 +9,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34c9ed03ad7d07849a6b09e6af5d6ca9, type: 3}
+  m_Script: {fileID: 11500000, guid: 5df79b33cbae3e644aaae1df82eb65bc, type: 3}
   m_Name: Life Potion
   m_EditorClassIdentifier: 
   itemName: Life Potion
   level: 1
   weight: 7
-  price: 14
-  maxStack: 100
+  price: 150
+  maxStack: 64
   icon: {fileID: 21300000, guid: 77fed4e2f7785e748afbe67bc4699e8c, type: 3}
   mesh: {fileID: 4300000, guid: 887a534051bdbf449b6fc141de3d5c53, type: 3}
   material: {fileID: 2100000, guid: 13dcb46a756acb54487e0e6e6ad96506, type: 2}
   particle: {fileID: 3937268744460058540, guid: 4535ad15e0365784bb8c49619c1ebab0,
     type: 3}
+  armsType: 5
+  spawnPositionR:
+    pos: {x: 0.12, y: -0.1, z: 0}
+    rot: {x: 0, y: 0, z: 0}
+    scale: {x: 1, y: 1, z: 1}
+  spawnPositionL:
+    pos: {x: -0.08, y: 0.1, z: 0}
+    rot: {x: -190, y: 0, z: 0}
+    scale: {x: 1, y: 1, z: 1}
+  amount: 25
+  type: 0

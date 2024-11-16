@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-
+using System.Linq;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
@@ -99,19 +99,18 @@ public class Inventory : MonoBehaviour
         CurrentItems[slotPosTo] = temp;
     }
 
-    public bool UseItem(int slotPos)
+    public bool TrySwapItemToEquipment(int slotPos, ArmsType[] blockArmItems)
     {
-        if (ItemManager.Instance.GetItemFromID(CurrentItems[slotPos].ID).GetItemType() == ItemType.Consumable)
-        {
-            CurrentItems[slotPos].AddAmount(-1);
-            if (CurrentItems[slotPos].IsEmpty())
-                return false;
-        }
-        else
+        Slot slot = CurrentItems[slotPos];
+        Arms armItem = ItemManager.Instance.GetItemFromID(slot.ID) as Arms;
+
+        if (armItem != null && !blockArmItems.Contains(armItem.GetArmsType()))
         {
             CurrentItems[slotPos] = equipmentComponent.SwapEquipment(CurrentItems[slotPos]);
+            return true;
         }
-        return true;
+
+        return false;
     }
 
     public void Divide(int slotPos)

@@ -80,36 +80,39 @@ public class PlayerInventoryController : MonoBehaviour
     {
         if (id != -1)
         {
-            if (part == PlayerPart.Helmet)
+            Item item = ItemManager.Instance.GetItemFromID(id);
+            if (item != null)
             {
-                playerMesh[index].GetComponent<SkinnedMeshRenderer>().sharedMesh =
-                    ItemManager.Instance.GetItemFromID(id).mesh;
-                playerMesh[1].GetComponent<SkinnedMeshRenderer>().sharedMesh = new Mesh();
-            }
-            if (part == PlayerPart.Arms)
-            {
-                playerMesh[index].GetComponent<MeshFilter>().mesh =
-                    ItemManager.Instance.GetItemFromID(id).mesh;
+                if (part == PlayerPart.Helmet)
+                {
+                    playerMesh[index].GetComponent<SkinnedMeshRenderer>().sharedMesh = item.mesh;
+                    playerMesh[1].GetComponent<SkinnedMeshRenderer>().sharedMesh = new Mesh();
+                }
+                if (part == PlayerPart.Arms)
+                {
+                    playerMesh[index].GetComponent<MeshFilter>().mesh = item.mesh;
+                    playerMesh[index].GetComponent<MeshRenderer>().material = item.material;
 
-                if (index == 6)
-                {
-                    playerMesh[index].transform.localPosition =
-                        ((Arms)(ItemManager.Instance.GetItemFromID(id))).spawnPositionL.pos;
-                    playerMesh[index].transform.localEulerAngles =
-                        ((Arms)(ItemManager.Instance.GetItemFromID(id))).spawnPositionL.rot;
+                    if (item is Arms itemArms)
+                    {
+                        if (index == 6)
+                        {
+                            playerMesh[index].transform.localPosition = itemArms.spawnPositionL.pos;
+                            playerMesh[index].transform.localEulerAngles = itemArms.spawnPositionL.rot;
+                            playerMesh[index].transform.localScale = itemArms.spawnPositionL.scale;
+                        }
+                        else if (index == 7)
+                        {
+                            playerMesh[index].transform.localPosition = itemArms.spawnPositionR.pos;
+                            playerMesh[index].transform.localEulerAngles = itemArms.spawnPositionR.rot;
+                            playerMesh[index].transform.localScale = itemArms.spawnPositionR.scale;
+                        }
+                    }
                 }
-                else if (index == 7)
+                else
                 {
-                    playerMesh[index].transform.localPosition =
-                        ((Arms)(ItemManager.Instance.GetItemFromID(id))).spawnPositionR.pos;
-                    playerMesh[index].transform.localEulerAngles =
-                        ((Arms)(ItemManager.Instance.GetItemFromID(id))).spawnPositionR.rot;
+                    playerMesh[index].GetComponent<SkinnedMeshRenderer>().sharedMesh = item.mesh;
                 }
-            }
-            else
-            {
-                playerMesh[index].GetComponent<SkinnedMeshRenderer>().sharedMesh =
-                    ItemManager.Instance.GetItemFromID(id).mesh;
             }
         }
         else
@@ -160,10 +163,12 @@ public class PlayerInventoryController : MonoBehaviour
                 else
                 {
                     playerUIMesh[i].GetComponent<MeshFilter>().mesh = playerMesh[i].GetComponent<MeshFilter>().mesh;
+                    playerUIMesh[i].GetComponent<MeshRenderer>().material = playerMesh[i].GetComponent<MeshRenderer>().material;
                 }
 
                 playerUIMesh[i].transform.localPosition = playerMesh[i].transform.localPosition;
                 playerUIMesh[i].transform.localEulerAngles = playerMesh[i].transform.localEulerAngles;
+                playerUIMesh[i].transform.localScale = playerMesh[i].transform.localScale;
             }
         }
     }

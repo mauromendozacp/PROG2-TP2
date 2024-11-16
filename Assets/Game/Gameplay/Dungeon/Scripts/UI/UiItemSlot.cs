@@ -19,6 +19,7 @@ public class UiItemSlot : MonoBehaviour
     [SerializeField] private int indexList;
     [SerializeField] private int id;
     [SerializeField] private int idDefaultSprite;
+    [SerializeField] private ArmsType[] blockArmItems = null;
 
     private UiInventory inv = null;
     private Action onRefreshMeshAsStatic = null;
@@ -134,19 +135,12 @@ public class UiItemSlot : MonoBehaviour
             switch (playerList)
             {
                 case PlayerList.Inventory:
-                    if (inv.Inventory.UseItem(indexList))
+                    if (inv.Inventory.TrySwapItemToEquipment(indexList, blockArmItems))
                     {
                         inv.RefreshAllButtons();
                         inv.RefreshToolTip(btn);
                     }
-                    else
-                    {
-                        Refresh(playerList);
-                        if (id < 0)
-                        {
-                            inv.toolTip.gameObject.SetActive(false);
-                        }
-                    }
+
                     break;
                 case PlayerList.Outfit:
                 case PlayerList.Arms:
@@ -155,6 +149,7 @@ public class UiItemSlot : MonoBehaviour
                         inv.RefreshAllButtons();
                         inv.RefreshToolTip(btn);
                     }
+
                     break;
                 case PlayerList.None:
                 default:

@@ -696,7 +696,7 @@ PrefabInstance:
     - target: {fileID: 1250059928980974362, guid: 07864611a67521545b4725199b5bf9ce,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 15.6
+      value: 18.629412
       objectReference: {fileID: 0}
     - target: {fileID: 1462906488817577169, guid: 07864611a67521545b4725199b5bf9ce,
         type: 3}
@@ -1161,12 +1161,12 @@ PrefabInstance:
     - target: {fileID: 5033311182681225516, guid: 07864611a67521545b4725199b5bf9ce,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 15.6
+      value: 18.629412
       objectReference: {fileID: 0}
     - target: {fileID: 5076893127922505864, guid: 07864611a67521545b4725199b5bf9ce,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.5
+      value: 9.1
       objectReference: {fileID: 0}
     - target: {fileID: 5086129211841874380, guid: 07864611a67521545b4725199b5bf9ce,
         type: 3}
@@ -1564,6 +1564,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerController: {fileID: 1414378514}
   gameplayUI: {fileID: 577123460}
+  musicEvent: {fileID: 0}
+  winEvent: {fileID: 0}
+  loseEvent: {fileID: 0}
 --- !u!1001 &4848966262451721363
 PrefabInstance:
   m_ObjectHideFlags: 0

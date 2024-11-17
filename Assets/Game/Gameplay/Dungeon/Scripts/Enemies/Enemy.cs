@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem.XR;
 using UnityEngine.Rendering.Universal;
 
 public class Enemy : MonoBehaviour
 {
     protected IEnemyState _currentState;
+    protected IEnemyState _previousState = null;
+    protected int _previousAnimStateHash;
     protected Animator _anim;
     protected NavMeshAgent _agent;
     [SerializeField] float _damageCooldownTime = 0.8f;
@@ -16,6 +20,15 @@ public class Enemy : MonoBehaviour
 
     float _lastDamageTime;
     float _lastAttackTime;
+
+    private void OnDisable()
+    {
+        EnemyManager.Instance.UnregisterEnemy(this);
+    }
+    protected virtual void Start()
+    {
+        EnemyManager.Instance.RegisterEnemy(this);
+    }
 
     public bool CanAttack() => Time.time >= _lastAttackTime + _attackCooldownTime;
     public void DidAttack() 
@@ -46,7 +59,7 @@ public class Enemy : MonoBehaviour
         _anim.SetBool(name, value);
     }
 
-    public void TriggerAnimator(string name)
+    public void SetAnimator(string name)
     {
         _anim.SetTrigger(name);
     }
@@ -71,6 +84,34 @@ public class Enemy : MonoBehaviour
             recieveDamage?.Damage(_currentDamageAmount);
             //Debug.Log($"{gameObject.name} le hace daño de {_currentDamageAmount} a {other.name}");
             DidDamage();
+        }
+    }
+
+    public void VictoryAgainstPlayer()
+    {
+        SetState(new EnemyVictoryState(this));
+    }
+
+    public void Die()
+    {
+        SetState(new EnemyDeathState(this));
+    }
+
+    public void TogglePause()
+    {
+        if(_previousState == null)
+        {
+            _previousState = _currentState;
+            AnimatorStateInfo stateInfo = _anim.GetCurrentAnimatorStateInfo(0);
+            Debug.Log(stateInfo);
+            _previousAnimStateHash = _anim.GetCurrentAnimatorStateInfo(0).shortNameHash;
+            SetState(new EnemyPauseState(this));
+        }
+        else
+        {
+            _anim.Play(_previousAnimStateHash);
+            SetState(_previousState);
+            _previousState = null;
         }
     }
 }

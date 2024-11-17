@@ -1635,6 +1635,7 @@ MonoBehaviour:
   _rb: {fileID: 0}
   _rootGameObject: {fileID: 0}
   _damageCooldown: 1
+  _dropChance: 40
 --- !u!54 &1813401888044673478
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -26,7 +26,7 @@ public class EnemyWatcherBattleState : IEnemyState
         else if(_controller.CanAttack())
         {
             int attackNumber = Random.Range(0, _controller.AvailableAttacks.Length);
-            _controller.TriggerAnimator($"Attack{attackNumber + 1}");
+            _controller.SetAnimator($"Attack{attackNumber + 1}");
             _controller.DidAttack();
         }
         else if(!_controller.IsAttacking)

@@ -39,7 +39,7 @@ public class EnemyChestBattleState : IEnemyState
             if(_controller.CanAttack())
             {
                 string attackType = Random.Range(0, 2) == 0 ? "Attack1" : "Attack2";
-                _controller.TriggerAnimator(attackType);
+                _controller.SetAnimator(attackType);
                 _controller.DidAttack();
             }
             else if(!_controller.IsAttacking)

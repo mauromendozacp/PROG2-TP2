@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Random = UnityEngine.Random;
 
 public class EnemyHealth : MonoBehaviour, IDamagable, IHealtheable
 {
@@ -13,6 +13,7 @@ public class EnemyHealth : MonoBehaviour, IDamagable, IHealtheable
     [SerializeField] Rigidbody _rb;
     [SerializeField] GameObject _rootGameObject;
     [SerializeField] float _damageCooldown = 1f;
+    [SerializeField, Range(0f, 100f)] float _dropChance = 40f;
     Collider _damageCollider;
     Enemy _controller;
     float _lastDamageTime;
@@ -60,7 +61,7 @@ public class EnemyHealth : MonoBehaviour, IDamagable, IHealtheable
         //_rb.detectCollisions = false;
         _rb.constraints = RigidbodyConstraints.None;
         yield return new WaitForSeconds(3f);
-        // TODO: Tirar item
+        TrySpawnLootItem();
         Destroy(_rootGameObject);
     }
 
@@ -73,5 +74,14 @@ public class EnemyHealth : MonoBehaviour, IDamagable, IHealtheable
     public void DisableDamage() 
     {
         _damageCollider.enabled = false;
+    }
+
+    public void TrySpawnLootItem()
+    {
+        if (Random.Range(0f, 100f) < _dropChance)
+        {
+            int itemID = ItemManager.Instance.GetRandomItemID();
+            ItemManager.Instance.GenerateItemInWorldSpace(itemID, 1, transform.position);
+        }
     }
 }

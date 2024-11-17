@@ -59,6 +59,9 @@ public class MenuController : MonoBehaviour
     }
 }
 */
+/* Application of SOLID principles: 
+- No longer responsible for audio configuration and slider logics */
+
 
 using UnityEngine;
 
@@ -68,19 +71,16 @@ public class MenuController : MonoBehaviour
     [SerializeField] private GameObject creditsCanvas;
     [SerializeField] private GameObject configCanvas;
 
-    private void Start()
-    {
-        // Aquí ya no gestionamos sliders, eso lo hace AudioSettingsController
-    }
+   
 
-    // Método para iniciar el juego
+   
     public void OnStartGameButton()
     {
         menuCanvas.SetActive(false);
         GameManager.Instance.ChangeScene(SceneGame.Gameplay);
     }
 
-    // Métodos para manejar las pantallas del menú
+   
     public void ShowCredits()
     {
         menuCanvas.SetActive(false);

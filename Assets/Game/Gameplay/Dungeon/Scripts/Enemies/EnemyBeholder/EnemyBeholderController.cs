@@ -22,6 +22,8 @@ public class EnemyBeholderController : Enemy
     public float IdleTimeout => _idleTimeout;
     public bool IsAttacking { get; private set; }
 
+    
+
     private void Awake()
     {
         _anim = GetComponent<Animator>();
@@ -30,8 +32,9 @@ public class EnemyBeholderController : Enemy
         SetState(new EnemyBeholderIdleState(this));
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         DisableAttack();
         if (_player == null) _player = GameObject.FindWithTag("Player").transform;
     }

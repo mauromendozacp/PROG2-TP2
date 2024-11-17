@@ -25,6 +25,7 @@ public class EnemyWatcherController : Enemy
 
     Transform _player;
 
+
     private void Awake()
     {
         _anim = GetComponent<Animator>();
@@ -32,8 +33,9 @@ public class EnemyWatcherController : Enemy
         _player = GameObject.FindWithTag("Player").transform;
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         DisableAttack();
         SetState(new EnemyWatcherIdleState(this, _idleDuration));
     }

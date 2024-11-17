@@ -32,6 +32,7 @@ public class GameplayController : MonoBehaviour
     {
         gameplayUI.OpenLosePanel();
         GameManager.Instance.AudioManager.PlayAudio(loseEvent);
+        EnemyManager.Instance.OnPlayerDefeated();
     }
 
     private void WinGame()
@@ -39,6 +40,7 @@ public class GameplayController : MonoBehaviour
         gameplayUI.OpenWinPanel();
         playerController.DisableInput();
         GameManager.Instance.AudioManager.PlayAudio(winEvent);
+        EnemyManager.Instance.OnPlayerVictory();
     }
 
     private void ToggleTimeScale(bool status)

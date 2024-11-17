@@ -20,6 +20,7 @@ public class EnemyChestController : Enemy
 
     Transform _player;
 
+
     private void Awake()
     {
         _anim = GetComponent<Animator>();
@@ -28,8 +29,9 @@ public class EnemyChestController : Enemy
         if (_itemToProtect == null) _itemToProtect = gameObject.transform;
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         DisableAttack();
         SetState(new EnemyChestIdleState(this));
     }

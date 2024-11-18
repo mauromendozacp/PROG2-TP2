@@ -101,6 +101,7 @@ public class PlayerItemInteraction : MonoBehaviour
             {
                 anim.SetTrigger("ConsumePotion");
                 onConsumeLife?.Invoke(consumible.amount);
+                inventoryController.ConsumeEquipmentItem(0);
                 GameManager.Instance.AudioManager.PlayAudio(potionSound);
                 ToggleOnInteractionInput();
             }

@@ -46,13 +46,12 @@ public class PlayerController : MonoBehaviour, IDamagable
     private void Start()
     {
         currentSpeed = walkSpeed;
+        currentLife = maxLife;
 
         inputController.Init(ToggleOnPause, ToggleInventory, PickItem, ToggleRun,
             itemInteraction.PressAction1, itemInteraction.PressAction2, itemInteraction.CancelAction1, itemInteraction.CancelAction2);
         inventoryController.Init();
-        itemInteraction.Init(inputController, inventoryController, ToggleDefense, null);
-
-        currentLife = maxLife;
+        itemInteraction.Init(inputController, inventoryController, ToggleDefense, ConsumePotionLife);
     }
 
     private void Update()
@@ -158,6 +157,12 @@ public class PlayerController : MonoBehaviour, IDamagable
     {
         TogglePause(true);
         onOpenPausePanel?.Invoke();
+    }
+
+    private void ConsumePotionLife(int life)
+    {
+        currentLife = Mathf.Clamp(currentLife + life, 0, maxLife);
+        onUpdateLife?.Invoke(currentLife, maxLife);
     }
 
     private void Death()

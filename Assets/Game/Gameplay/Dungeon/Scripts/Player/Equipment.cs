@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-
+using System.Linq;
 using UnityEngine;
 
 public class Equipment : MonoBehaviour
@@ -121,7 +121,7 @@ public class Equipment : MonoBehaviour
         return false;
     }
 
-    public bool TrySwapCross(int index1, int index2, bool InvententoryToEquipment) // Cambiar
+    public bool TrySwapCross(int index1, int index2, bool InvententoryToEquipment, ArmsType[] blockArmItems) // Cambiar
     {
         Item itemToSwap;
         int indexInventory = 0;
@@ -181,10 +181,14 @@ public class Equipment : MonoBehaviour
         {
             if (itemToSwap.GetItemType() == ItemType.Arms)
             {
-                Slot temp = inventory.GetSlot(indexInventory);
-                inventory.SetSlot(indexInventory, currentEquipment[indexOutfit]);
-                currentEquipment[indexOutfit] = temp;
-                return true;
+                Arms armItem = itemToSwap as Arms;
+                if (!blockArmItems.Contains(armItem.armsType))
+                {
+                    Slot temp = inventory.GetSlot(indexInventory);
+                    inventory.SetSlot(indexInventory, currentEquipment[indexOutfit]);
+                    currentEquipment[indexOutfit] = temp;
+                    return true;
+                }
             }
         }
         else if (itemToSwap.GetItemType() == ItemType.Outfit) // Se tiró en un Outfit

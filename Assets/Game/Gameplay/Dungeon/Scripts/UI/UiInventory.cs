@@ -179,6 +179,8 @@ public class UiInventory : MonoBehaviour
             return;
         }
 
+        Arms pickArmItem = ItemManager.Instance.GetItemFromID(slotPick.GetID()) as Arms;
+
         if ((slotPick.GetPlayerList() == UiItemSlot.PlayerList.Inventory) && (slotDrop.GetPlayerList() == UiItemSlot.PlayerList.Inventory))
         {
             inventory.SwapItem(slotPick.GetIndex(), slotDrop.GetIndex());
@@ -191,7 +193,7 @@ public class UiInventory : MonoBehaviour
         else if ((slotPick.GetPlayerList() == UiItemSlot.PlayerList.Inventory && slotDrop.GetPlayerList() != UiItemSlot.PlayerList.Inventory) ||
                  slotPick.GetPlayerList() != UiItemSlot.PlayerList.Inventory && slotDrop.GetPlayerList() == UiItemSlot.PlayerList.Inventory)
         {
-            if (equipment.TrySwapCross(slotPick.GetIndex(), slotDrop.GetIndex(), slotPick.GetPlayerList() == UiItemSlot.PlayerList.Inventory))
+            if (equipment.TrySwapCross(slotPick.GetIndex(), slotDrop.GetIndex(), slotPick.GetPlayerList() == UiItemSlot.PlayerList.Inventory, slotDrop.BlockArmItems))
             {
                 int slotid1 = slotPick.GetID();
                 slotPick.SetButton(slotPick.GetIndex(), slotDrop.GetID());
@@ -200,13 +202,16 @@ public class UiInventory : MonoBehaviour
                 slotDrop.RefreshButton();
             }
         }
-        else if (equipment.SwapItem(slotPick.GetIndex(), slotDrop.GetIndex()))
+        else if (pickArmItem == null || (pickArmItem != null && slotDrop.CanSwapSlot(pickArmItem.armsType)))
         {
-            int slotid1 = slotPick.GetID();
-            slotPick.SetButton(slotPick.GetIndex(), slotDrop.GetID());
-            slotDrop.SetButton(slotDrop.GetIndex(), slotid1);
-            slotPick.RefreshButton();
-            slotDrop.RefreshButton();
+            if (equipment.SwapItem(slotPick.GetIndex(), slotDrop.GetIndex()))
+            {
+                int slotid1 = slotPick.GetID();
+                slotPick.SetButton(slotPick.GetIndex(), slotDrop.GetID());
+                slotDrop.SetButton(slotDrop.GetIndex(), slotid1);
+                slotPick.RefreshButton();
+                slotDrop.RefreshButton();
+            }
         }
     }
 

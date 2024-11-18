@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,6 +29,7 @@ public class UiItemSlot : MonoBehaviour
     public int GetID() => id;
     public int GetIndex() => indexList;
     public PlayerList GetPlayerList() => playerList;
+    public ArmsType[] BlockArmItems => blockArmItems;
 
     public void Init(UiInventory inv, Action onRefreshMeshAsStatic, Func<Vector3> onGetDropItemPosition)
     {
@@ -135,12 +137,6 @@ public class UiItemSlot : MonoBehaviour
             switch (playerList)
             {
                 case PlayerList.Inventory:
-                    if (inv.Inventory.TrySwapItemToEquipment(indexList, blockArmItems))
-                    {
-                        inv.RefreshAllButtons();
-                        inv.RefreshToolTip(btn);
-                    }
-
                     break;
                 case PlayerList.Outfit:
                 case PlayerList.Arms:
@@ -156,6 +152,11 @@ public class UiItemSlot : MonoBehaviour
                     break;
             }
         }
+    }
+
+    public bool CanSwapSlot(ArmsType type)
+    {
+        return !blockArmItems.Contains(type);
     }
 
     public void RefreshButton()

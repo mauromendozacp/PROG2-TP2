@@ -6,7 +6,8 @@ public class ItemManager : MonoBehaviourSingleton<ItemManager>
     [SerializeField] private GameObject itemPrefab = null;
     [SerializeField] private LayerMask floorLayer = default;
 
-    private const float itemArmScale = 0.018f;
+    private const float itemArmScale = 0.012f;
+    private const float offsetY = 0.15f;
 
     public int GetRandomItemID()
     {
@@ -25,18 +26,23 @@ public class ItemManager : MonoBehaviourSingleton<ItemManager>
 
     public void GenerateItemInWorldSpace(int itemID, int randomAmount, Vector3 spawnPosition)
     {
-        GameObject item = Instantiate(itemPrefab, GetDropItemPosition(spawnPosition), Quaternion.identity);
-        item.GetComponent<MeshFilter>().mesh = GetItemFromID(itemID).mesh;
-        item.GetComponent<MeshCollider>().sharedMesh = GetItemFromID(itemID).mesh;
-        item.GetComponent<ItemData>().itemID = itemID;
-        item.GetComponent<ItemData>().itemAmount = randomAmount;
-        item.GetComponent<MeshRenderer>().material = GetItemFromID(itemID).material;
-        Instantiate(GetItemFromID(itemID).particle, item.transform);
+        GameObject itemGO = Instantiate(itemPrefab, GetDropItemPosition(spawnPosition), Quaternion.identity);
+        Item item = GetItemFromID(itemID);
 
-        if (GetItemFromID(itemID).GetItemType() == ItemType.Arms)
+        itemGO.GetComponent<MeshFilter>().mesh = item.mesh;
+        itemGO.GetComponent<MeshCollider>().sharedMesh = item.mesh;
+        itemGO.GetComponent<MeshRenderer>().material = item.material;
+        ItemData itemData = itemGO.GetComponent<ItemData>();
+        itemData.itemID = itemID;
+        itemData.itemAmount = randomAmount;
+
+        if (item is Arms armItem)
         {
-            item.transform.localScale *= itemArmScale;
+            itemGO.transform.localScale = armItem.spawnPositionL.scale;
         }
+        itemGO.transform.position = itemGO.transform.position + new Vector3(0f, offsetY, 0f);
+
+        Instantiate(GetItemFromID(itemID).particle, itemGO.transform);
     }
 
     private Vector3 GetDropItemPosition(Vector3 spawnPosition)

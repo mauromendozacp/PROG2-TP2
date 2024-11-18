@@ -104,7 +104,7 @@ public class Inventory : MonoBehaviour
         Slot slot = CurrentItems[slotPos];
         Arms armItem = ItemManager.Instance.GetItemFromID(slot.ID) as Arms;
 
-        if (armItem != null && !blockArmItems.Contains(armItem.GetArmsType()))
+        if (armItem == null || (armItem != null && !blockArmItems.Contains(armItem.GetArmsType())))
         {
             CurrentItems[slotPos] = equipmentComponent.SwapEquipment(CurrentItems[slotPos]);
             return true;

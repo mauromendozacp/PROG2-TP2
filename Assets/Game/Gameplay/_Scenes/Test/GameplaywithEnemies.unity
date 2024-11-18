@@ -935,6 +935,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ChestMonster
       objectReference: {fileID: 0}
+    - target: {fileID: 3493092792821807118, guid: d59ac667dd5674741a4b18971abeedce,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1938,9 +1943,9 @@ Transform:
   - {fileID: 2120147533}
   - {fileID: 634841355}
   - {fileID: 952950356}
-  - {fileID: 2039391213}
   - {fileID: 1391209352}
   - {fileID: 225018821}
+  - {fileID: 2039391213}
   m_Father: {fileID: 353370727}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1479872247
@@ -2033,6 +2038,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Watcher
+      objectReference: {fileID: 0}
+    - target: {fileID: 207739201334258967, guid: f72792204275b264ca2c8352188c7348,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 696326346447779757, guid: f72792204275b264ca2c8352188c7348,
         type: 3}
@@ -2182,6 +2192,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Beholder
+      objectReference: {fileID: 0}
+    - target: {fileID: 8945782325773633485, guid: 73155bf810bf1944083b8cc1cfbdaa40,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

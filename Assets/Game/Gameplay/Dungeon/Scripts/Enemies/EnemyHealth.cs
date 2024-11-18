@@ -45,6 +45,10 @@ public class EnemyHealth : MonoBehaviour, IDamagable, IHealtheable
                 _currentHealth = 0;
                 StartCoroutine(Die());
             }
+            else
+            {
+                _controller.SetAnimator("Hit");
+            }
             _healthBar.UpdateHealthBar();
             _lastDamageTime = Time.time;
         }     

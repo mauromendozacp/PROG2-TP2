@@ -20,14 +20,6 @@ public class EnemyWatcherController : Enemy
     public float IdleTimeout => _idleTimeout;
     public bool IsAttacking { get; private set; }
 
-    //Transform _player;
-  
-
-    protected override  void Awake()
-    {
-        base.Awake();
-        //_player = GameObject.FindWithTag("Player").transform;
-    }
 
     protected override void Start()
     {

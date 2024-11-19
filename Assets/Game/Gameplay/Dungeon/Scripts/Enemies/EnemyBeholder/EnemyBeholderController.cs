@@ -9,10 +9,7 @@ public class EnemyBeholderController : Enemy
     [SerializeField] float _startChaseDistance = 8f;
     [SerializeField] float _stopChaseDistance = 12f;
     [SerializeField] float _attackDistance = 2f;
-    //[SerializeField] float _moveSpeed = 3f;
-    //[SerializeField] float _runSpeed = 6f;
     [SerializeField] float _idleTimeout = 3f;
-    //[SerializeField] private Transform _player;
     [SerializeField] Collider _hitAttackCollider;
     [SerializeField] Collider _shockAttackCollider;
     [SerializeField] int[] _attackDamageAmount;
@@ -28,14 +25,13 @@ public class EnemyBeholderController : Enemy
     {
         base.Awake();
         HomePosition = transform.position;
-        SetState(new EnemyBeholderIdleState(this, _animation, _navigation));
     }
 
     protected override void Start()
     {
         base.Start();
+        SetState(new EnemyBeholderIdleState(this, _animation, _navigation));
         DisableAttack();
-        //if (_player == null) _player = GameObject.FindWithTag("Player").transform;
     }
 
 

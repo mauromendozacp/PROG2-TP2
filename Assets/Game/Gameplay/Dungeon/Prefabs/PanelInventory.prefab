@@ -998,13 +998,15 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Equipment:
+  m_text: 'Weapon Equipment:
 
 
-    Sword                    Bow
+    (LEFT)                (RIGHT)
 
-    Wand ----Player----
-    Shield
+    Sword                   
+    Bow
+
+    Wand ----Player---- Shield
 
     Arrow                     Potion'
   m_isRightToLeft: 0
@@ -1829,7 +1831,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8293141926433617221}
   m_HandleRect: {fileID: 693553460639834857}
   m_Direction: 2
-  m_Value: -0.00000015800384
+  m_Value: -0.00000094802306
   m_Size: 0.81605285
   m_NumberOfSteps: 0
   m_OnValueChanged:

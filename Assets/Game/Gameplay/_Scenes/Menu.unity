@@ -1913,6 +1913,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 678a15e4db3b50e40a56f590ffe3efe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuMusicEvent: {fileID: 11400000, guid: fe209077570d5fa4594ce10d6cf6dddb, type: 2}
   menuCanvas: {fileID: 847323330}
   creditsCanvas: {fileID: 1473356158}
   configCanvas: {fileID: 910772143}

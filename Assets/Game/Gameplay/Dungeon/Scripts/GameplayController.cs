@@ -39,8 +39,13 @@ public class GameplayController : MonoBehaviour
     private void LoseGame()
     {
         gameplayUI.OpenLosePanel();
-        GameManager.Instance.AudioManager.PlayAudio(loseEvent);
         EnemyManager.Instance.OnPlayerDefeated();
+
+        GameManager.Instance.AudioManager.StopCurrentMusic(
+            onSuccess: () =>
+            {
+                GameManager.Instance.AudioManager.PlayAudio(loseEvent);
+            });
     }
 
     private void WinGame()

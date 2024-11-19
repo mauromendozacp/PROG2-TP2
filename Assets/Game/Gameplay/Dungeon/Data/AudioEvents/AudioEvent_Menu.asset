@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92f4030fb5bdcef4089dcc4548b8dbcf, type: 3}
-  m_Name: AudioEvent_Lose
+  m_Name: AudioEvent_Menu
   m_EditorClassIdentifier: 
-  audioType: 0
+  audioType: 1
   soundType: 0
-  clip: {fileID: 8300000, guid: 70c953f1cdadd3841a9cfb54db3da3a6, type: 3}
+  clip: {fileID: 8300000, guid: bb8a5d0be18303a4b929ff9adb2fbc60, type: 3}
   volume: 1

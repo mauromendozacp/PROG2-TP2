@@ -8,11 +8,13 @@ using UnityEngine.Rendering.Universal;
 
 public class Enemy : MonoBehaviour
 {
+    protected EnemyAnimation _animation;
+    protected EnemyNavigation _navigation;
+
     protected IEnemyState _currentState;
     protected IEnemyState _previousState = null;
     protected int _previousAnimStateHash;
-    protected Animator _anim;
-    protected NavMeshAgent _agent;
+
     [SerializeField] float _damageCooldownTime = 0.8f;
     [SerializeField] float _attackCooldownTime = 3.1f;
     [SerializeField] protected LayerMask _targetLayer;
@@ -20,6 +22,18 @@ public class Enemy : MonoBehaviour
 
     float _lastDamageTime;
     float _lastAttackTime;
+
+    [SerializeField] float _moveSpeed = 1.5f;
+    [SerializeField] float _runSpeed = 2.5f;
+
+    public float MoveSpeed => _moveSpeed;
+    public float RunSpeed => _runSpeed;
+
+    protected virtual void Awake()
+    {
+        _animation = GetComponent<EnemyAnimation>();
+        _navigation = GetComponent<EnemyNavigation>();
+    }
 
     private void OnDisable()
     {
@@ -54,28 +68,8 @@ public class Enemy : MonoBehaviour
         _currentState.EnterState();
     }
 
-    public void SetAnimator(string name, bool value)
-    {
-        _anim.SetBool(name, value);
-    }
-
-    public void SetAnimator(string name)
-    {
-        _anim.SetTrigger(name);
-    }
-
-
-    public void SetAgentDestination(Vector3 destination)
-    {
-        _agent.destination = destination;
-    }
-
-    public void ResetAgentDestination()
-    {
-        _agent.ResetPath();
-    }
-
-
+    
+   
     private void OnTriggerEnter(Collider other)
     {
         if (Utils.CheckLayerInMask(_targetLayer, other.gameObject.layer) && CanDamage())
@@ -89,12 +83,12 @@ public class Enemy : MonoBehaviour
 
     public void VictoryAgainstPlayer()
     {
-        SetState(new EnemyVictoryState(this));
+        SetState(new EnemyVictoryState(this, _animation));
     }
 
     public void Die()
     {
-        SetState(new EnemyDeathState(this));
+        SetState(new EnemyDeathState(this, _animation, _navigation));
     }
 
     public void TogglePause()
@@ -102,14 +96,12 @@ public class Enemy : MonoBehaviour
         if(_previousState == null)
         {
             _previousState = _currentState;
-            AnimatorStateInfo stateInfo = _anim.GetCurrentAnimatorStateInfo(0);
-            Debug.Log(stateInfo);
-            _previousAnimStateHash = _anim.GetCurrentAnimatorStateInfo(0).shortNameHash;
-            SetState(new EnemyPauseState(this));
+            _previousAnimStateHash = _animation.GetCurrentAnimationStateHash();
+            SetState(new EnemyPauseState(this, _animation, _navigation));
         }
         else
         {
-            _anim.Play(_previousAnimStateHash);
+            _animation.Play(_previousAnimStateHash);
             SetState(_previousState);
             _previousState = null;
         }

@@ -6,16 +6,20 @@ using UnityEngine.InputSystem.XR;
 public class EnemyBeholderChaseState : IEnemyState
 {
     EnemyBeholderController _controller;
+    EnemyAnimation _animation;
+    EnemyNavigation _navigation;
     EnemyHealth _enemyHealth;
-    public EnemyBeholderChaseState(EnemyBeholderController controller)
+    public EnemyBeholderChaseState(EnemyBeholderController controller, EnemyAnimation animation, EnemyNavigation navigation)
     {
-        this._controller = controller;
+        _controller = controller;
+        _animation = animation;
+        _navigation = navigation;
     }
     public void EnterState()
     {
-        _controller.SetAnimator("Run", true);
-        _controller.SetAnimator("Walk", false);
-        _controller.SetAnimator("Battle", false);
+        _animation.SetAnimator("Run", true);
+        _animation.SetAnimator("Walk", false);
+        _animation.SetAnimator("Battle", false);
         _enemyHealth = _controller.gameObject.GetComponent<EnemyHealth>();
         _enemyHealth?.EnableHealthBar();
     }
@@ -23,15 +27,15 @@ public class EnemyBeholderChaseState : IEnemyState
     public void Execute()
     {
         if(_controller.IsPlayerFar()) {
-            _controller.SetState(new EnemyBeholderIdleState(_controller));
+            _controller.SetState(new EnemyBeholderIdleState(_controller, _animation, _navigation));
         }
         else if(_controller.IsPlayerInAttackRange())
         {
-            _controller.SetState(new EnemyBeholderBattleState(_controller));
+            _controller.SetState(new EnemyBeholderBattleState(_controller, _animation, _navigation));
         }
         else
         {
-            _controller.MoveTowardsPlayer();
+            _navigation.MoveTowardsPlayer();
         }
     }
 }

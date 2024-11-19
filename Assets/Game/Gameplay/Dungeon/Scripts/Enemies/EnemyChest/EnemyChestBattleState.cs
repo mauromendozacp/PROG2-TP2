@@ -5,16 +5,20 @@ using UnityEngine;
 public class EnemyChestBattleState : IEnemyState
 {
     readonly EnemyChestController _controller;
+    EnemyAnimation _animation;
     EnemyHealth _enemyHealth;
+    EnemyNavigation _navigation;
 
-    public EnemyChestBattleState(EnemyChestController controller)
+    public EnemyChestBattleState(EnemyChestController controller, EnemyAnimation animation, EnemyNavigation navigation)
     {
         _controller = controller;
+        _animation = animation;
+        _navigation = navigation;
     }
 
     public void EnterState()
     {
-        _controller.SetAnimator("IdleAttack", true);
+        _animation.SetAnimator("IdleAttack", true);
         _enemyHealth = _controller.gameObject.GetComponent<EnemyHealth>();
         _enemyHealth?.EnableHealthBar();
     }
@@ -24,22 +28,22 @@ public class EnemyChestBattleState : IEnemyState
         if (_controller.IsPlayerFar())
         {
             _enemyHealth?.DisableHealthBar();
-            _controller.SetState(new EnemyChestIdleState(_controller));
+            _controller.SetState(new EnemyChestIdleState(_controller, _animation, _navigation));
         }
         else if (!_controller.IsPlayerInAttackRange())
         {
-            _controller.SetAnimator("Run", true);
+            _animation.SetAnimator("Run", true);
             _controller.LootAtPlayer();
-            _controller.MoveTowardsPlayer();
+            _navigation.MoveTowardsPlayer();
         }
         else
         {
-            _controller.SetAnimator("Run", false);
-            _controller.ResetAgentDestination();
+            _animation.SetAnimator("Run", false);
+            _navigation.ResetAgentDestination();
             if(_controller.CanAttack())
             {
                 string attackType = Random.Range(0, 2) == 0 ? "Attack1" : "Attack2";
-                _controller.SetAnimator(attackType);
+                _animation.SetAnimator(attackType);
                 _controller.DidAttack();
             }
             else if(!_controller.IsAttacking)

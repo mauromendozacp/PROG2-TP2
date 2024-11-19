@@ -8,11 +8,10 @@ public class EnemyWatcherController : Enemy
     [SerializeField] float _detectPlayerRange = 10f;
     [SerializeField] float _attackRange = 2f;
     [SerializeField] float _idleDuration = 3f;
-    [SerializeField] float _moveSpeed = 1.5f;
-    [SerializeField] float _runSpeed = 2.5f;
+    //[SerializeField] float _moveSpeed = 1.5f;
+    //[SerializeField] float _runSpeed = 2.5f;
     [SerializeField] List<Transform> _patrolPoints;
-    public float MoveSpeed => _moveSpeed;
-    public float RunSpeed => _runSpeed;
+    
 
     private int _currentPatrolIndex = 0;
     [SerializeField] float _idleTimeout = 3f;
@@ -24,12 +23,11 @@ public class EnemyWatcherController : Enemy
     public bool IsAttacking { get; private set; }
 
     Transform _player;
+  
 
-
-    private void Awake()
+    protected override  void Awake()
     {
-        _anim = GetComponent<Animator>();
-        _agent = GetComponent<NavMeshAgent>();
+        base.Awake();
         _player = GameObject.FindWithTag("Player").transform;
     }
 
@@ -37,7 +35,7 @@ public class EnemyWatcherController : Enemy
     {
         base.Start();
         DisableAttack();
-        SetState(new EnemyWatcherIdleState(this, _idleDuration));
+        SetState(new EnemyWatcherIdleState(this, _animation, _idleDuration, _navigation));
     }
 
     public bool HasSufficientPatrolPoints() => _patrolPoints.Count > 1 && _patrolPoints != null;
@@ -66,8 +64,7 @@ public class EnemyWatcherController : Enemy
     public Vector3 MoveTowardsNexttPatrolPoint()
     {
         Vector3 position = GetNextPatrolPoint().position;
-        _agent.destination = position;
-        _agent.speed = _moveSpeed;
+        _navigation.MoveTo(position);
         return position;
     }
 
@@ -82,13 +79,6 @@ public class EnemyWatcherController : Enemy
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
     }
-
-    public void MoveTowardsPlayer()
-    {
-        _agent.destination = _player.position;
-        _agent.speed = _moveSpeed;
-    }
-
 
     public Transform GetPlayer() => _player;
 

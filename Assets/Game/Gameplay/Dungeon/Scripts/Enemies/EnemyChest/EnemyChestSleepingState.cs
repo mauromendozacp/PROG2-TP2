@@ -4,24 +4,28 @@ using UnityEngine;
 
 public class EnemyChestSleepingState : IEnemyState
 {
-    private readonly EnemyChestController _controller;
+    readonly EnemyChestController _controller;
+    EnemyAnimation _animation;
+    EnemyNavigation _navigation;
 
-    public EnemyChestSleepingState(EnemyChestController controller)
+    public EnemyChestSleepingState(EnemyChestController controller, EnemyAnimation animation, EnemyNavigation navigation)
     {
         _controller = controller;
+        _animation = animation;
+        _navigation = navigation;
     }
 
     public void EnterState()
     {
-        _controller.ResetAgentDestination();
-        _controller.SetAnimator("Sleep", true);
+        _navigation.ResetAgentDestination();
+        _animation.SetAnimator("Sleep", true);
     }
 
     public void Execute()
     {
         if (!_controller.IsNearItemToProtect() || _controller.IsPlayerClose())
         {
-            _controller.SetState(new EnemyChestIdleState(_controller));
+            _controller.SetState(new EnemyChestIdleState(_controller, _animation, _navigation));
         }
     }
 }

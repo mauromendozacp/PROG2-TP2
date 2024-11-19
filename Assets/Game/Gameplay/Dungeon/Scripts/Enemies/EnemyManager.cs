@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    //[SerializeField] GameObject _panelInventory;
-    //bool _isPanelInventoryActive = false;
+    [SerializeField] GameObject _panelInventory;
+    bool _isPanelInventoryActive = false;
     public static EnemyManager Instance { get; private set; }
 
     private List<Enemy> _enemies = new List<Enemy>();
@@ -22,12 +22,12 @@ public class EnemyManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    /*
+    
     private void Start()
     {
-        if(_panelInventory == null) _panelInventory = GameObject.Find("PanelInventory");
+        if(_panelInventory == null) _panelInventory = GameObjectUtils.FindObject("PanelInventory");
     }
-    */
+    
 
     public void RegisterEnemy(Enemy enemy)
     {
@@ -69,7 +69,7 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    /*
+    
     private void Update()
     {
         if(!_isPanelInventoryActive && _panelInventory.activeInHierarchy)
@@ -83,5 +83,4 @@ public class EnemyManager : MonoBehaviour
             TogglePause();
         }
     }
-    */
 }

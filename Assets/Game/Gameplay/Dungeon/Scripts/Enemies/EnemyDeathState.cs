@@ -1,32 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyDeathState : IEnemyState
 {
     Enemy _controller;
+    EnemyAnimation _animation;
+    EnemyNavigation _navigation;
 
-    public EnemyDeathState(Enemy controller)
+    public EnemyDeathState(Enemy controller, EnemyAnimation animation, EnemyNavigation navigation)
     {
         _controller = controller;
+        _animation = animation;
+        _navigation = navigation;
     }
     public void EnterState()
     {
-        _controller.SetAnimator("Die", true);
-        _controller.ResetAgentDestination();
-        //_controller.Collider.enabled = false;     // Desactivar colisiones
-
-        // Opcional: Activar destrucción tras animación
-        //_controller.StartCoroutine(DestroyAfterDelay(_controller, 3f)); // 3 segundos de delay
+        _animation.SetAnimator("Die", true);
+        _navigation.ResetAgentDestination();
     }
 
     public void Execute() { }
-
-    /*
-    private IEnumerator DestroyAfterDelay(Enemy controller, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        Object.Destroy(controller.gameObject);
-    }
-    */
 }

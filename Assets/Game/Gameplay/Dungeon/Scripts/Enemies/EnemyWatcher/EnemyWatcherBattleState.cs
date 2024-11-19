@@ -4,29 +4,32 @@ using UnityEngine;
 
 public class EnemyWatcherBattleState : IEnemyState
 {
-    private EnemyWatcherController _controller;
-
-    public EnemyWatcherBattleState(EnemyWatcherController enemy)
+    EnemyWatcherController _controller;
+    EnemyAnimation _animation;
+    EnemyNavigation _navigation;
+    public EnemyWatcherBattleState(EnemyWatcherController enemy, EnemyAnimation animation, EnemyNavigation navigation)
     {
-        this._controller = enemy;
+        _controller = enemy;
+        _animation = animation;
+        _navigation = navigation;
     }
 
     public void EnterState()
     {
-        _controller.SetAnimator("Run", false);
-        _controller.SetAnimator("BattleIdle", true);
+        _animation.SetAnimator("Run", false);
+        _animation.SetAnimator("BattleIdle", true);
     }
 
     public void Execute()
     {
         if (!_controller.IsPlayerInAttackRange())
         {
-            _controller.SetState(new EnemyWatcherChaseState(_controller));
+            _controller.SetState(new EnemyWatcherChaseState(_controller, _animation, _navigation));
         }
         else if(_controller.CanAttack())
         {
             int attackNumber = Random.Range(0, _controller.AvailableAttacks.Length);
-            _controller.SetAnimator($"Attack{attackNumber + 1}");
+            _animation.SetAnimator($"Attack{attackNumber + 1}");
             _controller.DidAttack();
         }
         else if(!_controller.IsAttacking)

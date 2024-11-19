@@ -16,7 +16,10 @@ public class EnemyHealth : MonoBehaviour, IDamagable, IHealtheable
     [SerializeField, Range(0f, 100f)] float _dropChance = 40f;
     Collider _damageCollider;
     Enemy _controller;
+    EnemyAnimation _animation;
     float _lastDamageTime;
+
+    EnemyNavigation _navigation;
 
     private void Awake()
     {
@@ -31,6 +34,8 @@ public class EnemyHealth : MonoBehaviour, IDamagable, IHealtheable
     {
         _healthBar.Disable();
         _controller = _rootGameObject.GetComponent<Enemy>();
+        _animation = _controller.GetComponent<EnemyAnimation>();
+        _navigation = _controller.GetComponent<EnemyNavigation>();
 
     }
 
@@ -47,7 +52,7 @@ public class EnemyHealth : MonoBehaviour, IDamagable, IHealtheable
             }
             else
             {
-                _controller.SetAnimator("Hit");
+                _animation.SetAnimator("Hit");
             }
             _healthBar.UpdateHealthBar();
             _lastDamageTime = Time.time;
@@ -60,7 +65,7 @@ public class EnemyHealth : MonoBehaviour, IDamagable, IHealtheable
     {
         //_anim.SetTrigger("Die");
         _healthBar.Disable();
-        _controller.SetState(new EnemyDeathState(_controller));
+        _controller.SetState(new EnemyDeathState(_controller, _animation, _navigation));
         //_rb.isKinematic = true;
         //_rb.detectCollisions = false;
         _rb.constraints = RigidbodyConstraints.None;

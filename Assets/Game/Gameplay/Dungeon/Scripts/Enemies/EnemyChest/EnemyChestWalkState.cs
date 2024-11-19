@@ -2,31 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyWalkState : IEnemyState
+public class EnemyChestWalkState : IEnemyState
 {
-    private readonly EnemyChestController chest;
+    readonly EnemyChestController _controller;
+    EnemyAnimation _animation;
+    EnemyNavigation _navigation;
 
-    public EnemyWalkState(EnemyChestController chest)
+    public EnemyChestWalkState(EnemyChestController controller, EnemyAnimation animation, EnemyNavigation navigation)
     {
-        this.chest = chest;
+        _controller = controller;
+        _animation = animation;
+        _navigation = navigation;
     }
 
     public void EnterState()
     {
-         chest.SetAnimator("Walk", true);
+        _animation.SetAnimator("Walk", true);
     }
 
     public void Execute()
     {
 
-        if (chest.IsNearItemToProtect())
+        if (_controller.IsNearItemToProtect())
         {
-            chest.SetState(new EnemyChestIdleState(chest));
+            _controller.SetState(new EnemyChestIdleState(_controller, _animation, _navigation));
         }
         else
         {
-            chest.LookAtCollectible();
-            chest.MoveTowardsCollectible();  // Mover hacia el coleccionable
+            _controller.LookAtCollectible();
+            _navigation.MoveTo(_controller.ItemToProtect.position);  // Mover hacia el coleccionable
         }
     }
 }

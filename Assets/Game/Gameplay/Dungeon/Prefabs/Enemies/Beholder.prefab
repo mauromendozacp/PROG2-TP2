@@ -1501,6 +1501,8 @@ GameObject:
   - component: {fileID: 8859455747172572721}
   - component: {fileID: 2955179676945321971}
   - component: {fileID: 1813401888044673478}
+  - component: {fileID: -2466368628081370149}
+  - component: {fileID: -3616797772572858300}
   m_Layer: 8
   m_Name: Beholder
   m_TagString: Enemy
@@ -1607,11 +1609,11 @@ MonoBehaviour:
   _targetLayer:
     serializedVersion: 2
     m_Bits: 8
-  _startChaseDistance: 100
-  _stopChaseDistance: 150
-  _attackDistance: 2
   _moveSpeed: 1.5
   _runSpeed: 3
+  _startChaseDistance: 10
+  _stopChaseDistance: 15
+  _attackDistance: 2
   _idleTimeout: 3
   _player: {fileID: 0}
   _hitAttackCollider: {fileID: 3206646609412502972}
@@ -1663,6 +1665,30 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &-2466368628081370149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8945782325773633485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68ceeb5612ccfa8428d63dd5a75185f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-3616797772572858300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8945782325773633485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aae731d47af4c2c489b778ddfd705138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9009165726240191424
 GameObject:
   m_ObjectHideFlags: 0

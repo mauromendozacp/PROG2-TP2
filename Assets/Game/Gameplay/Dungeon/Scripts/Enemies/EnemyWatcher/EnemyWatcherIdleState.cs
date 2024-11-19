@@ -4,19 +4,24 @@ using UnityEngine;
 
 public class EnemyWatcherIdleState : IEnemyState
 {
-    private EnemyWatcherController _controller;
+    EnemyWatcherController _controller;
+    EnemyAnimation _animation;
     private float _idleTime;
     private float _timer;
+    EnemyNavigation _navigation;
 
-    public EnemyWatcherIdleState(EnemyWatcherController enemy, float idleTime)
+    public EnemyWatcherIdleState(EnemyWatcherController enemy, EnemyAnimation animation, float idleTime, EnemyNavigation navigation)
     {
-        this._controller = enemy;
-        this._idleTime = idleTime;
+        _controller = enemy;
+        _animation = animation;
+        _idleTime = idleTime;
+        _navigation = navigation;
+
     }
 
     public void EnterState()
     {
-        _controller.SetAnimator("Idle", true);
+        _animation.SetAnimator("Idle", true);
         _timer = 0;
     }
 
@@ -25,11 +30,11 @@ public class EnemyWatcherIdleState : IEnemyState
         _timer += Time.deltaTime;
         if (_controller.IsPlayerClose())
         {
-            _controller.SetState(new EnemyWatcherChaseState(_controller));
+            _controller.SetState(new EnemyWatcherChaseState(_controller, _animation, _navigation));
         }
         else if (_timer >= _idleTime && _controller.HasSufficientPatrolPoints())
         {
-            _controller.SetState(new EnemyWatcherPatrolState(_controller));
+            _controller.SetState(new EnemyWatcherPatrolState(_controller, _animation, _navigation));
         }
     }
 }

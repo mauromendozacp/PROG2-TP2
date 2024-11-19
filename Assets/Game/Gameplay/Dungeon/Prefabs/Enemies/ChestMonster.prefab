@@ -349,6 +349,8 @@ GameObject:
   - component: {fileID: 2164637041399349321}
   - component: {fileID: 3611654233091332771}
   - component: {fileID: 1470718312593114739}
+  - component: {fileID: -5930171488171574292}
+  - component: {fileID: 3985069992824073207}
   m_Layer: 8
   m_Name: ChestMonster
   m_TagString: Enemy
@@ -412,12 +414,12 @@ MonoBehaviour:
   _targetLayer:
     serializedVersion: 2
     m_Bits: 8
+  _moveSpeed: 1.5
+  _runSpeed: 2.5
   _detectItemRange: 3
   _detectPlayerRange: 6
   _idleDistance: 10
   _attackRange: 2
-  _moveSpeed: 1.5
-  _runSpeed: 2.5
   _idleTimeout: 3
   _hitAttackCollider: {fileID: 6591722699518682979}
   _attackDamageAmount: 040000000a000000
@@ -440,6 +442,7 @@ MonoBehaviour:
   _rb: {fileID: 0}
   _rootGameObject: {fileID: 0}
   _damageCooldown: 1
+  _dropChance: 40
 --- !u!54 &2164637041399349321
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -510,6 +513,30 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &-5930171488171574292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3493092792821807118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68ceeb5612ccfa8428d63dd5a75185f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3985069992824073207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3493092792821807118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aae731d47af4c2c489b778ddfd705138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3930147262982353813
 GameObject:
   m_ObjectHideFlags: 0

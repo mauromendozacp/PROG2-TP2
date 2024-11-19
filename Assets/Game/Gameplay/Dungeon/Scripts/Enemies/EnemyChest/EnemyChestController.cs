@@ -8,8 +8,8 @@ public class EnemyChestController : Enemy
     [SerializeField] float _detectPlayerRange = 6f;
     [SerializeField] float _idleDistance = 10f;
     [SerializeField] float _attackRange = 2f;
-    [SerializeField] float _moveSpeed = 2f;
-    [SerializeField] float _runSpeed = 4f;
+    //[SerializeField] float _moveSpeed = 2f;
+    //[SerializeField] float _runSpeed = 4f;
     [SerializeField] float _idleTimeout = 3f;
     [SerializeField] Collider _hitAttackCollider;
     [SerializeField] int[] _attackDamageAmount;
@@ -19,12 +19,11 @@ public class EnemyChestController : Enemy
     [SerializeField] Transform _itemToProtect;
 
     Transform _player;
+    public Transform ItemToProtect => _itemToProtect;
 
-
-    private void Awake()
+    protected override void Awake()
     {
-        _anim = GetComponent<Animator>();
-        _agent = GetComponent<NavMeshAgent>();
+        base.Awake();
         _player = GameObject.FindWithTag("Player").transform;
         if (_itemToProtect == null) _itemToProtect = gameObject.transform;
     }
@@ -33,7 +32,7 @@ public class EnemyChestController : Enemy
     {
         base.Start();
         DisableAttack();
-        SetState(new EnemyChestIdleState(this));
+        SetState(new EnemyChestIdleState(this, _animation, _navigation));
     }
 
     public bool IsPlayerClose() => Vector3.Distance(transform.position, _player.position) < _detectPlayerRange;
@@ -53,18 +52,6 @@ public class EnemyChestController : Enemy
     public void LootAtPlayer()
     {
         LookAtTarget(_player.position);
-    }
-
-    public void MoveTowardsPlayer()
-    {
-        _agent.destination = _player.position;
-        _agent.speed = _runSpeed;
-    }
-
-    public void MoveTowardsCollectible()
-    {
-        _agent.destination = _itemToProtect.position;
-        _agent.speed = _moveSpeed;
     }
 
     void LookAtTarget(Vector3 target)

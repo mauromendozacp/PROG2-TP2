@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: -110911983515959985}
   - component: {fileID: 4254713772876994719}
   - component: {fileID: 6812115266620386809}
+  - component: {fileID: 8197359685514256577}
+  - component: {fileID: 6206975147024755861}
   m_Layer: 8
   m_Name: Watcher
   m_TagString: Enemy
@@ -75,11 +77,11 @@ MonoBehaviour:
   _targetLayer:
     serializedVersion: 2
     m_Bits: 8
+  _moveSpeed: 1.5
+  _runSpeed: 2.5
   _detectPlayerRange: 6
   _attackRange: 1.5
   _idleDuration: 3
-  _moveSpeed: 1.5
-  _runSpeed: 2.5
   _patrolPoints: []
   _idleTimeout: 3
   _hitAttackCollider: {fileID: 5782681560656792133}
@@ -133,6 +135,30 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &8197359685514256577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207739201334258967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68ceeb5612ccfa8428d63dd5a75185f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6206975147024755861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207739201334258967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aae731d47af4c2c489b778ddfd705138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &373962487293912102
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,6 +647,7 @@ MonoBehaviour:
   _rb: {fileID: 4254713772876994719}
   _rootGameObject: {fileID: 207739201334258967}
   _damageCooldown: 1
+  _dropChance: 40
 --- !u!65 &5782681560656792133
 BoxCollider:
   m_ObjectHideFlags: 0

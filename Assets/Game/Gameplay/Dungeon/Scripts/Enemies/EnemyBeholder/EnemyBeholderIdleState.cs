@@ -5,20 +5,25 @@ using UnityEngine;
 public class EnemyBeholderIdleState: IEnemyState
 {
     EnemyBeholderController _controller;
+    EnemyAnimation _animation;
+    EnemyNavigation _navigation;
     Timer _timer;
     EnemyHealth _enemyHealth;
-    public EnemyBeholderIdleState(EnemyBeholderController controller)
+    public EnemyBeholderIdleState(EnemyBeholderController controller, EnemyAnimation animation, EnemyNavigation navigation)
     {
-        this._controller = controller;
+        _controller = controller;
+        _animation = animation;
+        _navigation = navigation;
         _timer = new Timer();
         _controller.StartCoroutine(_timer.StartTimer(_controller.IdleTimeout));
+ 
     }
     public void EnterState()
     {
-        _controller.SetAnimator("Walk", false);
-        _controller.SetAnimator("Battle", false);
-        _controller.SetAnimator("Run", false);
-        _controller.ResetAgentDestination();
+        _animation.SetAnimator("Walk", false);
+        _animation.SetAnimator("Battle", false);
+        _animation.SetAnimator("Run", false);
+        _navigation.ResetAgentDestination();
         _enemyHealth = _controller.gameObject.GetComponent<EnemyHealth>();
         _enemyHealth?.DisableHealthBar();
     }
@@ -29,18 +34,18 @@ public class EnemyBeholderIdleState: IEnemyState
 
         if(_controller.IsPlayerClose())
         {
-            _controller.SetState(new EnemyBeholderChaseState(_controller));
+            _controller.SetState(new EnemyBeholderChaseState(_controller, _animation, _navigation));
         }
 
         else if (!_controller.IsAtHome())
         {
-            _controller.SetAnimator("Walk", true);
-            _controller.MoveTowardsHome();
+            _animation.SetAnimator("Walk", true);
+            _navigation.MoveTo(_controller.HomePosition);
         }
         else
         {
-            _controller.SetAnimator("Walk", false);
-            _controller.ResetAgentDestination();
+            _animation.SetAnimator("Walk", false);
+            _navigation.ResetAgentDestination();
         }
     }
 }

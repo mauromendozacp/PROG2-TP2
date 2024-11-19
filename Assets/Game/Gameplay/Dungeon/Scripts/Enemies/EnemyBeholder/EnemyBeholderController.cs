@@ -9,8 +9,8 @@ public class EnemyBeholderController : Enemy
     [SerializeField] float _startChaseDistance = 8f;
     [SerializeField] float _stopChaseDistance = 12f;
     [SerializeField] float _attackDistance = 2f;
-    [SerializeField] float _moveSpeed = 3f;
-    [SerializeField] float _runSpeed = 6f;
+    //[SerializeField] float _moveSpeed = 3f;
+    //[SerializeField] float _runSpeed = 6f;
     [SerializeField] float _idleTimeout = 3f;
     [SerializeField] private Transform _player;
     [SerializeField] Collider _hitAttackCollider;
@@ -24,12 +24,11 @@ public class EnemyBeholderController : Enemy
 
     
 
-    private void Awake()
+    protected override void Awake()
     {
-        _anim = GetComponent<Animator>();
-        _agent = GetComponent<NavMeshAgent>();
+        base.Awake();
         HomePosition = transform.position;
-        SetState(new EnemyBeholderIdleState(this));
+        SetState(new EnemyBeholderIdleState(this, _animation, _navigation));
     }
 
     protected override void Start()
@@ -61,20 +60,7 @@ public class EnemyBeholderController : Enemy
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
     }
-
-
-
-    public void MoveTowardsPlayer()
-    {
-        _agent.destination = _player.position;
-        _agent.speed = _runSpeed;
-    }
-
-    public void MoveTowardsHome()
-    {
-        _agent.destination = HomePosition;
-        _agent.speed = _moveSpeed;
-    }
+   
 
     public void EnableAttack(int attackNumber)
     {

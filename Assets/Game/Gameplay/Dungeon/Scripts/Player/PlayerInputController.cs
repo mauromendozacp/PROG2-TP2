@@ -21,6 +21,7 @@ public class PlayerInputController : MonoBehaviour
     private Action onInvetory = null;
     private Action onPick = null;
     private Action<bool> onRun = null;
+    private Action onChangeWeapons = null;
     private Action onPressAction1 = null;
     private Action onPressAction2 = null;
     private Action onCancelAction1 = null;
@@ -29,13 +30,14 @@ public class PlayerInputController : MonoBehaviour
     public Vector2 Move { get => GetMoveValue(); }
     public FSM_INPUT CurrentInputState { get => currentInputState; }
 
-    public void Init(Action onPause, Action onInvetory, Action onPick, Action<bool> onRun, 
+    public void Init(Action onPause, Action onInvetory, Action onPick, Action<bool> onRun, Action onChangeWeapons,
         Action onPressAction1, Action onPressAction2, Action onCancelAction1, Action onCancelAction2)
     {
         this.onPause = onPause;
         this.onInvetory = onInvetory;
         this.onPick = onPick;
         this.onRun = onRun;
+        this.onChangeWeapons = onChangeWeapons;
         this.onPressAction1 = onPressAction1;
         this.onPressAction2 = onPressAction2;
         this.onCancelAction1 = onCancelAction1;
@@ -47,6 +49,7 @@ public class PlayerInputController : MonoBehaviour
         inputAction.Player.PickItem.performed += OnPick;
         inputAction.Player.Run.performed += OnStartRun;
         inputAction.Player.Run.canceled += OnEndRun;
+        inputAction.Player.ChangeWeapon.performed += OnChangeWeapons;
         inputAction.Player.Action1.performed += OnPressAction1;
         inputAction.Player.Action2.performed += OnPressAction2;
         inputAction.Player.Action1.canceled += OnCancelAction1;
@@ -78,6 +81,11 @@ public class PlayerInputController : MonoBehaviour
     public void OnEndRun(InputAction.CallbackContext context)
     {
         onRun?.Invoke(false);
+    }
+
+    public void OnChangeWeapons(InputAction.CallbackContext context)
+    {
+        onChangeWeapons?.Invoke();
     }
 
     public void OnPressAction1(InputAction.CallbackContext context)

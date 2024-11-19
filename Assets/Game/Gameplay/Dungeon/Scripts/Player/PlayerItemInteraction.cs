@@ -168,7 +168,7 @@ public class PlayerItemInteraction : MonoBehaviour
         rightHandItem.ToggleCollider(false);
     }
 
-    private void ToggleOnInteractionInput()
+    public void ToggleOnInteractionInput()
     {
         inputController.UpdateInputFSM(FSM_INPUT.INTERACTING, false);
     }

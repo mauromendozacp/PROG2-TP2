@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour, IDamagable
         inputController.Init(ToggleOnPause, ToggleInventory, PickItem, ToggleRun,
             itemInteraction.PressAction1, itemInteraction.PressAction2, itemInteraction.CancelAction1, itemInteraction.CancelAction2);
         inventoryController.Init();
-        itemInteraction.Init(inputController, inventoryController, ToggleDefense, ConsumePotionLife);
+        itemInteraction.Init(inputController, inventoryController, ToggleDefense, ConsumePotionLife, LookMousePosition);
     }
 
     private void Update()
@@ -157,6 +157,13 @@ public class PlayerController : MonoBehaviour, IDamagable
     {
         TogglePause(true);
         onOpenPausePanel?.Invoke();
+    }
+
+    private void LookMousePosition(Vector3 mousePosition)
+    {
+        Vector3 dir = (mousePosition - bodyTransform.position).normalized;
+        dir.y = 0f;
+        bodyTransform.rotation = Quaternion.LookRotation(dir);
     }
 
     private void ConsumePotionLife(int life)

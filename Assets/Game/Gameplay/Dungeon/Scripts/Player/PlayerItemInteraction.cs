@@ -24,19 +24,21 @@ public class PlayerItemInteraction : MonoBehaviour
 
     private Action<bool> onToggleDefense = null;
     private Action<int> onConsumeLife = null;
+    private Action<Vector3> onLookMousePosition = null;
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
     }
 
-    public void Init(PlayerInputController inputController, PlayerInventoryController inventoryController, Action<bool> onToggleDefense, Action<int> onConsumeLife)
+    public void Init(PlayerInputController inputController, PlayerInventoryController inventoryController, Action<bool> onToggleDefense, Action<int> onConsumeLife, Action<Vector3> onLookMousePosition)
     {
         this.inputController = inputController;
         this.inventoryController = inventoryController;
 
         this.onToggleDefense = onToggleDefense;
         this.onConsumeLife = onConsumeLife;
+        this.onLookMousePosition = onLookMousePosition;
     }
 
     public void PressAction1()
@@ -84,6 +86,8 @@ public class PlayerItemInteraction : MonoBehaviour
 
                 currentProjectile = projectile;
             }
+
+            onLookMousePosition?.Invoke(GetMouseWorldPosition());
         }
     }
 

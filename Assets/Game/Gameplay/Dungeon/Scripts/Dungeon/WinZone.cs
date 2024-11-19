@@ -12,7 +12,6 @@ public class WinZone : MonoBehaviour
     [SerializeField] private float winAnimationExtraTime = 0f;
     [SerializeField] private CinemachineVirtualCamera virtualCamera = null;
     [SerializeField] private Vector3 offset = Vector3.zero;
-    [SerializeField] private AudioEvent winEvent = null;
 
     [SerializeField] private float radius = 0f;
     [SerializeField] private int spawnCount = 0;
@@ -41,12 +40,6 @@ public class WinZone : MonoBehaviour
     {
         virtualCamera.Follow = null;
         virtualCamera.LookAt = null;
-
-        GameManager.Instance.AudioManager.StopCurrentMusic(
-            onSuccess: () =>
-            {
-                GameManager.Instance.AudioManager.PlayAudio(winEvent);
-            });
 
         StartCoroutine(FocusRuneTransitionCoroutine());
         IEnumerator FocusRuneTransitionCoroutine()

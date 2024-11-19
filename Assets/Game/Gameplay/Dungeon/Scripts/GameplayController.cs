@@ -4,6 +4,7 @@ public class GameplayController : MonoBehaviour
 {
     [SerializeField] private PlayerController playerController = null;
     [SerializeField] private GameplayUI gameplayUI = null;
+    [SerializeField] private WinZone winZone = null;
     [SerializeField] private AudioEvent musicEvent = null;
     [SerializeField] private AudioEvent winEvent = null;
     [SerializeField] private AudioEvent loseEvent = null;
@@ -12,6 +13,7 @@ public class GameplayController : MonoBehaviour
     {
         playerController.Init(ToggleOnPause, gameplayUI.UpdatePlayerHealth, LoseGame);
         gameplayUI.Init(ToggleTimeScale, ToggleOffPause);
+        winZone?.Init(VictoryPlayer, WinGame);
 
         GameManager.Instance.AudioManager.PlayAudio(musicEvent);
     }
@@ -28,19 +30,34 @@ public class GameplayController : MonoBehaviour
         playerController.TogglePause(false);
     }
 
+    private void VictoryPlayer()
+    {
+        playerController.DisableInput();
+        playerController.PlayVictoryAnimation();
+    }
+
     private void LoseGame()
     {
         gameplayUI.OpenLosePanel();
-        GameManager.Instance.AudioManager.PlayAudio(loseEvent);
         EnemyManager.Instance.OnPlayerDefeated();
+
+        GameManager.Instance.AudioManager.StopCurrentMusic(
+            onSuccess: () =>
+            {
+                GameManager.Instance.AudioManager.PlayAudio(loseEvent);
+            });
     }
 
     private void WinGame()
     {
         gameplayUI.OpenWinPanel();
-        playerController.DisableInput();
-        GameManager.Instance.AudioManager.PlayAudio(winEvent);
         EnemyManager.Instance.OnPlayerVictory();
+
+        GameManager.Instance.AudioManager.StopCurrentMusic(
+            onSuccess: () =>
+            {
+                GameManager.Instance.AudioManager.PlayAudio(winEvent);
+            });
     }
 
     private void ToggleTimeScale(bool status)

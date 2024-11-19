@@ -308,6 +308,13 @@ public class PlayerInventoryController : MonoBehaviour
         return panelInventory.gameObject.activeSelf;
     }
 
+    public void ChangeWeapons()
+    {
+        equipment.SwapItem(0, 3);
+        equipment.SwapItem(1, 2);
+        panelInventory.RefreshAllButtons();
+    }
+
     public void AddItemDebug()
     {
         inventory.AddNewItem(ItemID, ItemAmount);

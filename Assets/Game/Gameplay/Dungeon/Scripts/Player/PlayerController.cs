@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour, IDamagable
         currentSpeed = walkSpeed;
         currentLife = maxLife;
 
-        inputController.Init(ToggleOnPause, ToggleInventory, PickItem, ToggleRun,
+        inputController.Init(ToggleOnPause, ToggleInventory, PickItem, ToggleRun, inventoryController.ChangeWeapons,
             itemInteraction.PressAction1, itemInteraction.PressAction2, itemInteraction.CancelAction1, itemInteraction.CancelAction2);
         inventoryController.Init();
         itemInteraction.Init(inputController, inventoryController, ToggleDefense, ConsumePotionLife, LookMousePosition);
@@ -88,6 +88,11 @@ public class PlayerController : MonoBehaviour, IDamagable
     public void DisableInput()
     {
         inputController.UpdateInputFSM(FSM_INPUT.ONLY_UI);
+    }
+
+    public void PlayVictoryAnimation()
+    {
+        anim.Play("Victory");
     }
 
     private void ApplyGravity()

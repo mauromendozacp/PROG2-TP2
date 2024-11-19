@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
@@ -14,6 +15,7 @@ public class Enemy : MonoBehaviour
     protected IEnemyState _currentState;
     protected IEnemyState _previousState = null;
     protected int _previousAnimStateHash;
+    protected Transform _player;
 
     [SerializeField] float _damageCooldownTime = 0.8f;
     [SerializeField] float _attackCooldownTime = 3.1f;
@@ -35,6 +37,10 @@ public class Enemy : MonoBehaviour
         _navigation = GetComponent<EnemyNavigation>();
     }
 
+    private void OnEnable()
+    {
+        if(_player == null) _player = GameObject.FindWithTag("Player").transform;
+    }
     private void OnDisable()
     {
         EnemyManager.Instance.UnregisterEnemy(this);
@@ -42,6 +48,7 @@ public class Enemy : MonoBehaviour
     protected virtual void Start()
     {
         EnemyManager.Instance.RegisterEnemy(this);
+        _player = GameObject.FindWithTag("Player").transform;
     }
 
     public bool CanAttack() => Time.time >= _lastAttackTime + _attackCooldownTime;

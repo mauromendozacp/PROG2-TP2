@@ -12,7 +12,7 @@ public class EnemyBeholderController : Enemy
     //[SerializeField] float _moveSpeed = 3f;
     //[SerializeField] float _runSpeed = 6f;
     [SerializeField] float _idleTimeout = 3f;
-    [SerializeField] private Transform _player;
+    //[SerializeField] private Transform _player;
     [SerializeField] Collider _hitAttackCollider;
     [SerializeField] Collider _shockAttackCollider;
     [SerializeField] int[] _attackDamageAmount;
@@ -35,7 +35,7 @@ public class EnemyBeholderController : Enemy
     {
         base.Start();
         DisableAttack();
-        if (_player == null) _player = GameObject.FindWithTag("Player").transform;
+        //if (_player == null) _player = GameObject.FindWithTag("Player").transform;
     }
 
 

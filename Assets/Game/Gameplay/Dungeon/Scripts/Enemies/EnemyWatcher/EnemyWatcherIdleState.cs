@@ -21,6 +21,8 @@ public class EnemyWatcherIdleState : IEnemyState
 
     public void EnterState()
     {
+        _animation.SetAnimator("Walk", false);
+        _animation.SetAnimator("Run", false);
         _animation.SetAnimator("Idle", true);
         _timer = 0;
     }

@@ -8,12 +8,10 @@ public class EnemyWatcherController : Enemy
     [SerializeField] float _detectPlayerRange = 10f;
     [SerializeField] float _attackRange = 2f;
     [SerializeField] float _idleDuration = 3f;
-    //[SerializeField] float _moveSpeed = 1.5f;
-    //[SerializeField] float _runSpeed = 2.5f;
     [SerializeField] List<Transform> _patrolPoints;
     
 
-    private int _currentPatrolIndex = 0;
+    private int _currentPatrolIndex = -1;
     [SerializeField] float _idleTimeout = 3f;
     [SerializeField] Collider _hitAttackCollider;
     [SerializeField] int[] _attackDamageAmount;
@@ -22,13 +20,13 @@ public class EnemyWatcherController : Enemy
     public float IdleTimeout => _idleTimeout;
     public bool IsAttacking { get; private set; }
 
-    Transform _player;
+    //Transform _player;
   
 
     protected override  void Awake()
     {
         base.Awake();
-        _player = GameObject.FindWithTag("Player").transform;
+        //_player = GameObject.FindWithTag("Player").transform;
     }
 
     protected override void Start()
@@ -42,8 +40,9 @@ public class EnemyWatcherController : Enemy
 
     public bool IsPlayerClose() => Vector3.Distance(transform.position, _player.position) < _detectPlayerRange;
     public bool IsPlayerInAttackRange() => Vector3.Distance(transform.position, _player.position) <= _attackRange;
+    public bool IsNearPosition(Vector3 targetPosition) => Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(targetPosition.x, targetPosition.z)) <= 0.2f;
 
-    public bool IsNearPosition(Vector3 targetPosition) => Vector3.Distance(transform.position, targetPosition) <= 0.2f;
+        
     public Transform GetNextPatrolPoint()
     {
         if (!HasSufficientPatrolPoints())

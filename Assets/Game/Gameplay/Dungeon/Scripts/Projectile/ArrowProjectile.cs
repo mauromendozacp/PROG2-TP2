@@ -20,9 +20,9 @@ public class ArrowProjectile : ItemProjectile
         {
             IDamagable recieveDamage = collision.gameObject.GetComponent<IDamagable>();
             recieveDamage?.Damage(damage);
-
-            onRelease?.Invoke();
         }
+
+        onRelease?.Invoke();
     }
 
     public override void Init()

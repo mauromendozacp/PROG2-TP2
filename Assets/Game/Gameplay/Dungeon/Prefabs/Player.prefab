@@ -1963,6 +1963,7 @@ MonoBehaviour:
   runSpeed: 7.5
   defenseSpeed: 2
   turnSmoothVelocity: 0.2
+  aimRotationTime: 0.15
   inventoryController: {fileID: 6974225392108575236}
   itemInteraction: {fileID: 4750169349649172774}
   pickItem: {fileID: 1141711596360507366}

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IDamagable
@@ -10,6 +11,7 @@ public class PlayerController : MonoBehaviour, IDamagable
     [SerializeField] private float runSpeed = 0f;
     [SerializeField] private float defenseSpeed = 0f;
     [SerializeField] private float turnSmoothVelocity = 0f;
+    [SerializeField] private float aimRotationTime = 0f;
     [SerializeField] private PlayerInventoryController inventoryController = null;
     [SerializeField] private PlayerItemInteraction itemInteraction = null;
     [SerializeField] private PickItem pickItem = null;
@@ -21,12 +23,12 @@ public class PlayerController : MonoBehaviour, IDamagable
 
     private CharacterController character = null;
     private Animator anim = null;
+    private Coroutine aimRotationCoroutine = null;
 
     private Vector3 direction = Vector3.zero;
+    private int currentLife = 0;
     private float turnSmoothTime = 0f;
     private float velocityY = 0f;
-
-    private int currentLife = 0;
     private float currentSpeed = 0f;
     private bool isDefending = false;
     private bool isDead = false;
@@ -51,7 +53,7 @@ public class PlayerController : MonoBehaviour, IDamagable
         inputController.Init(ToggleOnPause, ToggleInventory, PickItem, ToggleRun,
             itemInteraction.PressAction1, itemInteraction.PressAction2, itemInteraction.CancelAction1, itemInteraction.CancelAction2);
         inventoryController.Init();
-        itemInteraction.Init(inputController, inventoryController, ToggleDefense, ConsumePotionLife);
+        itemInteraction.Init(inputController, inventoryController, ToggleDefense, ConsumePotionLife, LookMousePosition);
     }
 
     private void Update()
@@ -157,6 +159,34 @@ public class PlayerController : MonoBehaviour, IDamagable
     {
         TogglePause(true);
         onOpenPausePanel?.Invoke();
+    }
+
+    private void LookMousePosition(Vector3 mousePosition)
+    {
+        if (aimRotationCoroutine != null)
+        {
+            StopCoroutine(aimRotationCoroutine);
+        }
+
+        IEnumerator AimRotation(Quaternion targetRotation)
+        {
+            float timer = 0f;
+            Quaternion currentRotation = bodyTransform.rotation;
+            while (timer < aimRotationTime)
+            {
+                timer += Time.deltaTime;
+                bodyTransform.rotation = Quaternion.Lerp(currentRotation, targetRotation, timer / aimRotationTime);
+
+                yield return new WaitForEndOfFrame();
+            }
+
+            bodyTransform.rotation = targetRotation;
+        }
+
+        Vector3 dir = (mousePosition - bodyTransform.position).normalized;
+        dir.y = 0f;
+
+        aimRotationCoroutine = StartCoroutine(AimRotation(Quaternion.LookRotation(dir)));
     }
 
     private void ConsumePotionLife(int life)

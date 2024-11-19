@@ -8,8 +8,6 @@ public class EnemyChestController : Enemy
     [SerializeField] float _detectPlayerRange = 6f;
     [SerializeField] float _idleDistance = 10f;
     [SerializeField] float _attackRange = 2f;
-    //[SerializeField] float _moveSpeed = 2f;
-    //[SerializeField] float _runSpeed = 4f;
     [SerializeField] float _idleTimeout = 3f;
     [SerializeField] Collider _hitAttackCollider;
     [SerializeField] int[] _attackDamageAmount;
@@ -18,13 +16,11 @@ public class EnemyChestController : Enemy
     public bool IsAttacking { get; private set; }
     [SerializeField] Transform _itemToProtect;
 
-    Transform _player;
     public Transform ItemToProtect => _itemToProtect;
 
     protected override void Awake()
     {
         base.Awake();
-        _player = GameObject.FindWithTag("Player").transform;
         if (_itemToProtect == null) _itemToProtect = gameObject.transform;
     }
 

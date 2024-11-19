@@ -881,6 +881,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 91773397}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &108848800 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6920464634739810748, guid: 20118b28a5a9b054c8390c2437fe0112,
+    type: 3}
+  m_PrefabInstance: {fileID: 655831695}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &132908911
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3491,6 +3497,7 @@ Transform:
   - {fileID: 8033209}
   - {fileID: 2076152900}
   - {fileID: 1428458711}
+  - {fileID: 108848800}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &354156105
@@ -5751,6 +5758,74 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 151127376}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &655831695
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 353370727}
+    m_Modifications:
+    - target: {fileID: 1831852778312646407, guid: 20118b28a5a9b054c8390c2437fe0112,
+        type: 3}
+      propertyPath: m_Name
+      value: Terrain
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920464634739810748, guid: 20118b28a5a9b054c8390c2437fe0112,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.92051303
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920464634739810748, guid: 20118b28a5a9b054c8390c2437fe0112,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.9322746
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920464634739810748, guid: 20118b28a5a9b054c8390c2437fe0112,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 27.233309
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920464634739810748, guid: 20118b28a5a9b054c8390c2437fe0112,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920464634739810748, guid: 20118b28a5a9b054c8390c2437fe0112,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920464634739810748, guid: 20118b28a5a9b054c8390c2437fe0112,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920464634739810748, guid: 20118b28a5a9b054c8390c2437fe0112,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920464634739810748, guid: 20118b28a5a9b054c8390c2437fe0112,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920464634739810748, guid: 20118b28a5a9b054c8390c2437fe0112,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920464634739810748, guid: 20118b28a5a9b054c8390c2437fe0112,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 20118b28a5a9b054c8390c2437fe0112, type: 3}
 --- !u!1001 &659416420
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11578,9 +11653,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerController: {fileID: 287369708}
   gameplayUI: {fileID: 2126250890}
+  winZone: {fileID: 1428458712}
   musicEvent: {fileID: 11400000, guid: d567a02dc258c244184876b2fd152be0, type: 2}
   winEvent: {fileID: 11400000, guid: 7b1f859d490dd904e89122ea4e5fdefb, type: 2}
-  loseEvent: {fileID: 0}
+  loseEvent: {fileID: 11400000, guid: ea1e7ad9139895b4c89e47463f526d1c, type: 2}
 --- !u!4 &1349944064
 Transform:
   m_ObjectHideFlags: 0
@@ -12602,7 +12678,7 @@ Transform:
   m_GameObject: {fileID: 1428458710}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 76.59, y: 4.14, z: 38.74}
+  m_LocalPosition: {x: 75.5, y: 4.14, z: 38.74}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12627,7 +12703,6 @@ MonoBehaviour:
   winAnimationExtraTime: 2
   virtualCamera: {fileID: 167721658}
   offset: {x: 0, y: 0, z: -7}
-  winEvent: {fileID: 0}
   radius: 2.5
   spawnCount: 10
   spawnDelay: 0.25
@@ -12660,7 +12735,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5, y: 2.5, z: 6}
+  m_Size: {x: 2, y: 2.5, z: 4}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1438456127
 PrefabInstance:

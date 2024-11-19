@@ -61,7 +61,7 @@ public class MenuController : MonoBehaviour
 */
 /* Application of SOLID principles: 
 - No longer responsible for audio configuration and slider logics */
-
+ 
 
 using UnityEngine;
 

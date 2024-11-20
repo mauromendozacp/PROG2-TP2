@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -13,6 +13,7 @@ public class EnemyHealth : MonoBehaviour, IDamagable, IHealtheable
     [SerializeField] Rigidbody _rb;
     [SerializeField] GameObject _rootGameObject;
     [SerializeField] float _damageCooldown = 1f;
+    [SerializeField] AudioEvent deathEvent = null;
     [SerializeField, Range(0f, 100f)] float _dropChance = 40f;
     Collider _damageCollider;
     Enemy _controller;
@@ -48,6 +49,7 @@ public class EnemyHealth : MonoBehaviour, IDamagable, IHealtheable
             if (_currentHealth <= 0)
             {
                 _currentHealth = 0;
+                GameManager.Instance.AudioManager.PlayAudio(deathEvent);
                 StartCoroutine(Die());
             }
             else

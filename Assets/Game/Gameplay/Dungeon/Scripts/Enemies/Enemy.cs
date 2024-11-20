@@ -1,11 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.InputSystem.XR;
-using UnityEngine.Rendering.Universal;
 
 public class Enemy : MonoBehaviour
 {

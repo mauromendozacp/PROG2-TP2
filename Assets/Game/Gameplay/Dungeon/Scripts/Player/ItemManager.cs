@@ -30,7 +30,6 @@ public class ItemManager : MonoBehaviourSingleton<ItemManager>
         Item item = GetItemFromID(itemID);
 
         itemGO.GetComponent<MeshFilter>().mesh = item.mesh;
-        itemGO.GetComponent<MeshCollider>().sharedMesh = item.mesh;
         itemGO.GetComponent<MeshRenderer>().material = item.material;
         ItemData itemData = itemGO.GetComponent<ItemData>();
         itemData.itemID = itemID;

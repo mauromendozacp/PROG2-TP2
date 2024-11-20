@@ -31,5 +31,5 @@ MonoBehaviour:
     pos: {x: -0.08, y: 0.1, z: 0}
     rot: {x: -190, y: 0, z: 0}
     scale: {x: 1, y: 1, z: 1}
-  amount: 25
+  amount: 10
   type: 0

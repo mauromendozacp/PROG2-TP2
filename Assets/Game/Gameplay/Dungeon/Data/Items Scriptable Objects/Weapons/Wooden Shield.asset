@@ -31,4 +31,4 @@ MonoBehaviour:
     pos: {x: -0.15, y: -0.021, z: -0.003}
     rot: {x: 178.336, y: 361.684, z: -3.737}
     scale: {x: 0.008973991, y: 0.008973991, z: 0.008973991}
-  resistance: 10
+  resistance: 2

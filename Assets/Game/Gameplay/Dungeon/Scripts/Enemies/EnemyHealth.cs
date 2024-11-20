@@ -14,7 +14,7 @@ public class EnemyHealth : MonoBehaviour, IDamagable, IHealtheable
     [SerializeField] GameObject _rootGameObject;
     [SerializeField] float _damageCooldown = 1f;
     [SerializeField] AudioEvent deathEvent = null;
-    [SerializeField, Range(0f, 100f)] float _dropChance = 40f;
+    [SerializeField, Range(0f, 100f)] float _dropChance = 70f;
     Collider _damageCollider;
     Enemy _controller;
     EnemyAnimation _animation;
@@ -92,7 +92,14 @@ public class EnemyHealth : MonoBehaviour, IDamagable, IHealtheable
         if (Random.Range(0f, 100f) < _dropChance)
         {
             int itemID = ItemManager.Instance.GetRandomItemID();
-            ItemManager.Instance.GenerateItemInWorldSpace(itemID, 1, transform.position);
+            Item item = ItemManager.Instance.GetItemFromID(itemID);
+            int amount = 1;
+            if (item is Projectile || item is Consumible)
+            {
+                amount = ItemManager.Instance.GetRandomAmmountOfItem(itemID);
+            }
+
+            ItemManager.Instance.GenerateItemInWorldSpace(itemID, amount, transform.position);
         }
     }
 }

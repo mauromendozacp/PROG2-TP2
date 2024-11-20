@@ -34,6 +34,13 @@ public class GameplayController : MonoBehaviour
     {
         playerController.DisableInput();
         playerController.PlayVictoryAnimation();
+
+        EnemyManager.Instance.OnPlayerVictory();
+        GameManager.Instance.AudioManager.StopCurrentMusic(
+            onSuccess: () =>
+            {
+                GameManager.Instance.AudioManager.PlayAudio(winEvent);
+            });
     }
 
     private void LoseGame()
@@ -51,13 +58,6 @@ public class GameplayController : MonoBehaviour
     private void WinGame()
     {
         gameplayUI.OpenWinPanel();
-        EnemyManager.Instance.OnPlayerVictory();
-
-        GameManager.Instance.AudioManager.StopCurrentMusic(
-            onSuccess: () =>
-            {
-                GameManager.Instance.AudioManager.PlayAudio(winEvent);
-            });
     }
 
     private void ToggleTimeScale(bool status)

@@ -22,7 +22,10 @@ public class ArrowProjectile : ItemProjectile
             recieveDamage?.Damage(damage);
         }
 
-        onRelease?.Invoke();
+        if (!released)
+        {
+            onRelease?.Invoke();
+        }
     }
 
     public override void Init()

@@ -22,6 +22,7 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: 79f5fd36b579b3442b77e35547e7f869, type: 2}
   particle: {fileID: 9167329474426544759, guid: 8e11257df1efd3e40afa7e85d9f258de,
     type: 3}
+  armsType: 0
   spawnPositionR:
     pos: {x: 0.137, y: -0.023, z: 0}
     rot: {x: 0, y: 0, z: 0}
@@ -32,5 +33,5 @@ MonoBehaviour:
     scale: {x: 0.008973991, y: 0.008973991, z: 0.008973991}
   type: 0
   twoHanded: 0
-  damage: 55
-  speed: 105
+  damage: 8
+  speed: 30

@@ -443,7 +443,7 @@ MonoBehaviour:
   _rootGameObject: {fileID: 0}
   _damageCooldown: 1
   deathEvent: {fileID: 11400000, guid: 29ecb5b89d6635b43bbbe922bfac7dc1, type: 2}
-  _dropChance: 40
+  _dropChance: 75
 --- !u!54 &2164637041399349321
 Rigidbody:
   m_ObjectHideFlags: 0

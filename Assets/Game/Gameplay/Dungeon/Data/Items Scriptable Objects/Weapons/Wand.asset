@@ -33,5 +33,5 @@ MonoBehaviour:
     scale: {x: 0.008973991, y: 0.008973991, z: 0.008973991}
   type: 1
   twoHanded: 0
-  damage: 60
-  speed: 120
+  damage: 3
+  speed: 10

@@ -641,13 +641,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b59df205a5c80347960841fd02f9f4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 80
+  _maxHealth: 65
   _healthBar: {fileID: 1615046637536335892}
   _anim: {fileID: 7319891521152411626}
   _rb: {fileID: 4254713772876994719}
   _rootGameObject: {fileID: 207739201334258967}
   _damageCooldown: 1
-  _dropChance: 40
+  deathEvent: {fileID: 0}
+  _dropChance: 70
 --- !u!65 &5782681560656792133
 BoxCollider:
   m_ObjectHideFlags: 0

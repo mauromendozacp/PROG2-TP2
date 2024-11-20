@@ -1958,7 +1958,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bodyTransform: {fileID: 2666484366887532179}
-  maxLife: 50
+  maxLife: 80
   walkSpeed: 4.5
   runSpeed: 7.5
   defenseSpeed: 2

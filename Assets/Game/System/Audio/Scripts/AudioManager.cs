@@ -40,7 +40,7 @@ public class AudioManager : MonoBehaviour
     private const string sfxVolumeParameter = "sfxVolume";
 
     private const float defaultMaxMixerVolume = 0.0f;
-    private const float defaultMinMixerVolume = -40.0f;
+    private const float defaultMinMixerVolume = -80.0f;
 
     public float MusicVolume { get => musicVolume; }
     public float SfxVolume { get => sfxVolume; }
@@ -201,11 +201,13 @@ public class AudioManager : MonoBehaviour
         musicVolume = volume;
         musicMixerVolume = Mathf.Lerp(defaultMinMixerVolume, defaultMaxMixerVolume, volume);
         UpdateMusicVolumeMixer(musicMixerVolume);
+       // musicAudioSource.mute = Mathf.Approximately(volume, 0f);
     }
 
     private void UpdateSfxVolumeMixer(float volume)
     {
         audioMixerGroupsDic[sfxMixerName].audioMixer.SetFloat(sfxVolumeParameter, volume);
+        
     }
 
    private void UpdateMusicVolumeMixer(float volume)

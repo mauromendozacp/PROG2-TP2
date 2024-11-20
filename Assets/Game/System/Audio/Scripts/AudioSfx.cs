@@ -44,4 +44,12 @@ public class AudioSfx : MonoBehaviour
         audioSource.enabled = false;
         gameObject.SetActive(false);
     }
+    public void SetMute(bool mute)
+    {
+        if (audioSource != null)
+        {
+            audioSource.mute = mute; 
+        }
+    }
+
 }
